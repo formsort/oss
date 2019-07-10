@@ -1,5 +1,5 @@
 {
-  "name": "formsort-constants",
+  "name": "@formsort/formsort-constants",
   "version": "0.0.1",
   "description": "Constants used across Formsort projects. Not intended to be used directly",
   "main": "lib/index.js",
@@ -13,7 +13,9 @@
     "version": "git add -A src",
     "postversion": "git push && git push --tags"
   },
-  "files": ["lib/**/*"],
+  "files": [
+    "lib/**/*"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/formsort/formsort-constants.git"
@@ -26,5 +28,6 @@
   "homepage": "https://github.com/formsort/formsort-constants#readme",
   "devDependencies": {
     "typescript": "^3.5.3"
-  }
+  },
+  "dependencies": {}
 }
