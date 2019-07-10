@@ -1,0 +1,46 @@
+{
+  "name": "@formsort/custom-question-api",
+  "version": "0.0.1",
+  "description": "Helpers for implementing custom questions in Formsort",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "prepare": "npm run build",
+  "files": [
+    "lib/**/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/formsort/custom-question-api.git"
+  },
+  "keywords": [
+    "forms",
+    "questions"
+  ],
+  "author": "Fil Zembowicz <fil@formsort.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/formsort/custom-question-api/issues"
+  },
+  "homepage": "https://github.com/formsort/custom-question-api#readme",
+  "devDependencies": {
+    "@types/events": "^3.0.0",
+    "prettier": "^1.18.2",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "@formsort/constants": "0.0.5",
+    "events": "^3.0.0"
+  }
+}
