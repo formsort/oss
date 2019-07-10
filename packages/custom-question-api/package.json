@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "format": "tslint --fix -p tsconfig.json",
     "lint": "tslint -p tsconfig.json",
     "prepublishOnly": "npm run lint",
     "preversion": "npm run lint",
