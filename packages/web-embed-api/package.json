@@ -1,0 +1,43 @@
+{
+  "name": "web-embed-api",
+  "version": "0.0.1",
+  "description": "Embed Formsort flows within other webpages",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "test": "exit 0",
+    "build": "tsc",
+    "format": "tslint --fix -p tsconfig.json",
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/formsort/web-embed-api.git"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "keywords": [
+    "forms",
+    "formsort",
+    "embed"
+  ],
+  "author": "Fil Zembowicz <fil@formsort.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/formsort/web-embed-api/issues"
+  },
+  "homepage": "https://github.com/formsort/web-embed-api#readme",
+  "devDependencies": {
+    "prettier": "^1.18.2",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.5.3"
+  }
+}
