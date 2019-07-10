@@ -1,0 +1,30 @@
+{
+  "name": "formsort-constants",
+  "version": "0.0.1",
+  "description": "Constants used across Formsort projects. Not intended to be used directly",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "prepare": "npm run build",
+    "version": "git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "files": ["lib/**/*"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/formsort/formsort-constants.git"
+  },
+  "author": "Fil Zembowicz <fil@formsort.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/formsort/formsort-constants/issues"
+  },
+  "homepage": "https://github.com/formsort/formsort-constants#readme",
+  "devDependencies": {
+    "typescript": "^3.5.3"
+  }
+}
