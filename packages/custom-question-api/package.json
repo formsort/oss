@@ -1,6 +1,6 @@
 {
   "name": "@formsort/custom-question-api",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Helpers for implementing custom questions in Formsort",
   "main": "index.js",
   "scripts": {
