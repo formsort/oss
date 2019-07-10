@@ -1,14 +1,15 @@
 {
-  "name": "@formsort/formsort-constants",
-  "version": "0.0.3",
+  "name": "@formsort/constants",
+  "version": "0.0.4",
   "description": "Constants used across Formsort projects. Not intended to be used directly",
   "main": "lib/index.js",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
+    "test": "jest --config jestconfig.json",
+    "prepublishOnly" : "npm test",
     "prepare": "npm run build",
     "version": "git add -A src",
     "postversion": "git push && git push --tags"
@@ -18,15 +19,18 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/formsort/formsort-constants.git"
+    "url": "git+https://github.com/formsort/constants.git"
   },
   "author": "Fil Zembowicz <fil@formsort.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/formsort/formsort-constants/issues"
+    "url": "https://github.com/formsort/constants/issues"
   },
-  "homepage": "https://github.com/formsort/formsort-constants#readme",
+  "homepage": "https://github.com/formsort/constants#readme",
   "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
     "typescript": "^3.5.3"
   },
   "dependencies": {}
