@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest --config jestconfig.json",
-    "prepublishOnly" : "npm test",
+    "prepublishOnly": "npm test",
     "prepare": "npm run build",
     "version": "git add -A src",
     "postversion": "git push && git push --tags"
