@@ -1,6 +1,6 @@
 {
   "name": "@formsort/formsort-constants",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Constants used across Formsort projects. Not intended to be used directly",
   "main": "lib/index.js",
   "directories": {
