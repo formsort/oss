@@ -6,14 +6,14 @@ import {
   SET_ANSWER_VALUE_MSG,
   SET_ANSWERS_MSG,
   SET_QUESTION_SIZE_MSG,
-  SET_RESPONDER_UUID_MSG,
-} from '@formsort/constants';
-import { getValueFromWindowParent, sendMessageToWindowParent } from './utils';
+  SET_RESPONDER_UUID_MSG
+} from "@formsort/constants";
+import { getValueFromWindowParent, sendMessageToWindowParent } from "./utils";
 
 export const setQuestionSize = (width?: number, height?: number) => {
   sendMessageToWindowParent(SET_QUESTION_SIZE_MSG, {
     width,
-    height,
+    height
   });
 };
 

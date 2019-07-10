@@ -1,4 +1,4 @@
-import WindowMessageEventsEmitter from './WindowMessageEmitter';
+import WindowMessageEventsEmitter from "./WindowMessageEmitter";
 
 let emitterSingleton: WindowMessageEventsEmitter;
 export const getEmitter = () => {
@@ -11,15 +11,15 @@ export const getEmitter = () => {
 export const sendMessageToWindowParent = (type: string, payload?: any) => {
   if (!window.parent) {
     throw new Error(
-      'Custom questions must run within a Formsort flow custom question to work.'
+      "Custom questions must run within a Formsort flow custom question to work."
     );
   }
   window.parent.postMessage(
     {
       type,
-      payload,
+      payload
     },
-    '*'
+    "*"
   );
 };
 
