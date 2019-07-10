@@ -2,7 +2,8 @@
   "name": "@formsort/custom-question-api",
   "version": "0.0.5",
   "description": "Helpers for implementing custom questions in Formsort",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
     "format": "tslint --fix -p tsconfig.json",
