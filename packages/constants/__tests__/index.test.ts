@@ -1,5 +1,7 @@
-import AnalyticsEventType from '../src/analytics-event-type'
-import CustomQuestionMessage from '../src/custom-question-message'
+import {
+  AnalyticsEventType,
+  CustomQuestionMessage
+} from '../src'
 
 const hasAllUniqueValues = (obj: { [key: string]: any }) => {
   const values = new Set();

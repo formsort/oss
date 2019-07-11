@@ -1,2 +1,2 @@
-export { default as customQuestionMessage } from  './custom-question-message';
-export { default as analyticsEventType } from  './analytics-event-type';
+export { default as CustomQuestionMessage } from  './custom-question-message';
+export { default as AnalyticsEventType } from  './analytics-event-type';
