@@ -39,5 +39,8 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",
     "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "@formsort/constants": "0.0.9"
   }
 }
