@@ -1,9 +1,23 @@
-import * as constants from '../src';
+import AnalyticsEventType from '../src/analytics-event-type'
+import CustomQuestionMessage from '../src/custom-question-message'
 
-test('constant message values are all unique', () => {
+const hasAllUniqueValues = (obj: { [key: string]: any }) => {
   const values = new Set();
-  Object.keys(constants).forEach(constant => {
-    expect(values.has(constant)).toBe(false);
-    values.add(constant)
-  });
+  const keys = Object.keys(obj);
+  for (let i = 0; i < keys.length; i++) {
+    const value = obj[keys[i]];
+    if (values.has(value)) {
+      return false;
+    }
+    values.add(value)
+  }
+  return true;
+}
+
+test('AnalyticsEventType values are all unique', () => {
+    expect(hasAllUniqueValues(AnalyticsEventType)).toBe(true);
+});
+
+test('CustomQuestionMessage values are all unique', () => {
+    expect(hasAllUniqueValues(CustomQuestionMessage)).toBe(true);
 });
