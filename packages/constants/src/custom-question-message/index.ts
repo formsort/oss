@@ -1,4 +1,4 @@
-enum CustomQuestionMessages {
+enum CustomQuestionMessage {
   SET_QUESTION_SIZE_MSG = 'ƒ_sqz',
   REQUEST_ANSWER_VALUE_MSG = 'ƒ_rav',
   SET_ANSWER_VALUE_MSG = 'ƒ_sav',
@@ -9,4 +9,4 @@ enum CustomQuestionMessages {
   CLEAR_ANSWER_VALUE_MSG = 'ƒ_cav',
 }
 
-export default CustomQuestionMessages;
+export default CustomQuestionMessage;

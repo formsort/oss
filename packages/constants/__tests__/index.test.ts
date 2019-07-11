@@ -1,6 +1,7 @@
 import {
   AnalyticsEventType,
-  CustomQuestionMessage
+  CustomQuestionMessage,
+  WebEmbedMessage
 } from '../src'
 
 const hasAllUniqueValues = (obj: { [key: string]: any }) => {
@@ -22,4 +23,8 @@ test('AnalyticsEventType values are all unique', () => {
 
 test('CustomQuestionMessage values are all unique', () => {
     expect(hasAllUniqueValues(CustomQuestionMessage)).toBe(true);
+});
+
+test('WebEmbedMessage values are all unique', () => {
+    expect(hasAllUniqueValues(WebEmbedMessage)).toBe(true);
 });
