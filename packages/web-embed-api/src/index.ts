@@ -56,9 +56,9 @@ class FormsortWebEmbed {
       return;
     }
 
-    if (data.msgType === WebEmbedMessage.EMBED_EVENT_MSG) {
+    if (data.type === WebEmbedMessage.EMBED_EVENT_MSG) {
       this.onEventMessage(data as IIFrameAnalyticsEventData);
-    } else if (data.msgType === WebEmbedMessage.EMBED_REDIRECT_MSG) {
+    } else if (data.type === WebEmbedMessage.EMBED_REDIRECT_MSG) {
       this.onRedirectMessage(data as IIFrameRedirectEventData);
     }
   };
