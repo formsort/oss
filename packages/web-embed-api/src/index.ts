@@ -4,7 +4,8 @@ import {
   IIFrameRedirectEventData,
 } from './interfaces';
 
-const FLOW_ORIGIN = 'https://flow.formsort.com';
+const FS_ORIGIN = (window as any).FS_ORIGIN;
+const FLOW_ORIGIN = FS_ORIGIN || `https://flow.formsort.com`;
 
 class FormsortWebEmbed {
   private rootEl: HTMLElement;

@@ -1,6 +1,6 @@
 # @formsort/web-embed-api
 
-Embed Formsort flows within other webpages, with communication between the embed and the parent page.
+Embed [Formsort](https://formsort.com) flows within other webpages, with communication between the embed and the parent page.
 
 ## Usage
 
