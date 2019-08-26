@@ -7,16 +7,30 @@ Embed [Formsort](https://formsort.com) flows within other webpages, with communi
 First, install
 
 ```
-npm install @formsort/web-embed-api
+npm install @formsort/web-embed-api --save
 ```
 
 Then, initialize the embed and load a flow.
 
 ## Documentation
 
-### FormsortWebEmbed(rootEl: HTMLElement)
+### FormsortWebEmbed(rootEl: HTMLElement, config?: IFormsortWebEmbedConfig)
 
 Initializes a Formsort iframe as a child of the `rootEl` provided.
+
+The config has the following type:
+
+```
+interface IFormsortWebEmbedConfig {
+  useHistoryAPI: boolean; // Default: false
+}
+```
+
+#### Description
+
+- `useHistoryAPI`: When redirecting, should we use the HTML5 History API (namely, `window.pushState`), or just change the URL in its entirety?
+
+  Helpful if you have a single-page app and want to change the container's URL without reloading the entire page. Note that you'll have to listen to the `popstate` event on the embedding `window` to detect this navigation.
 
 ### `loadFlow(clientLabel: string, flowLabel: string, variantLabel?: string) => void`
 

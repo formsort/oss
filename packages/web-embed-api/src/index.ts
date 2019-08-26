@@ -7,15 +7,25 @@ import {
 const FS_ORIGIN = (window as any).FS_ORIGIN;
 const FLOW_ORIGIN = FS_ORIGIN || `https://flow.formsort.com`;
 
+interface IFormsortWebEmbedConfig {
+  useHistoryAPI: boolean;
+}
+const DEFAULT_CONFIG: IFormsortWebEmbedConfig = { useHistoryAPI: false };
+
 class FormsortWebEmbed {
   private rootEl: HTMLElement;
   private iframeEl: HTMLIFrameElement;
   private onFlowLoadedCallback?: () => void;
   private onFlowClosedCallback?: () => void;
   private onFlowFinalizedCallback?: () => void;
+  private config: IFormsortWebEmbedConfig;
 
-  constructor(rootEl: HTMLElement) {
+  constructor(
+    rootEl: HTMLElement,
+    config: IFormsortWebEmbedConfig = DEFAULT_CONFIG
+  ) {
     this.rootEl = rootEl;
+    this.config = config;
     const iframeEl = document.createElement('iframe');
     iframeEl.style.border = 'none';
     this.iframeEl = iframeEl;
@@ -83,8 +93,27 @@ class FormsortWebEmbed {
   };
 
   onRedirectMessage = (redirectData: IIFrameRedirectEventData) => {
+    const currentUrl = window.location.href;
+    const currentHash = window.location.hash.slice(1);
+    const currentUrlBase = currentUrl.replace(currentHash, '');
+
     const url = redirectData.payload;
-    window.location.assign(url);
+    const hashIndex = url.indexOf('#');
+    const urlHash = hashIndex >= 0 ? url.slice(hashIndex + 1) : undefined;
+    const urlBase = urlHash !== undefined ? url.replace(urlHash, '') : url;
+
+    if (urlHash && urlBase === currentUrlBase && urlHash !== currentHash) {
+      window.location.hash = urlHash;
+    }
+    if (
+      this.config.useHistoryAPI &&
+      'history' in window &&
+      url.indexOf(window.location.origin) === 0
+    ) {
+      window.history.pushState({}, document.title, url);
+    } else {
+      window.location.assign(url);
+    }
   };
 
   removeListeners = () => {
