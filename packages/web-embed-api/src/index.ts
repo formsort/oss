@@ -18,6 +18,7 @@ class FormsortWebEmbed {
   private onFlowLoadedCallback?: () => void;
   private onFlowClosedCallback?: () => void;
   private onFlowFinalizedCallback?: () => void;
+  private onRedirectCallback?: (url: string) => void;
   private config: IFormsortWebEmbedConfig;
 
   constructor(
@@ -48,6 +49,10 @@ class FormsortWebEmbed {
 
   set onFlowFinalized(callback: () => void) {
     this.onFlowFinalizedCallback = callback;
+  }
+
+  set onRedirect(callback: (url: string) => void) {
+    this.onRedirectCallback = callback;
   }
 
   onWindowMessage = (message: MessageEvent) => {
@@ -98,6 +103,12 @@ class FormsortWebEmbed {
     const currentUrlBase = currentUrl.replace(currentHash, '');
 
     const url = redirectData.payload;
+
+    if (this.onRedirectCallback) {
+      this.onRedirectCallback(url);
+      return;
+    }
+
     const hashIndex = url.indexOf('#');
     const urlHash = hashIndex >= 0 ? url.slice(hashIndex + 1) : undefined;
     const urlBase = urlHash !== undefined ? url.replace(urlHash, '') : url;

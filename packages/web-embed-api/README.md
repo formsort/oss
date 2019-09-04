@@ -71,3 +71,9 @@ Useful for performing an action after the flow is complete, such as displaying a
 Set a callback to be called when the user abandons the flow before finalizing it.
 
 Note that this is only possible if your style set defines a close button.
+
+### `onRedirect: (url: string) => void`
+
+Set a callback to handle URL redirects yourself, instead of allowing Formsort to handle them. If not defined, the Formsort embed will handle redirecting the parent page.
+
+This is helpful if you're embedding Formsort within a single-page app that has custom URL route handling.
