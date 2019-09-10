@@ -6,6 +6,7 @@ enum AnalyticsEventType {
   StepCompleted = 'StepCompleted',
   EmailCollected = 'EmailCollected',
   FlowFinalized = 'FlowFinalized',
+  PhoneCollected = 'PhoneCollected',
 }
 
 export default AnalyticsEventType;
