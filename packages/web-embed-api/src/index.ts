@@ -135,14 +135,16 @@ class FormsortWebEmbed {
     clientLabel: string,
     flowLabel: string,
     variantLabel?: string,
-    queryParams?: Array<[string, string]>,
+    queryParams?: Array<[string, string]>
   ) => {
     let url = `${FLOW_ORIGIN}/client/${clientLabel}/flow/${flowLabel}`;
     if (variantLabel) {
       url += `/variant/${variantLabel}`;
     }
     if (queryParams) {
-      url += `?${queryParams.map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join('&')}`
+      url += `?${queryParams
+        .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
+        .join('&')}`;
     }
     this.iframeEl.src = url;
   };
