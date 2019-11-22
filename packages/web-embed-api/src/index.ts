@@ -7,7 +7,7 @@ import {
 const FS_ORIGIN = (window as any).FS_ORIGIN;
 const FLOW_ORIGIN = FS_ORIGIN || `https://flow.formsort.com`;
 
-interface IFormsortWebEmbed {
+export interface IFormsortWebEmbed {
   loadFlow: (
     clientLabel: string,
     flowLabel: string,

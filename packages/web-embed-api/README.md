@@ -53,7 +53,7 @@ Note that this is more accurate than listening for the iframe's `load` event, as
 You can use this to do things like hide the frame container, or display a loading indicator, until everything is loaded to ensure a seamless initial experience.
 
 ```
-const embed = new FormsortWebEmbed(document.body);
+const embed = FormsortWebEmbed(document.body);
 embed.onFlowLoaded = () => {
   console.log('Flow has loaded!');
 };
