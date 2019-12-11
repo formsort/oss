@@ -18,7 +18,7 @@ export const getAnswerValue = () => {
   );
 };
 
-export const getAnswers = () => {
+export const getAllAnswerValues = () => {
   return getValueFromWindowParent<{ [key: string]: AnswerType }>(
     CustomQuestionMessage.REQUEST_ANSWERS_MSG,
     CustomQuestionMessage.SET_ANSWERS_MSG

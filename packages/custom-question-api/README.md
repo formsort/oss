@@ -16,16 +16,16 @@ Custom questions allow extending the Formsort platform with custom behavior, wit
 
 First, install:
 
-```
+```shell
 npm install --save @formsort/custom-question-api
 ```
 
 Then, import the helper functions as needed in your custom question implementation:
 
-```
+```javascript
 import {
   getAnswerValue,
-  getAnswers,
+  getAllAnswerValues,
   getResponderUuid,
   setAnswerValue,
   clearAnswerValue,
@@ -41,7 +41,7 @@ Returns a promise for the current value of the answer this question is collectin
 
 The result from `getAnswer()` should be used upon initial load: to set the local state of any components for the answer that you are collecting in this question, for the case that the value is already known (for example, the user is returning after a reload, or has reached the step by using the back button).
 
-### `getAnswers() => Promise<{ [key: string]: any}>`
+### `getAllAnswerValues() => Promise<{ [key: string]: any}>`
 
 Returns a promise for an object containing _all_ of the answers provided by the receipient thus far in filling out their flow. The keys are the variable names as defined within Formsort.
 
@@ -65,7 +65,7 @@ To avoid jumpiness, if you know the size of your component beforehand, it's best
 
 For example, if you implement your custom question as a React component, you may want to measure the component once it's rendered and tell Formsort its height and width:
 
-```
+```tsx
 import * as React from 'react';
 import {
   setQuestionSize
