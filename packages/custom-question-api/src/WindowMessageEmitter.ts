@@ -5,6 +5,7 @@ import { CustomQuestionMessage } from '@formsort/constants';
 const EVENTS_TO_EMIT = new Set([
   CustomQuestionMessage.SET_ANSWERS_MSG,
   CustomQuestionMessage.SET_ANSWER_VALUE_MSG,
+  CustomQuestionMessage.SET_RESPONDER_UUID_MSG,
 ]);
 
 class WindowMessageEventsEmitter extends EventEmitter {
