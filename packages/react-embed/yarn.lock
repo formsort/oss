@@ -1629,6 +1629,18 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
 
+"@formsort/constants@0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@formsort/constants/-/constants-0.0.11.tgz#50bfbe5392919a519de58643fb5887d3c148ebaa"
+  integrity sha512-cfpRlM36gL7ThqP8vaf5pbvdsCmbSIeGEpqUEmM1smPS2YKY39KLqLlSgEH7QiznOtXBIJowhgvWyYa26JZBsw==
+
+"@formsort/web-embed-api@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@formsort/web-embed-api/-/web-embed-api-0.0.10.tgz#579dd7831bef0939a1a9999f83e20d99546fd1dc"
+  integrity sha512-BfvfAZgPJS1ym8eFSCkuQqWDXvsF4Mw04m1eYFQRgQCGGMMBegVUkaw+30eqgm+m51kzNWwDPHDunjhAOMIGAg==
+  dependencies:
+    "@formsort/constants" "0.0.11"
+
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"
