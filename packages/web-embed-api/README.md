@@ -77,3 +77,16 @@ Note that this is only possible if your style set defines a close button.
 Set a callback to handle URL redirects yourself, instead of allowing Formsort to handle them. If not defined, the Formsort embed will handle redirecting the parent page.
 
 This is helpful if you're embedding Formsort within a single-page app that has custom URL route handling.
+
+## Development
+
+By default, the web embed accesses the production formsort servers. If you would like to point to another flow server, set `window.localStorage.FS_ORIGIN` to the correct base URL, for example:
+
+```
+if (DEVELOPMENT) {
+  window.localStorage.FS_ORIGIN = 'http://localhost:4040'
+}
+new FormsortWebEmbed(...)
+```
+
+Make sure to remove this key when you want to access production again.
