@@ -1,40 +1,59 @@
 {
   "name": "react-embed",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@formsort/web-embed-api": "^0.0.10",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
-    "react-scripts": "3.4.0",
-    "typescript": "~3.7.2"
+  "version": "1.0.0",
+  "description": "Embed formsort flows in react components",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "example": "example"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "tsc",
+    "test": "jest --config jestconfig.json",
+    "format": "tslint --fix -p tsconfig.json",
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/formsort/react-embed.git"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "files": [
+    "lib/**/*"
+  ],
+  "keywords": [
+    "formsort",
+    "embed",
+    "react"
+  ],
+  "author": "Ali Kirecligol <alikirecligol@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/formsort/react-embed/issues"
+  },
+  "homepage": "https://github.com/formsort/react-embed#readme",
+  "devDependencies": {
+    "@testing-library/react": "^10.0.1",
+    "@types/jest": "^25.1.4",
+    "@types/react": "^16.9.23",
+    "jest": "^25.1.0",
+    "prettier": "^1.19.1",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "ts-jest": "^25.2.1",
+    "tslint": "^6.1.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.2.0",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@formsort/web-embed-api": "0.0.11"
+  },
+  "peerDependencies": {
+    "react": "^16.13.0"
   }
 }

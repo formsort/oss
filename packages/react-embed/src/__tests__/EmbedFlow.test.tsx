@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import FormsortWebEmbed, { IFormsortWebEmbed } from '@formsort/web-embed-api';
 
-import EmbedFlow from './EmbedFlow';
+import EmbedFlow from '..';
 
 jest.mock('@formsort/web-embed-api');
 
