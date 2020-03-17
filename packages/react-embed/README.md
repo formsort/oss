@@ -10,6 +10,12 @@ First, install
 npm install @formsort/react-embed --save
 ```
 
+## Testing
+
+```
+npm run test
+```
+
 ## Publishing
 
 ```
