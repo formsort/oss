@@ -15,16 +15,23 @@ export interface IFormsortWebEmbed {
     queryParams?: Array<[string, string]>
   ) => void;
   setSize: (width: string, height: string) => void;
-  onFlowLoaded: () => void;
-  onFlowClosed: () => void;
-  onFlowFinalized: () => void;
-  onRedirect: (url: string) => void;
+  addEventListener<K extends string & keyof IEventMap>(
+    eventName: K,
+    fn: IEventMap[K]
+  ): void;
 }
 
 interface IFormsortWebEmbedConfig {
   useHistoryAPI: boolean;
 }
 const DEFAULT_CONFIG: IFormsortWebEmbedConfig = { useHistoryAPI: false };
+
+export interface IEventMap {
+  flowloaded?: () => void;
+  flowclosed?: () => void;
+  flowfinalized?: () => void;
+  redirect?: (p: string) => void;
+}
 
 const FormsortWebEmbed = (
   rootEl: HTMLElement,
@@ -35,6 +42,8 @@ const FormsortWebEmbed = (
 
   rootEl.appendChild(iframeEl);
 
+  const eventListeners: { [K in keyof IEventMap]?: IEventMap[K] } = {};
+
   const onRedirectMessage = (redirectData: IIFrameRedirectEventData) => {
     const currentUrl = window.location.href;
     const currentHash = window.location.hash.slice(1);
@@ -42,9 +51,8 @@ const FormsortWebEmbed = (
 
     const url = redirectData.payload;
 
-    if (onRedirectCallback) {
-      onRedirectCallback(url);
-      return;
+    if (eventListeners.redirect) {
+      eventListeners.redirect(url);
     }
 
     const hashIndex = url.indexOf('#');
@@ -89,11 +97,6 @@ const FormsortWebEmbed = (
   };
   window.addEventListener('message', onWindowMessage);
 
-  let onFlowLoadedCallback: () => void;
-  let onFlowClosedCallback: () => void;
-  let onFlowFinalizedCallback: () => void;
-  let onRedirectCallback: (url: string) => void;
-
   const setSize = (width: string, height: string) => {
     iframeEl.style.width = width;
     iframeEl.style.height = height;
@@ -101,20 +104,25 @@ const FormsortWebEmbed = (
 
   const onEventMessage = (eventData: IIFrameAnalyticsEventData) => {
     const { eventType } = eventData;
-    if (eventType === AnalyticsEventType.FlowLoaded) {
-      if (onFlowLoadedCallback) {
-        onFlowLoadedCallback();
-      }
-    } else if (eventType === AnalyticsEventType.FlowClosed) {
-      removeListeners();
-      rootEl.removeChild(iframeEl);
-      if (onFlowClosedCallback) {
-        onFlowClosedCallback();
-      }
-    } else if (eventType === AnalyticsEventType.FlowFinalized) {
-      if (onFlowFinalizedCallback) {
-        onFlowFinalizedCallback();
-      }
+    const { flowloaded, flowclosed, flowfinalized } = eventListeners;
+    switch (eventType) {
+      case AnalyticsEventType.FlowLoaded:
+        if (flowloaded) {
+          flowloaded();
+        }
+        break;
+      case AnalyticsEventType.FlowClosed:
+        removeListeners();
+        rootEl.removeChild(iframeEl);
+        if (flowclosed) {
+          flowclosed();
+        }
+        break;
+      case AnalyticsEventType.FlowFinalized:
+        if (flowfinalized) {
+          flowfinalized();
+        }
+        break;
     }
   };
 
@@ -143,17 +151,11 @@ const FormsortWebEmbed = (
   return {
     loadFlow,
     setSize,
-    set onFlowLoaded(callback: () => void) {
-      onFlowLoadedCallback = callback;
-    },
-    set onFlowClosed(callback: () => void) {
-      onFlowClosedCallback = callback;
-    },
-    set onFlowFinalized(callback: () => void) {
-      onFlowFinalizedCallback = callback;
-    },
-    set onRedirect(callback: (url: string) => void) {
-      onRedirectCallback = callback;
+    addEventListener<K extends string & keyof IEventMap>(
+      eventName: K,
+      fn: IEventMap[K]
+    ): void {
+      eventListeners[eventName] = fn;
     },
   };
 };
