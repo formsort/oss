@@ -1,4 +1,7 @@
-import FormsortWebEmbed, { IFormsortWebEmbed, IEventMap } from '@formsort/web-embed-api';
+import FormsortWebEmbed, {
+  IFormsortWebEmbed,
+  IEventMap
+} from '@formsort/web-embed-api';
 import React, { useEffect, useRef } from 'react';
 
 interface ILoadProps {
