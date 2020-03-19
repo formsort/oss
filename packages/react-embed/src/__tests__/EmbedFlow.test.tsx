@@ -11,21 +11,20 @@ const mockWebEmbedApi = FormsortWebEmbed as jest.MockedFunction<typeof FormsortW
 describe('EmbedFlow componenet', () => {
   let loadMock: jest.Mock;
   let embedMock: IFormsortWebEmbed;
+  let addEventListenerMock: jest.Mock;
   beforeEach(() => {
     loadMock = jest.fn();
+    addEventListenerMock = jest.fn();
     embedMock = {
       loadFlow: loadMock,
       setSize: jest.fn(),
-      onFlowLoaded: jest.fn(),
-      onFlowClosed: jest.fn(),
-      onFlowFinalized: jest.fn(),
-      onRedirect: jest.fn()
-    }
+      addEventListener: addEventListenerMock
+    };
     mockWebEmbedApi.mockReturnValueOnce(embedMock);
-  })
+  });
   afterEach(() => {
     mockWebEmbedApi.mockClear();
-  })
+  });
 
   it('should load flows without variant label', () => {
     render(<EmbedFlow flowLabel='test-flow' clientLabel='test-client' />);
@@ -38,9 +37,16 @@ describe('EmbedFlow componenet', () => {
   });
 
   it('should pass down the event listeners given as props', () => {
-    const onFlowLoadedMock = jest.fn();
-    render(<EmbedFlow flowLabel='test-flow' clientLabel='test-client' variantLabel='test-variant' onFlowLoaded={onFlowLoadedMock} />);
+    const flowloadedMock = jest.fn();
+    render(
+      <EmbedFlow
+        flowLabel='test-flow'
+        clientLabel='test-client'
+        variantLabel='test-variant'
+        flowloaded={flowloadedMock}
+      />);
+
     expect(loadMock).toBeCalledWith('test-client', 'test-flow', 'test-variant');
-    expect(embedMock.onFlowLoaded).toEqual(onFlowLoadedMock);
+    expect(embedMock.addEventListener).toBeCalledWith('flowloaded', flowloadedMock);
   });
 });

@@ -1,39 +1,21 @@
-import FormsortWebEmbed, { IFormsortWebEmbed } from '@formsort/web-embed-api';
+import FormsortWebEmbed, { IFormsortWebEmbed, IEventMap } from '@formsort/web-embed-api';
 import React, { useEffect, useRef } from 'react';
 
-type EventProps = Partial<
-  Pick<
-    IFormsortWebEmbed,
-    'onFlowLoaded' | 'onFlowClosed' | 'onFlowFinalized' | 'onRedirect'
-  >
->;
-interface LoadProps {
+interface ILoadProps {
   clientLabel: string;
   flowLabel: string;
   variantLabel?: string;
 }
 
-export type EmbedFlowProps = LoadProps & EventProps;
+export type EmbedFlowProps = ILoadProps & IEventMap;
 
-// TODO: attaching the listeners in this way isn't extensible -- violation of open–closed principle
-// possible solution: add .on method to @formsort/web-embed-api to attach listeners
 const attachEventListenersToEmbed = (
   embed: IFormsortWebEmbed,
-  events: EventProps
+  events: IEventMap
 ): void => {
-  const { onFlowLoaded, onFlowClosed, onFlowFinalized, onRedirect } = events;
-  if (onFlowLoaded) {
-    embed.onFlowLoaded = onFlowLoaded;
-  }
-  if (onFlowClosed) {
-    embed.onFlowClosed = onFlowClosed;
-  }
-  if (onFlowFinalized) {
-    embed.onFlowFinalized = onFlowFinalized;
-  }
-  if (onRedirect) {
-    embed.onRedirect = onRedirect;
-  }
+  Object.entries(events).forEach(([eventName, listener]) => {
+    embed.addEventListener(eventName as keyof IEventMap, listener);
+  });
 };
 
 const onMount = (
