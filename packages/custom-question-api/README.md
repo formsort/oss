@@ -25,12 +25,13 @@ Then, import the helper functions as needed in your custom question implementati
 ```javascript
 import {
   getAnswerValue,
-  getAllAnswerValues,
-  getResponderUuid,
   setAnswerValue,
   clearAnswerValue,
-  setQuestionSize,
-} from '@formsort/custom-question-api'
+  getSemanticAnswerValue,
+  getAllAnswerValues,
+  getResponderUuid,
+  setQuestionSize
+} from "@formsort/custom-question-api";
 ```
 
 ## Documentation
@@ -41,14 +42,6 @@ Returns a promise for the current value of the answer this question is collectin
 
 The result from `getAnswer()` should be used upon initial load: to set the local state of any components for the answer that you are collecting in this question, for the case that the value is already known (for example, the user is returning after a reload, or has reached the step by using the back button).
 
-### `getAllAnswerValues() => Promise<{ [key: string]: any}>`
-
-Returns a promise for an object containing _all_ of the answers provided by the receipient thus far in filling out their flow. The keys are the variable names as defined within Formsort.
-
-### `getResponderUuid() => Promise<string>`
-
-Get the current responder's UUID. Useful if you need to look something up about this user that isn't within the Formsort answer set.
-
 ### `setAnswerValue(value: number | string | boolean) => void`
 
 Sets the value for this question's answer. If you have `Can autoadvance` checked within the Formsort studio settings for this question and this is the last remaining question within the step, the flow will advance to the next step.
@@ -56,6 +49,18 @@ Sets the value for this question's answer. If you have `Can autoadvance` checked
 ### `clearAnswerValue() => void`
 
 Resets the answer for this particular question's answer.
+
+### `getAllAnswerValues() => Promise<{ [key: string]: any}>`
+
+Returns a promise for an object containing _all_ of the answers provided by the receipient thus far in filling out their flow. The keys are the variable names as defined within Formsort.
+
+### `getSemanticAnswerValue(semanticType: AnswerSemanticType) => Promise<any>`
+
+Returns a promise for the value of a specific _semantic_ answer value, such as `responder_email`. This is useful to make your custom questions more modular. Depending on an answer variable name being `email` or `userEmail` is not reliable, but using semantic meaning, answers can be looked up by what they represent, even if a particular flow or variant references them differently.
+
+### `getResponderUuid() => Promise<string>`
+
+Get the current responder's UUID. Useful if you need to look something up about this user that isn't within the Formsort answer set.
 
 ### `setQuestionSize(width?: number, height?: number) => void`
 
@@ -66,10 +71,33 @@ To avoid jumpiness, if you know the size of your component beforehand, it's best
 For example, if you implement your custom question as a React component, you may want to measure the component once it's rendered and tell Formsort its height and width:
 
 ```tsx
-import * as React from 'react';
-import {
-  setQuestionSize
-} from '@formsort/custom-question-api';
+import React, { useEffect, useRef } from "react";
+import { setQuestionSize } from "@formsort/custom-question-api";
+
+const MyCustomComponent = () => {
+  const containerElRef = useRef<HTMLDivElement>();
+
+  useEffect(() => {
+    const containerEl = this.containerElRef.current;
+    if (!containerEl) {
+      return;
+    }
+    setQuestionSize(containerEl.offsetWidth, containerEl.offsetHeight);
+  }, []);
+
+  return (
+    <div ref={containerElRef}>
+      <h1>My custom component</h1>
+    </div>
+  );
+};
+```
+
+Alternatively, written as a class component:
+
+```tsx
+import * as React from "react";
+import { setQuestionSize } from "@formsort/custom-question-api";
 
 class MyCustomComponent extends React.Component {
   private containerElRef: React.RefObject<HTMLDivElement>;
@@ -88,7 +116,7 @@ class MyCustomComponent extends React.Component {
       <div ref={this.containerElRef}>
         <h1>My custom component</h1>
       </div>
-    )
+    );
   }
 }
 ```

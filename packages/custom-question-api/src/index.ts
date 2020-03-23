@@ -1,4 +1,4 @@
-import { CustomQuestionMessage } from '@formsort/constants';
+import { AnswerSemanticType, CustomQuestionMessage } from '@formsort/constants';
 import { getValueFromWindowParent, sendMessageToWindowParent } from './utils';
 
 type AnswerPrimitiveType = number | string | boolean;
@@ -15,6 +15,14 @@ export const getAnswerValue = () => {
   return getValueFromWindowParent<AnswerType>(
     CustomQuestionMessage.REQUEST_ANSWER_VALUE_MSG,
     CustomQuestionMessage.SET_ANSWER_VALUE_MSG
+  );
+};
+
+export const getSemanticAnswerValue = (semanticType: AnswerSemanticType) => {
+  return getValueFromWindowParent<AnswerType>(
+    CustomQuestionMessage.REQUEST_SEMANTIC_ANSWER_VALUE_MSG,
+    CustomQuestionMessage.SET_SEMANTIC_ANSWER_VALUE_MSG,
+    semanticType
   );
 };
 
