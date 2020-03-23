@@ -28,8 +28,8 @@ export const getValueFromWindowParent: <T>(
   responseEventType: string,
   requestPayload?: any
 ) => Promise<T> = (requestEventType, responseEventType, requestPayload) => {
-  return new Promise(resolve => {
-    getEmitter().once(responseEventType, res => {
+  return new Promise((resolve) => {
+    getEmitter().once(responseEventType, (res) => {
       resolve(res);
     });
     sendMessageToWindowParent(requestEventType, requestPayload);
