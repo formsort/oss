@@ -2,7 +2,6 @@ import {
   AnalyticsEventType,
   CustomQuestionMessage,
   WebEmbedMessage,
-  AnswerSemanticType
 } from '../src'
 
 const hasAllUniqueValues = (obj: { [key: string]: any }) => {
@@ -28,8 +27,4 @@ test('CustomQuestionMessage values are all unique', () => {
 
 test('WebEmbedMessage values are all unique', () => {
     expect(hasAllUniqueValues(WebEmbedMessage)).toBe(true);
-});
-
-test('AnswerSemanticType values are all unique', () => {
-    expect(hasAllUniqueValues(AnswerSemanticType)).toBe(true);
 });
