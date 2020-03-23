@@ -8,7 +8,11 @@ export const getEmitter = () => {
   return emitterSingleton;
 };
 
-export const sendMessageToWindowParent = (type: string, payload?: any) => {
+export const sendMessageToWindowParent = (
+  type: string,
+  payload?: any,
+  requestId?: string
+) => {
   if (!window.parent) {
     throw new Error(
       'Custom questions must run within a Formsort flow custom question to work.'
@@ -18,6 +22,7 @@ export const sendMessageToWindowParent = (type: string, payload?: any) => {
     {
       type,
       payload,
+      requestId,
     },
     '*'
   );
@@ -28,10 +33,16 @@ export const getValueFromWindowParent: <T>(
   responseEventType: string,
   requestPayload?: any
 ) => Promise<T> = (requestEventType, responseEventType, requestPayload) => {
+  const requestId = Math.random().toString();
   return new Promise((resolve) => {
-    getEmitter().once(responseEventType, (res) => {
-      resolve(res);
-    });
-    sendMessageToWindowParent(requestEventType, requestPayload);
+    const onMessage = (value: any, returningRequestId?: string) => {
+      if (requestId === returningRequestId) {
+        resolve(value);
+        getEmitter().removeListener(responseEventType, onMessage);
+      }
+    };
+
+    getEmitter().on(responseEventType, onMessage);
+    sendMessageToWindowParent(requestEventType, requestPayload, requestId);
   });
 };
