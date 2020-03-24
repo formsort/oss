@@ -45,41 +45,59 @@ import {
 
 ## Documentation
 
-### tsx`getAnswerValue() => Promise<any>`
+```tsx
+getAnswerValue() => Promise<any>
+```
 
 Returns a promise for the current value of the answer this question is collecting. It may be undefined.
 
 The result from `getAnswer()` should be used upon initial load: to set the local state of any components for the answer that you are collecting in this question, for the case that the value is already known (for example, the user is returning after a reload, or has reached the step by using the back button).
 
-### tsx`getAllAnswerValues() => Promise<{ [key: string]: any}>`
+```tsx
+getAllAnswerValues() => Promise<{ [key: string]: any}>
+```
 
 Returns a promise for an object containing _all_ of the answers provided by the receipient thus far in filling out their flow. The keys are the variable names as defined within Formsort.
 
-### tsx`getResponderUuid() => Promise<string>`
+```tsx
+getResponderUuid() => Promise<string>
+```
 
 Get the current responder's UUID. Useful if you need to look something up about this user that isn't within the Formsort answer set.
 
-### tsx`setAnswerValue(value: number | string | boolean) => void`
+```tsx
+setAnswerValue(value: number | string | boolean) => void
+```
 
 Sets the value for this question's answer. If you have `Can autoadvance` checked within the Formsort studio settings for this question and this is the last remaining question within the step, the flow will advance to the next step.
 
-### tsx`clearAnswerValue() => void`
+```tsx
+clearAnswerValue() => void
+```
 
 Resets the answer for this particular question's answer.
 
-### `getAllAnswerValues() => Promise<{ [key: string]: any}>`
+```tsx
+getAllAnswerValues() => Promise<{ [key: string]: any}>
+```
 
 Returns a promise for an object containing _all_ of the answers provided by the receipient thus far in filling out their flow. The keys are the variable names as defined within Formsort.
 
-### `getSemanticAnswerValue(semanticType: AnswerSemanticType) => Promise<any>`
+```tsx
+getSemanticAnswerValue(semanticType: AnswerSemanticType) => Promise<any>
+```
 
 Returns a promise for the value of a specific _semantic_ answer value, such as `responder_email`. This is useful to make your custom questions more modular. Depending on an answer variable name being `email` or `userEmail` is not reliable, but using semantic meaning, answers can be looked up by what they represent, even if a particular flow or variant references them differently.
 
-### `getResponderUuid() => Promise<string>`
+```tsx
+getResponderUuid() => Promise<string>
+```
 
 Get the current responder's UUID. Useful if you need to look something up about this user that isn't within the Formsort answer set.
 
-### tsx`setQuestionSize(width?: number, height?: number) => void`
+```
+setQuestionSize(width?: number, height?: number) => void
+```
 
 Sets the width and height of the question within Formsort.
 
