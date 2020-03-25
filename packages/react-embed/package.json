@@ -1,6 +1,6 @@
 {
   "name": "@formsort/react-embed",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Embed formsort flows in react components",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
