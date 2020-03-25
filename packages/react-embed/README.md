@@ -33,6 +33,7 @@ You can add event listeners to flows like `flowloaded`, `redirect` etc. See [all
 |clientLabel|client name|yes|`formsort`|
 |flowLabel|flow name|yes|`onboarding`|
 |variantLabel|variant name|no|`main`|
+|embedConfig|config passed to the underlying [`FormsortWebEmbed`](https://github.com/formsort/web-embed-api) |no|`{ style: { height: '100%' } }`|
 |flowloaded|[event listener](https://github.com/formsort/web-embed-api#flowloaded)|no|`() => { console.log('flow loaded') }`|
 |flowclosed|[event listener](https://github.com/formsort/web-embed-api#flowclosed)|no|`() => { console.log('flow closed') }`|
 |flowfinalized|[event listener](https://github.com/formsort/web-embed-api#flowfinalized)|no|`() => { console.log('flow finalized') }`|

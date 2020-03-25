@@ -1,6 +1,7 @@
 import FormsortWebEmbed, {
   IEventMap,
   IFormsortWebEmbed,
+  IFormsortWebEmbedConfig,
 } from '@formsort/web-embed-api';
 import React, { useEffect, useRef } from 'react';
 
@@ -8,6 +9,7 @@ interface ILoadProps {
   clientLabel: string;
   flowLabel: string;
   variantLabel?: string;
+  embedConfig?: IFormsortWebEmbedConfig;
 }
 
 export type EmbedFlowProps = ILoadProps & IEventMap;
@@ -27,8 +29,14 @@ const onMount = (
 ): void => {
   const containerElement = containerRef.current;
   if (containerElement) {
-    const { clientLabel, flowLabel, variantLabel, ...eventListeners } = props;
-    const embed = FormsortWebEmbed(containerElement);
+    const {
+      clientLabel,
+      flowLabel,
+      variantLabel,
+      embedConfig,
+      ...eventListeners
+    } = props;
+    const embed = FormsortWebEmbed(containerElement, embedConfig);
     attachEventListenersToEmbed(embed, eventListeners);
     embed.loadFlow(clientLabel, flowLabel, variantLabel);
   }
