@@ -21,7 +21,7 @@ export interface IFormsortWebEmbed {
   ): void;
 }
 
-interface IFormsortWebEmbedConfig {
+export interface IFormsortWebEmbedConfig {
   useHistoryAPI?: boolean;
   style?: Partial<Pick<CSSStyleDeclaration, 'width' | 'height'>>;
 }
