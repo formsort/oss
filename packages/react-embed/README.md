@@ -17,7 +17,17 @@ import EmbedFlow from '@formsort/react-embed';
 
 const EmbedFlowExample: React.FunctionComponent = () => (
   <div>
-    <EmbedFlow clientLabel='formsort' flowLabel='onboarding' variantLabel='main' />
+    <EmbedFlow
+      clientLabel='formsort'
+      flowLabel='onboarding'
+      variantLabel='main'
+      embedConfig={{
+        style: {
+          width: '100%',
+          height: '100%',
+        }
+      }}
+    />
   </div>
 );
 ```
