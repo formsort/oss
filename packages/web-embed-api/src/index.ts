@@ -22,7 +22,7 @@ export interface IFormsortWebEmbed {
 }
 
 interface IFormsortWebEmbedConfig {
-  useHistoryAPI: boolean;
+  useHistoryAPI?: boolean;
   style?: Partial<Pick<CSSStyleDeclaration, 'width' | 'height'>>;
 }
 const DEFAULT_CONFIG: IFormsortWebEmbedConfig = { useHistoryAPI: false };
