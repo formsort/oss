@@ -44,12 +44,13 @@ const onMount = (
 
 const EmbedFlow: React.FunctionComponent<EmbedFlowProps> = props => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const style = props.embedConfig?.style;
 
   useEffect(() => {
     onMount(containerRef, props);
   }, []);
 
-  return <div ref={containerRef} />;
+  return <div ref={containerRef} style={style} />;
 };
 
 export default EmbedFlow;
