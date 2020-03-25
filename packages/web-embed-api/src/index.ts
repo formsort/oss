@@ -23,6 +23,7 @@ export interface IFormsortWebEmbed {
 
 interface IFormsortWebEmbedConfig {
   useHistoryAPI: boolean;
+  style?: Partial<Pick<CSSStyleDeclaration, 'width' | 'height'>>;
 }
 const DEFAULT_CONFIG: IFormsortWebEmbedConfig = { useHistoryAPI: false };
 
@@ -38,7 +39,13 @@ const FormsortWebEmbed = (
   config: IFormsortWebEmbedConfig = DEFAULT_CONFIG
 ): IFormsortWebEmbed => {
   const iframeEl = document.createElement('iframe');
+  const { style } = config;
   iframeEl.style.border = 'none';
+  if (style) {
+    const { width = '', height = '' } = style;
+    iframeEl.style.width = width;
+    iframeEl.style.height = height;
+  }
 
   rootEl.appendChild(iframeEl);
 

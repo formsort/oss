@@ -18,11 +18,15 @@ Then, initialize the embed and load a flow.
 
 Initializes a Formsort iframe as a child of the `rootEl` provided.
 
-The config has the following type:
+The `config` has the following interface:
 
-```
+```tsx
 interface IFormsortWebEmbedConfig {
-  useHistoryAPI: boolean; // Default: false
+  useHistoryAPI?: boolean; // Default: false
+  style?: {
+    width?: CSSStyleDeclaration['width'];
+    height?: CSSStyleDeclaration['height'];
+  }
 }
 ```
 
@@ -31,6 +35,8 @@ interface IFormsortWebEmbedConfig {
 - `useHistoryAPI`: When redirecting, should we use the HTML5 History API (namely, `window.pushState`), or just change the URL in its entirety?
 
   Helpful if you have a single-page app and want to change the container's URL without reloading the entire page. Note that you'll have to listen to the `popstate` event on the embedding `window` to detect this navigation.
+
+- `style` CSS properties to be applied to the iframe container.
 
 ### `loadFlow(clientLabel: string, flowLabel: string, variantLabel?: string) => void`
 
