@@ -2,6 +2,8 @@
 
 Embed [Formsort](https://formsort.com) flows within other webpages, with communication between the embed and the parent page.
 
+If you're using React, see [@formsort/react-embed](https://github.com/formsort/react-embed) which is a handy wrapper around this.
+
 ## Usage
 
 First, install
