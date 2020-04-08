@@ -8,7 +8,7 @@ If you're using React, see [@formsort/react-embed](https://github.com/formsort/r
 
 First, install
 
-```
+```shell
 npm install @formsort/web-embed-api --save
 ```
 
@@ -26,13 +26,13 @@ The `config` has the following interface:
 interface IFormsortWebEmbedConfig {
   useHistoryAPI?: boolean; // Default: false
   style?: {
-    width?: CSSStyleDeclaration['width'];
-    height?: CSSStyleDeclaration['height'];
-  }
+    width?: CSSStyleDeclaration["width"];
+    height?: CSSStyleDeclaration["height"];
+  };
 }
 ```
 
-#### Description
+#### `config` properties
 
 - `useHistoryAPI`: When redirecting, should we use the HTML5 History API (namely, `window.pushState`), or just change the URL in its entirety?
 
@@ -40,7 +40,7 @@ interface IFormsortWebEmbedConfig {
 
 - `style` CSS properties to be applied to the iframe container.
 
-### `loadFlow(clientLabel: string, flowLabel: string, variantLabel?: string) => void`
+### `loadFlow(clientLabel: string, flowLabel: string, variantLabel?: string, queryParams?: Array<[string, string]>) => void`
 
 Starts loading a Formsort variant, or a flow.
 
@@ -54,7 +54,9 @@ You may also style the embed's iframe using CSS - it is the iframe child of the 
 
 ### Event listeners
 
-`addEventListener(eventName: key of IEventMap, fn: IEventMap[eventName]) => void`
+```tsx
+addEventListener(eventName: key of IEventMap, fn: IEventMap[eventName]) => void
+```
 
 The events include:
 
@@ -62,9 +64,9 @@ The events include:
 
 Set a callback function to be called when the Formsort flow has loaded completely.
 
-Note that this is more accurate than listening for the iframe's `load` event, as this is sent from within the Formsort application code.
+Note that this is more accurate than listening for the iframe's `load` event, as this is sent from within the Formsort application code and not merely when the DOM is loaded.
 
-You can use this to do things like hide the frame container, or display a loading indicator, until everything is loaded to ensure a seamless initial experience.
+You can listen for this to do things like hide the frame container, or display a loading indicator, until everything is loaded to ensure a seamless initial experience.
 
 ```
 const embed = FormsortWebEmbed(document.body);
@@ -96,7 +98,7 @@ This is helpful if you're embedding Formsort within a single-page app that has c
 
 By default, the web embed accesses the production formsort servers. If you would like to point to another flow server, set `window.localStorage.FS_ORIGIN` to the correct base URL, for example:
 
-```
+```tsx
 if (DEVELOPMENT) {
   window.localStorage.FS_ORIGIN = 'http://localhost:4040'
 }
