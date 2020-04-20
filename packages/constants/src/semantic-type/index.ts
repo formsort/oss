@@ -5,6 +5,7 @@ type AnswerSemanticType =
   | 'responder_marketing_consent'
   | 'responder_phone'
   | 'responder_dob'
-  | 'responder_mailing_address';
+  | 'responder_mailing_address'
+  | 'responder_other_pii';
 
 export default AnswerSemanticType;
