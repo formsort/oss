@@ -11,22 +11,16 @@
     "test": "jest --config jestconfig.json",
     "prepublishOnly": "npm test",
     "prepare": "npm run build",
-    "version": "git add -A src",
-    "postversion": "git push && git push --tags"
   },
   "files": [
     "lib/**/*"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/formsort/constants.git"
+    "url": "git+https://github.com/formsort/oss.git"
   },
   "author": "Fil Zembowicz <fil@formsort.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/formsort/constants/issues"
-  },
-  "homepage": "https://github.com/formsort/constants#readme",
   "devDependencies": {
     "@types/jest": "^25.1.4",
     "jest": "^25.1.0",

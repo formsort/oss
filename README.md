@@ -2,9 +2,13 @@
 
 # Packages
 
+[`constants`](/packages/constants)
+
+Constants used across Formsort projects.
+
 [`eslint-config`](/packages/eslint-config)
 
-Shared ESLint configuration for use across all projects
+Shared ESLint configuration for use across all projects.
 
 # Contributing
 
