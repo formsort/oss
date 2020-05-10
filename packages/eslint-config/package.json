@@ -1,6 +1,6 @@
 {
   "name": "@formsort/eslint-config",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.0",
   "description": "Formsort standard ESLint config",
   "main": "index.js",
   "peerDependencies": {
