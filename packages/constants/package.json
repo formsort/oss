@@ -10,7 +10,7 @@
     "build": "tsc",
     "test": "jest --config jestconfig.json",
     "prepublishOnly": "npm test",
-    "prepare": "npm run build",
+    "prepare": "npm run build"
   },
   "files": [
     "lib/**/*"
