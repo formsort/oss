@@ -8,7 +8,6 @@
   "main": "index.js",
   "peerDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.31.0",
-    "@typescript-eslint/eslint-plugin-tslint": "^2.31.0",
     "@typescript-eslint/parser": "^2.31.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
