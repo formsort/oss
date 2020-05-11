@@ -178,7 +178,7 @@ module.exports = {
     "@typescript-eslint/no-unnecessary-type-assertion": ["error"],
     "@typescript-eslint/prefer-includes": ["error"],
     "@typescript-eslint/prefer-regexp-exec": ["off"],
-    "@typescript-eslint/prefer-string-starts-ends-with": ["error"],
+    "@typescript-eslint/prefer-string-starts-ends-with": ["off"],
     "require-await": ["off"],
     "@typescript-eslint/require-await": ["off"],
     "@typescript-eslint/unbound-method": ["off"],

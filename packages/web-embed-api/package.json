@@ -7,17 +7,15 @@
   "scripts": {
     "test": "exit 0",
     "build": "tsc",
-    "format": "tslint --fix -p tsconfig.json",
-    "lint": "tslint -p tsconfig.json",
     "prepare": "npm run build",
     "prepublishOnly": "npm run lint",
     "preversion": "npm run lint",
-    "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags"
+    "format": "eslint -c .eslintrc.js --ext .ts,.tsx src --fix",
+    "lint": "eslint -c .eslintrc.js --ext .ts,.tsx src"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/formsort/web-embed-api.git"
+    "url": "git+https://github.com/formsort/oss.git"
   },
   "files": [
     "lib/**/*"
@@ -29,16 +27,18 @@
   ],
   "author": "Fil Zembowicz <fil@formsort.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/formsort/web-embed-api/issues"
-  },
-  "homepage": "https://github.com/formsort/web-embed-api#readme",
   "devDependencies": {
-    "prettier": "^1.18.2",
-    "tslint": "^5.18.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-plugin-prettier": "^2.0.1",
-    "typescript": "^3.5.3"
+    "@formsort/eslint-config": "^1.0.3-alpha.0",
+    "@typescript-eslint/eslint-plugin": "^2.31.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsdoc": "^24.0.6",
+    "eslint-plugin-prefer-arrow": "^1.2.1",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-react": "^7.19.0",
+    "prettier": "^2.0.5",
+    "typescript": "^3.8.3"
   },
   "dependencies": {
     "@formsort/constants": "0.0.11"

@@ -4,7 +4,11 @@ Shared ESLint configuration for use across all projects
 
 ## Usage
 
-1. Make sure that all of the dependencies in this project's `peerDependencies` are installed in your respository.
+1. Make sure that all of the dependencies in this project's `peerDependencies` are installed in your respository:
+
+```bash
+npm install --save-dev eslint-plugin-prefer-arrow eslint-plugin-jsdoc@24 eslint-plugin-prettier eslint-plugin-import prettier eslint-plugin-react @typescript-eslint/eslint-plugin
+```
 2. Ensure that your project has a `tsconfig.json` in the root.
 3. `npm install --save-dev @formsort/eslint-config`
 4. Create a `.eslintrc` in the root with the following content:
