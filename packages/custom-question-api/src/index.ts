@@ -11,34 +11,30 @@ export const setQuestionSize = (width?: number, height?: number) => {
   });
 };
 
-export const getAnswerValue = () => {
-  return getValueFromWindowParent<AnswerType>(
+export const getAnswerValue = () =>
+  getValueFromWindowParent<AnswerType>(
     CustomQuestionMessage.REQUEST_ANSWER_VALUE_MSG,
     CustomQuestionMessage.SET_ANSWER_VALUE_MSG
   );
-};
 
-export const getSemanticAnswerValue = (semanticType: AnswerSemanticType) => {
-  return getValueFromWindowParent<AnswerType>(
+export const getSemanticAnswerValue = (semanticType: AnswerSemanticType) =>
+  getValueFromWindowParent<AnswerType>(
     CustomQuestionMessage.REQUEST_SEMANTIC_ANSWER_VALUE_MSG,
     CustomQuestionMessage.SET_SEMANTIC_ANSWER_VALUE_MSG,
     semanticType
   );
-};
 
-export const getAllAnswerValues = () => {
-  return getValueFromWindowParent<{ [key: string]: AnswerType }>(
+export const getAllAnswerValues = () =>
+  getValueFromWindowParent<{ [key: string]: AnswerType }>(
     CustomQuestionMessage.REQUEST_ANSWERS_MSG,
     CustomQuestionMessage.SET_ANSWERS_MSG
   );
-};
 
-export const getResponderUuid = () => {
-  return getValueFromWindowParent<string>(
+export const getResponderUuid = () =>
+  getValueFromWindowParent<string>(
     CustomQuestionMessage.REQUEST_RESPONDER_UUID_MSG,
     CustomQuestionMessage.SET_RESPONDER_UUID_MSG
   );
-};
 
 export const clearAnswerValue = () => {
   sendMessageToWindowParent(CustomQuestionMessage.CLEAR_ANSWER_VALUE_MSG);
