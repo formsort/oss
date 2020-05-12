@@ -1,0 +1,19 @@
+{
+  "name": "@formsort/tsconfig",
+  "version": "1.0.0",
+  "description": "Formsort tsconfig for use across all projects",
+  "main": "tsconfig.json",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/formsort/oss.git"
+  },
+  "author": "Fil Zembowicz <fil@formsort.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/formsort/oss/issues"
+  },
+  "homepage": "https://github.com/formsort/oss#readme"
+}
