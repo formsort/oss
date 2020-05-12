@@ -10,7 +10,7 @@ const mockWebEmbedApi = FormsortWebEmbed as jest.MockedFunction<
   typeof FormsortWebEmbed
 >;
 
-describe('EmbedFlow componenet', () => {
+describe('EmbedFlow component', () => {
   let loadMock: jest.Mock;
   let embedMock: IFormsortWebEmbed;
   let addEventListenerMock: jest.Mock;
