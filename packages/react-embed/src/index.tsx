@@ -11,7 +11,7 @@ interface ILoadProps {
   variantLabel?: string;
   responderUuid?: string;
   formsortEnv?: 'staging' | 'production';
-  queryParams?: [string, string][];
+  queryParams?: Array<[string, string]>;
   embedConfig?: IFormsortWebEmbedConfig;
 }
 
@@ -64,7 +64,7 @@ const onMount = (
   );
 };
 
-const EmbedFlow: React.FunctionComponent<EmbedFlowProps> = props => {
+const EmbedFlow: React.FunctionComponent<EmbedFlowProps> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const style = props.embedConfig?.style;
 
