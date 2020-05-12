@@ -30,7 +30,12 @@ describe('EmbedFlow component', () => {
 
   it('should load flows without variant label', () => {
     render(<EmbedFlow flowLabel="test-flow" clientLabel="test-client" />);
-    expect(loadMock).toBeCalledWith('test-client', 'test-flow', undefined);
+    expect(loadMock).toBeCalledWith(
+      'test-client',
+      'test-flow',
+      undefined,
+      undefined
+    );
   });
 
   it('should load flows with variant label', () => {
@@ -41,7 +46,12 @@ describe('EmbedFlow component', () => {
         variantLabel="test-variant"
       />
     );
-    expect(loadMock).toBeCalledWith('test-client', 'test-flow', 'test-variant');
+    expect(loadMock).toBeCalledWith(
+      'test-client',
+      'test-flow',
+      'test-variant',
+      undefined
+    );
   });
 
   it('should pass down the event listeners given as props', () => {
@@ -55,10 +65,37 @@ describe('EmbedFlow component', () => {
       />
     );
 
-    expect(loadMock).toBeCalledWith('test-client', 'test-flow', 'test-variant');
+    expect(loadMock).toBeCalledWith(
+      'test-client',
+      'test-flow',
+      'test-variant',
+      undefined
+    );
     expect(embedMock.addEventListener).toBeCalledWith(
       'flowloaded',
       flowloadedMock
+    );
+  });
+
+  it('should load flows with URL params', () => {
+    const uuid = 'b1c7d9c8-f4b0-4f3f-9fc3-abf32ae8a061';
+    render(
+      <EmbedFlow
+        flowLabel="test-flow"
+        clientLabel="test-client"
+        variantLabel="test-variant"
+        responderUuid={uuid}
+        formsortEnv="staging"
+      />
+    );
+    expect(loadMock).toBeCalledWith(
+      'test-client',
+      'test-flow',
+      'test-variant',
+      [
+        ['responderUuid', uuid],
+        ['formsortEnv', 'staging'],
+      ]
     );
   });
 });

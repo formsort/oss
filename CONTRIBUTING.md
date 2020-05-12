@@ -1,3 +1,19 @@
+# Contributing guidelines
+
+## Internal packages of note
+
+[`constants`](/packages/constants)
+
+Constants used across Formsort projects.
+
+[`eslint-config`](/packages/eslint-config)
+
+Shared ESLint configuration for use across all projects.
+
+[`tsconfig`](/packages/tsconfig)
+
+Shared tsconfig for use across all projects.
+
 # Editing packages
 
 First, bootstrap Lerna. In the root, run:
@@ -29,5 +45,4 @@ To allow the project to be public on NPM, specify the following in the `package.
 "publishConfig": {
   "access": "public"
 }
-
 ```

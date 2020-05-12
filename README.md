@@ -2,18 +2,19 @@
 
 # Packages
 
-[`constants`](/packages/constants)
+[`custom-question-api`](/packages/custom-question-api)
 
-Constants used across Formsort projects.
+Helpers for implementing custom questions in Formsort.
 
-[`eslint-config`](/packages/eslint-config)
+[`react-embed`](/packages/react-embed)
 
-Shared ESLint configuration for use across all projects.
+React component to load formsort flows.
 
 [`web-embed-api`](/packages/web-embed-api)
 
 Embed flows within other webpages, allowing communication between the embed and the parent page.
 
-# Contributing
+
+## Contributing
 
 See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for an overview of how to contribute to these packages.

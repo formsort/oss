@@ -9,6 +9,9 @@ interface ILoadProps {
   clientLabel: string;
   flowLabel: string;
   variantLabel?: string;
+  responderUuid?: string;
+  formsortEnv?: 'staging' | 'production';
+  queryParams?: [string, string][];
   embedConfig?: IFormsortWebEmbedConfig;
 }
 
@@ -28,21 +31,40 @@ const onMount = (
   props: EmbedFlowProps
 ): void => {
   const containerElement = containerRef.current;
-  if (containerElement) {
-    const {
-      clientLabel,
-      flowLabel,
-      variantLabel,
-      embedConfig,
-      ...eventListeners
-    } = props;
-    const embed = FormsortWebEmbed(containerElement, embedConfig);
-    attachEventListenersToEmbed(embed, eventListeners);
-    embed.loadFlow(clientLabel, flowLabel, variantLabel);
+  if (!containerElement) {
+    return;
   }
+
+  const {
+    clientLabel,
+    flowLabel,
+    variantLabel,
+    embedConfig,
+    responderUuid,
+    formsortEnv,
+    queryParams = [],
+    ...eventListeners
+  } = props;
+
+  const embed = FormsortWebEmbed(containerElement, embedConfig);
+  attachEventListenersToEmbed(embed, eventListeners);
+
+  if (responderUuid) {
+    queryParams.push(['responderUuid', responderUuid]);
+  }
+  if (formsortEnv) {
+    queryParams.push(['formsortEnv', formsortEnv]);
+  }
+
+  embed.loadFlow(
+    clientLabel,
+    flowLabel,
+    variantLabel,
+    queryParams.length ? queryParams : undefined
+  );
 };
 
-const EmbedFlow: React.FunctionComponent<EmbedFlowProps> = (props) => {
+const EmbedFlow: React.FunctionComponent<EmbedFlowProps> = props => {
   const containerRef = useRef<HTMLDivElement>(null);
   const style = props.embedConfig?.style;
 
