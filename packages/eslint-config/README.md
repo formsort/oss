@@ -11,7 +11,7 @@ npm install --save-dev eslint-plugin-prefer-arrow eslint-plugin-jsdoc@24 eslint-
 ```
 2. Ensure that your project has a `tsconfig.json` in the root.
 3. `npm install --save-dev @formsort/eslint-config`
-4. Create a `.eslintrc` in the root with the following content:
+4. Create a `.eslintrc.js` in the root with the following content:
 
 ```js
 module.exports = {
