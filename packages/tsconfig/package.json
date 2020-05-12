@@ -1,6 +1,6 @@
 {
   "name": "@formsort/tsconfig",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Formsort tsconfig for use across all projects",
   "main": "tsconfig.json",
   "scripts": {
