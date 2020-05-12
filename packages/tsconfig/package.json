@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/formsort/oss/issues"
   },
-  "homepage": "https://github.com/formsort/oss#readme"
+  "homepage": "https://github.com/formsort/oss#readme",
+  "publishConfig": {
+    "access": "public"
+  }
 }
