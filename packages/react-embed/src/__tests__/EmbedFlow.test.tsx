@@ -6,7 +6,9 @@ import EmbedFlow from '..';
 
 jest.mock('@formsort/web-embed-api');
 
-const mockWebEmbedApi = FormsortWebEmbed as jest.MockedFunction<typeof FormsortWebEmbed>;
+const mockWebEmbedApi = FormsortWebEmbed as jest.MockedFunction<
+  typeof FormsortWebEmbed
+>;
 
 describe('EmbedFlow componenet', () => {
   let loadMock: jest.Mock;
@@ -18,7 +20,7 @@ describe('EmbedFlow componenet', () => {
     embedMock = {
       loadFlow: loadMock,
       setSize: jest.fn(),
-      addEventListener: addEventListenerMock
+      addEventListener: addEventListenerMock,
     };
     mockWebEmbedApi.mockReturnValueOnce(embedMock);
   });
@@ -27,12 +29,18 @@ describe('EmbedFlow componenet', () => {
   });
 
   it('should load flows without variant label', () => {
-    render(<EmbedFlow flowLabel='test-flow' clientLabel='test-client' />);
+    render(<EmbedFlow flowLabel="test-flow" clientLabel="test-client" />);
     expect(loadMock).toBeCalledWith('test-client', 'test-flow', undefined);
   });
 
   it('should load flows with variant label', () => {
-    render(<EmbedFlow flowLabel='test-flow' clientLabel='test-client' variantLabel='test-variant' />);
+    render(
+      <EmbedFlow
+        flowLabel="test-flow"
+        clientLabel="test-client"
+        variantLabel="test-variant"
+      />
+    );
     expect(loadMock).toBeCalledWith('test-client', 'test-flow', 'test-variant');
   });
 
@@ -40,13 +48,17 @@ describe('EmbedFlow componenet', () => {
     const flowloadedMock = jest.fn();
     render(
       <EmbedFlow
-        flowLabel='test-flow'
-        clientLabel='test-client'
-        variantLabel='test-variant'
+        flowLabel="test-flow"
+        clientLabel="test-client"
+        variantLabel="test-variant"
         flowloaded={flowloadedMock}
-      />);
+      />
+    );
 
     expect(loadMock).toBeCalledWith('test-client', 'test-flow', 'test-variant');
-    expect(embedMock.addEventListener).toBeCalledWith('flowloaded', flowloadedMock);
+    expect(embedMock.addEventListener).toBeCalledWith(
+      'flowloaded',
+      flowloadedMock
+    );
   });
 });
