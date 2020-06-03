@@ -4,9 +4,10 @@ import {
   IIFrameRedirectEventData,
 } from './interfaces';
 
-const IS_SSR = typeof 'window' === 'undefined';
-
-const FS_ORIGIN = IS_SSR ? undefined : window.localStorage.FS_ORIGIN;
+let FS_ORIGIN = undefined;
+if (typeof window !== 'undefined') {
+  FS_ORIGIN = window.localStorage.FS_ORIGIN;
+}
 const FLOW_ORIGIN = FS_ORIGIN || `https://flow.formsort.com`;
 
 export interface IFormsortWebEmbed {
@@ -104,7 +105,8 @@ const FormsortWebEmbed = (
       onRedirectMessage(data as IIFrameRedirectEventData);
     }
   };
-  if (!IS_SSR) {
+
+  if (typeof window !== undefined) {
     window.addEventListener('message', onWindowMessage);
   }
 
