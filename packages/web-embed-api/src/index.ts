@@ -4,7 +4,9 @@ import {
   IIFrameRedirectEventData,
 } from './interfaces';
 
-const FS_ORIGIN = window.localStorage.FS_ORIGIN;
+const IS_SSR = typeof 'window' === 'undefined';
+
+const FS_ORIGIN = IS_SSR ? undefined : window.localStorage.FS_ORIGIN;
 const FLOW_ORIGIN = FS_ORIGIN || `https://flow.formsort.com`;
 
 export interface IFormsortWebEmbed {
@@ -102,7 +104,9 @@ const FormsortWebEmbed = (
       onRedirectMessage(data as IIFrameRedirectEventData);
     }
   };
-  window.addEventListener('message', onWindowMessage);
+  if (!IS_SSR) {
+    window.addEventListener('message', onWindowMessage);
+  }
 
   const setSize = (width: string, height: string) => {
     iframeEl.style.width = width;
