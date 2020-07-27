@@ -125,15 +125,7 @@ module.exports = {
       "Undefined",
     ],
     "id-match": "error",
-    "import/order": [
-      "error",
-      {
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true,
-        }
-      }
-    ]
+    "import/order": "error",
     "linebreak-style": "off",
     "max-classes-per-file": "off",
     "max-len": "off",
