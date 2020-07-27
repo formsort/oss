@@ -18,7 +18,15 @@ module.exports = {
   },
   plugins: [
     "@typescript-eslint/eslint-plugin",
-    "import",
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true,
+        }
+      }
+    ]
   ],
   rules: {
     /*
