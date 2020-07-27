@@ -133,7 +133,7 @@ module.exports = {
           "caseInsensitive": true,
         }
       }
-    ]
+    ],
     "linebreak-style": "off",
     "max-classes-per-file": "off",
     "max-len": "off",
