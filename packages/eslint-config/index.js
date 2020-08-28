@@ -195,12 +195,16 @@ module.exports = {
     "prefer-rest-params": ["error"],
     "prefer-spread": ["error"],
     "@typescript-eslint/adjacent-overload-signatures": ["error"],
-    "@typescript-eslint/ban-ts-ignore": ["off"],
-    "@typescript-eslint/camelcase": ["off"],
-    "@typescript-eslint/class-name-casing": ["error"],
+    "@typescript-eslint/ban-ts-comment": ["error", { "ts-ignore": false }],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": ["class", "interface"],
+        "format": ["PascalCase"]
+      },
+    ],
     "@typescript-eslint/consistent-type-assertions": ["error"],
     "@typescript-eslint/explicit-function-return-type": ["off"],
-    "@typescript-eslint/interface-name-prefix": ["off"],
     "no-array-constructor": ["off"],
     "@typescript-eslint/no-array-constructor": ["error"],
     "no-empty-function": ["off"],
