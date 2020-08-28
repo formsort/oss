@@ -8,7 +8,7 @@ let FS_ORIGIN;
 if (typeof window !== 'undefined') {
   FS_ORIGIN = window.localStorage.FS_ORIGIN;
 }
-const FLOW_ORIGIN = FS_ORIGIN || `https://flow.formsort.com`;
+const FLOW_ORIGIN: string = FS_ORIGIN || `https://flow.formsort.com`;
 
 export interface IFormsortWebEmbed {
   loadFlow: (
