@@ -34,6 +34,7 @@
   "homepage": "https://github.com/formsort/custom-question-api#readme",
   "devDependencies": {
     "@formsort/eslint-config": "^1.1.0",
+    "eslint": "^7.7.0",
     "@types/events": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "eslint-config-prettier": "^6.11.0",
