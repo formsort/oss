@@ -1,6 +1,6 @@
-import React from 'react';
-import { render } from '@testing-library/react';
 import FormsortWebEmbed, { IFormsortWebEmbed } from '@formsort/web-embed-api';
+import { render } from '@testing-library/react';
+import React from 'react';
 
 import EmbedFlow from '..';
 
