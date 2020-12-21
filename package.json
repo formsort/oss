@@ -2,9 +2,15 @@
   "name": "root",
   "private": true,
   "devDependencies": {
-    "lerna": "^3.20.2"
+    "lerna": "^3.20.2",
+    "husky": "^4.3.6"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lerna run pretty-check"
+    }
   }
 }
