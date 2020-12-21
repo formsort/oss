@@ -34,7 +34,6 @@ module.exports = {
         @typescript-eslint/member-ordering
 
      */
-    "prettier/prettier": ["error", { singleQuote: true, trailingComma: "es5" }],
     "@typescript-eslint/array-type": [
       "error",
       {
@@ -218,7 +217,7 @@ module.exports = {
     "@typescript-eslint/no-namespace": ["error"],
     "@typescript-eslint/no-non-null-assertion": ["off"],
     "@typescript-eslint/no-this-alias": ["error"],
-    "no-unused-vars": ["off"],
+    "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["warn", { ignoreRestSiblings: true }],
     "no-use-before-define": ["off"],
     "@typescript-eslint/no-var-requires": ["error"],
