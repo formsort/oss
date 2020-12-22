@@ -8,7 +8,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:react/recommended",
-    "prettier"
+    "prettier",
   ],
   ignorePatterns: [],
   parser: "@typescript-eslint/parser",
@@ -16,10 +16,7 @@ module.exports = {
     project: "tsconfig.json",
     sourceType: "module",
   },
-  plugins: [
-    "@typescript-eslint/eslint-plugin",
-    "import",
-  ],
+  plugins: ["@typescript-eslint/eslint-plugin", "import"],
   rules: {
     /*
 
@@ -119,21 +116,16 @@ module.exports = {
     "eol-last": "off",
     eqeqeq: ["error", "smart"],
     "guard-for-in": "error",
-    "id-blacklist": [
-      "error",
-      "any",
-      "String",
-      "Undefined",
-    ],
+    "id-blacklist": ["error", "any", "String", "Undefined"],
     "id-match": "error",
     "import/order": [
       "error",
       {
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true,
-        }
-      }
+        alphabetize: {
+          order: "asc",
+          caseInsensitive: true,
+        },
+      },
     ],
     "linebreak-style": "off",
     "max-classes-per-file": "off",
@@ -153,7 +145,8 @@ module.exports = {
     "no-irregular-whitespace": "off",
     "no-multiple-empty-lines": "off",
     "no-new-wrappers": "error",
-    "no-shadow": [
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": [
       "error",
       {
         hoist: "all",
@@ -200,8 +193,8 @@ module.exports = {
     "@typescript-eslint/naming-convention": [
       "error",
       {
-        "selector": ["class", "interface"],
-        "format": ["PascalCase"]
+        selector: ["class", "interface"],
+        format: ["PascalCase"],
       },
     ],
     "@typescript-eslint/consistent-type-assertions": ["error"],
