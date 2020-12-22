@@ -36,10 +36,10 @@
   "devDependencies": {
     "@formsort/eslint-config": "^1.3.2",
     "@types/events": "^3.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.10.0",
-    "eslint": "^7.14.0",
+    "@typescript-eslint/eslint-plugin": "^4.11.0",
+    "eslint": "^7.16.0",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsdoc": "^30.7.8",
+    "eslint-plugin-jsdoc": "^30.7.9",
     "eslint-plugin-prefer-arrow": "^1.2.2",
     "eslint-plugin-react": "^7.21.5",
     "prettier": "^2.2.1",
