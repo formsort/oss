@@ -2,6 +2,7 @@ import { AnalyticsEventType, WebEmbedMessage } from '@formsort/constants';
 import {
   IIFrameAnalyticsEventData,
   IIFrameRedirectEventData,
+  IIFrameResizeEventData,
 } from './interfaces';
 
 let FS_ORIGIN;
@@ -26,6 +27,7 @@ export interface IFormsortWebEmbed {
 
 export interface IFormsortWebEmbedConfig {
   useHistoryAPI?: boolean;
+  autoHeight?: boolean;
   style?: Partial<Pick<CSSStyleDeclaration, 'width' | 'height'>>;
 }
 const DEFAULT_CONFIG: IFormsortWebEmbedConfig = { useHistoryAPI: false };
@@ -42,7 +44,7 @@ const FormsortWebEmbed = (
   config: IFormsortWebEmbedConfig = DEFAULT_CONFIG
 ): IFormsortWebEmbed => {
   const iframeEl = document.createElement('iframe');
-  const { style } = config;
+  const { style, autoHeight } = config;
   iframeEl.style.border = 'none';
   if (style) {
     const { width = '', height = '' } = style;
@@ -83,6 +85,11 @@ const FormsortWebEmbed = (
     }
   };
 
+  const onResizeMessage = (data: IIFrameResizeEventData) => {
+    const { width, height } = data.payload;
+    setSize(width, height);
+  };
+
   const onWindowMessage = (message: MessageEvent) => {
     const { origin, source, data } = message;
     if (source !== iframeEl.contentWindow) {
@@ -103,6 +110,8 @@ const FormsortWebEmbed = (
       onEventMessage(data as IIFrameAnalyticsEventData);
     } else if (data.type === WebEmbedMessage.EMBED_REDIRECT_MSG) {
       onRedirectMessage(data as IIFrameRedirectEventData);
+    } else if (data.type === WebEmbedMessage.EMBED_RESIZE_MSG && autoHeight) {
+      onResizeMessage(data as IIFrameResizeEventData);
     }
   };
 
@@ -110,9 +119,13 @@ const FormsortWebEmbed = (
     window.addEventListener('message', onWindowMessage);
   }
 
-  const setSize = (width: string, height: string) => {
-    iframeEl.style.width = width;
-    iframeEl.style.height = height;
+  const setSize = (width?: string | number, height?: string | number) => {
+    if (width !== undefined) {
+      iframeEl.style.width = width.toString();
+    }
+    if (height !== undefined) {
+      iframeEl.style.height = height.toString();
+    }
   };
 
   const onEventMessage = (eventData: IIFrameAnalyticsEventData) => {

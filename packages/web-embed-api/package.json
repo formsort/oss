@@ -40,6 +40,6 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@formsort/constants": "0.0.11"
+    "@formsort/constants": "^1.2.0"
   }
 }

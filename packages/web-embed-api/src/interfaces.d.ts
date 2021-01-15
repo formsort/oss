@@ -10,3 +10,11 @@ export interface IIFrameRedirectEventData {
   payload: string;
   type: WebEmbedMessage.EMBED_REDIRECT_MSG;
 }
+
+export interface IIFrameResizeEventData {
+  payload: {
+    width?: number;
+    height?: number;
+  };
+  type: WebEmbedMessage.EMBED_RESIZE_MSG;
+}

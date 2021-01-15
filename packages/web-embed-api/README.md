@@ -25,9 +25,10 @@ The `config` has the following interface:
 ```tsx
 interface IFormsortWebEmbedConfig {
   useHistoryAPI?: boolean; // Default: false
+  autoHeight?: boolean; // Default: false
   style?: {
-    width?: CSSStyleDeclaration["width"];
-    height?: CSSStyleDeclaration["height"];
+    width?: CSSStyleDeclaration['width'];
+    height?: CSSStyleDeclaration['height'];
   };
 }
 ```
@@ -37,6 +38,8 @@ interface IFormsortWebEmbedConfig {
 - `useHistoryAPI`: When redirecting, should we use the HTML5 History API (namely, `window.pushState`), or just change the URL in its entirety?
 
   Helpful if you have a single-page app and want to change the container's URL without reloading the entire page. Note that you'll have to listen to the `popstate` event on the embedding `window` to detect this navigation.
+
+- `autoHeight`: Should the embedding `<iframe>` resize so that it matches the content of the currently loaded flow?
 
 - `style` CSS properties to be applied to the iframe container.
 
