@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/formsort/react-embed.git"
+    "url": "git+https://github.com/formsort/oss.git"
   },
   "files": [
     "lib/**/*"
@@ -34,9 +34,9 @@
   "author": "Ali Kirecligol <ali@formsort.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/formsort/react-embed/issues"
+    "url": "https://github.com/formsort/oss/packages/react-embed/issues"
   },
-  "homepage": "https://github.com/formsort/react-embed#readme",
+  "homepage": "https://github.com/formsort/oss/packages/react-embed#readme",
   "devDependencies": {
     "@formsort/eslint-config": "^1.3.4",
     "@testing-library/react": "^11.2.2",
