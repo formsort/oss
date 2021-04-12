@@ -7,10 +7,5 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lerna run pretty-check"
-    }
   }
 }
