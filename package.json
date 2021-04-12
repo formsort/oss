@@ -2,8 +2,8 @@
   "name": "root",
   "private": true,
   "devDependencies": {
-    "lerna": "^3.20.2",
-    "husky": "^4.3.6"
+    "husky": "^6.0.0",
+    "lerna": "^4.0.0"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap"
