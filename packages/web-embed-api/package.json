@@ -1,6 +1,6 @@
 {
   "name": "@formsort/web-embed-api",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Embed Formsort flows within other webpages",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -29,7 +29,7 @@
   "author": "Fil Zembowicz <fil@formsort.com>",
   "license": "MIT",
   "devDependencies": {
-    "@formsort/eslint-config": "^1.3.4",
+    "@formsort/eslint-config": "^1.3.5",
     "@typescript-eslint/eslint-plugin": "^4.11.0",
     "eslint": "^7.16.0",
     "eslint-plugin-import": "^2.22.1",
@@ -40,6 +40,6 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@formsort/constants": "^1.2.0"
+    "@formsort/constants": "^1.2.1"
   }
 }
