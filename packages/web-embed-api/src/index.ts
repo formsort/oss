@@ -5,11 +5,7 @@ import {
   IIFrameResizeEventData,
 } from './interfaces';
 
-let FS_ORIGIN;
-if (typeof window !== 'undefined') {
-  FS_ORIGIN = window.localStorage.FS_ORIGIN;
-}
-const FLOW_ORIGIN: string = FS_ORIGIN || `https://flow.formsort.com`;
+const DEFAULT_FLOW_ORIGIN = `https://flow.formsort.com`;
 
 export interface IFormsortWebEmbed {
   loadFlow: (
@@ -29,8 +25,12 @@ export interface IFormsortWebEmbedConfig {
   useHistoryAPI?: boolean;
   autoHeight?: boolean;
   style?: Partial<Pick<CSSStyleDeclaration, 'width' | 'height'>>;
+  origin?: string;
 }
-const DEFAULT_CONFIG: IFormsortWebEmbedConfig = { useHistoryAPI: false };
+const DEFAULT_CONFIG: IFormsortWebEmbedConfig = {
+  useHistoryAPI: false,
+  origin: DEFAULT_FLOW_ORIGIN,
+};
 
 export interface IEventMap {
   flowloaded?: () => void;
@@ -45,6 +45,7 @@ const FormsortWebEmbed = (
 ): IFormsortWebEmbed => {
   const iframeEl = document.createElement('iframe');
   const { style, autoHeight } = config;
+  const formsortOrigin = config.origin || DEFAULT_FLOW_ORIGIN;
   iframeEl.style.border = 'none';
   if (style) {
     const { width = '', height = '' } = style;
@@ -57,23 +58,12 @@ const FormsortWebEmbed = (
   const eventListeners: { [K in keyof IEventMap]?: IEventMap[K] } = {};
 
   const onRedirectMessage = (redirectData: IIFrameRedirectEventData) => {
-    const currentUrl = window.location.href;
-    const currentHash = window.location.hash.slice(1);
-    const currentUrlBase = currentUrl.replace(currentHash, '');
-
     const url = redirectData.payload;
 
     if (eventListeners.redirect) {
       eventListeners.redirect(url);
     }
 
-    const hashIndex = url.indexOf('#');
-    const urlHash = hashIndex >= 0 ? url.slice(hashIndex + 1) : undefined;
-    const urlBase = urlHash !== undefined ? url.replace(urlHash, '') : url;
-
-    if (urlHash && urlBase === currentUrlBase && urlHash !== currentHash) {
-      window.location.hash = urlHash;
-    }
     if (
       config.useHistoryAPI &&
       'history' in window &&
@@ -91,14 +81,14 @@ const FormsortWebEmbed = (
   };
 
   const onWindowMessage = (message: MessageEvent) => {
-    const { origin, source, data } = message;
+    const { origin: msgOrigin, source, data } = message;
     if (source !== iframeEl.contentWindow) {
       // If we have multiple formsorts within a page, only listen to events coming
       // from the iframe that this embed instance controls.
       return;
     }
 
-    if (origin !== FLOW_ORIGIN) {
+    if (msgOrigin !== formsortOrigin) {
       return;
     }
 
@@ -162,7 +152,7 @@ const FormsortWebEmbed = (
     variantLabel?: string,
     queryParams?: Array<[string, string]>
   ) => {
-    let url = `${FLOW_ORIGIN}/client/${clientLabel}/flow/${flowLabel}`;
+    let url = `${formsortOrigin}/client/${clientLabel}/flow/${flowLabel}`;
     if (variantLabel) {
       url += `/variant/${variantLabel}`;
     }
