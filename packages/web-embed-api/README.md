@@ -99,13 +99,8 @@ This is helpful if you're embedding Formsort within a single-page app that has c
 
 ## Development
 
-By default, the web embed accesses the production formsort servers. If you would like to point to another flow server, set `window.localStorage.FS_ORIGIN` to the correct base URL, for example:
+By default, the web embed accesses the production formsort servers. If you would like to point to another flow server, set `origin` in the config to the correct base URL, for example:
 
 ```tsx
-if (DEVELOPMENT) {
-  window.localStorage.FS_ORIGIN = 'http://localhost:4040'
-}
-new FormsortWebEmbed(...)
+new FormsortWebEmbed(document.body, { origin: 'http://localhost:4040'})
 ```
-
-Make sure to remove this key when you want to access production again.

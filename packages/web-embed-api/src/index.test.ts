@@ -4,14 +4,19 @@ import FormsortWebEmbed from '.';
 type MessageListener = (msg: MessageEvent) => any;
 
 const DEFAULT_FLOW_ORIGIN = 'https://flow.formsort.com';
+const EMBEDDING_WINDOW_ORIGIN = 'https://test-origin.formsort.com';
+
+const clientLabel = 'test-client';
+const flowLabel = 'test-flow';
+const variantLabel = 'test-variant';
 
 describe('FormsortWebEmbed', () => {
-  const clientLabel = 'test-client';
-  const flowLabel = 'test-flow';
-  const variantLabel = 'test-variant';
+  const pushStateSpy = jest
+    .spyOn(window.history, 'pushState')
+    .mockImplementation(jest.fn);
 
   const originalAddEventListener = window.addEventListener;
-  let messageHandlers: Array<MessageListener> = [];
+  let messageHandlers: MessageListener[] = [];
   jest
     .spyOn(window, 'addEventListener')
     .mockImplementation((type, listener) => {
@@ -36,17 +41,22 @@ describe('FormsortWebEmbed', () => {
   beforeAll(() => {
     // @ts-ignore
     delete window.location;
-    window.location = { ...location, assign: jest.fn() };
+    window.location = {
+      ...location,
+      assign: jest.fn(),
+      origin: EMBEDDING_WINDOW_ORIGIN,
+    };
+  });
+
+  beforeEach(() => {
+    pushStateSpy.mockClear();
+    (window.location.assign as jest.Mock).mockClear();
+    messageHandlers = [];
+    document.body.innerHTML = '';
   });
 
   afterAll(() => {
     window.location = location;
-  });
-
-  beforeEach(() => {
-    (window.location.assign as jest.Mock).mockClear();
-    messageHandlers = [];
-    document.body.innerHTML = '';
   });
 
   test('does not load anything if instantiated without calling load', () => {
@@ -56,6 +66,18 @@ describe('FormsortWebEmbed', () => {
 
     const iframe = iframes[0];
     expect(iframe.src).toBe('');
+  });
+
+  test('mounts at the specified root element', () => {
+    const rootEl = document.createElement('div');
+    document.body.appendChild(rootEl);
+    FormsortWebEmbed(rootEl);
+    const iframes = document.body.querySelectorAll('iframe');
+    expect(iframes.length).toBe(1);
+
+    const iframe = iframes[0];
+    expect(iframe.src).toBe('');
+    expect(iframe.parentElement).toBe(rootEl);
   });
 
   test('loads with a specific size if specified', () => {
@@ -72,6 +94,19 @@ describe('FormsortWebEmbed', () => {
     const iframe = iframes[0];
     expect(iframe.style.width).toBe(width);
     expect(iframe.style.height).toBe(height);
+  });
+
+  test('Handles present-but-empty style', () => {
+    FormsortWebEmbed(document.body, {
+      style: {},
+    });
+
+    const iframes = document.body.querySelectorAll('iframe');
+    expect(iframes.length).toBe(1);
+
+    const iframe = iframes[0];
+    expect(iframe.style.width).toBe('');
+    expect(iframe.style.height).toBe('');
   });
 
   test('loads a flow when load is called', () => {
@@ -296,6 +331,39 @@ describe('FormsortWebEmbed', () => {
     mockPostMessage(msg);
     expect(iframe.style.width).toBe(width);
     expect(iframe.style.height).toBe(height);
+
+    // The resize message can be partial (for example, just height changes)
+    // Make sure we can handle those.
+    const newHeight = '999px';
+    const newWidth = '888px';
+
+    const heightMsg = new MessageEvent('message', {
+      source: iframe.contentWindow,
+      origin: DEFAULT_FLOW_ORIGIN,
+      data: {
+        type: WebEmbedMessage.EMBED_RESIZE_MSG,
+        payload: {
+          height: newHeight,
+        },
+      },
+    });
+    mockPostMessage(heightMsg);
+    expect(iframe.style.width).toBe(width);
+    expect(iframe.style.height).toBe(newHeight);
+
+    const widthMsg = new MessageEvent('message', {
+      source: iframe.contentWindow,
+      origin: DEFAULT_FLOW_ORIGIN,
+      data: {
+        type: WebEmbedMessage.EMBED_RESIZE_MSG,
+        payload: {
+          width: newWidth,
+        },
+      },
+    });
+    mockPostMessage(widthMsg);
+    expect(iframe.style.width).toBe(newWidth);
+    expect(iframe.style.height).toBe(newHeight);
   });
 
   test('ignores resize event when autoHeight is enabled', async () => {
@@ -348,5 +416,104 @@ describe('FormsortWebEmbed', () => {
     expect(redirectSpy).toBeCalledWith(redirectUrl);
     expect(window.location.assign).toBeCalledTimes(1);
     expect(window.location.assign).toBeCalledWith(redirectUrl);
+  });
+
+  test('handles events even when corresponding handlers are not set', async () => {
+    const embed = FormsortWebEmbed(document.body);
+    const iframe = document.body.querySelector('iframe')!;
+
+    embed.loadFlow(clientLabel, flowLabel);
+
+    const redirectMsg = new MessageEvent('message', {
+      source: iframe.contentWindow,
+      origin: DEFAULT_FLOW_ORIGIN,
+      data: {
+        type: WebEmbedMessage.EMBED_REDIRECT_MSG,
+        payload: 'https://example.com',
+      },
+    });
+    mockPostMessage(redirectMsg);
+
+    const resizeMsg = new MessageEvent('message', {
+      source: iframe.contentWindow,
+      origin: DEFAULT_FLOW_ORIGIN,
+      data: {
+        type: WebEmbedMessage.EMBED_RESIZE_MSG,
+        payload: {
+          width: '100px',
+          height: '200px',
+        },
+      },
+    });
+    mockPostMessage(resizeMsg);
+
+    const eventMsg = new MessageEvent('message', {
+      source: iframe.contentWindow,
+      origin: 'https://example.com',
+      data: {
+        type: WebEmbedMessage.EMBED_EVENT_MSG,
+        createdAt: new Date(),
+        eventType: AnalyticsEventType.FlowLoaded,
+      },
+    });
+    mockPostMessage(eventMsg);
+
+    const unknownMsg = new MessageEvent('message', {
+      source: iframe.contentWindow,
+      origin: 'https://example.com',
+      data: {
+        type: 'some unknown type',
+      },
+    });
+    mockPostMessage(unknownMsg);
+  });
+
+  test('handles redirecting to a using history API when redirecting in the same origin', async () => {
+    const embed = FormsortWebEmbed(document.body, { useHistoryAPI: true });
+    const iframe = document.body.querySelector('iframe')!;
+
+    const redirectSpy = jest.fn();
+    embed.addEventListener('redirect', redirectSpy);
+    embed.loadFlow(clientLabel, flowLabel);
+
+    const redirectUrl = `${EMBEDDING_WINDOW_ORIGIN}/some-other-page-in-the-parent-origin`;
+    const msg = new MessageEvent('message', {
+      source: iframe.contentWindow,
+      origin: DEFAULT_FLOW_ORIGIN,
+      data: {
+        type: WebEmbedMessage.EMBED_REDIRECT_MSG,
+        payload: redirectUrl,
+      },
+    });
+    mockPostMessage(msg);
+    expect(redirectSpy).toBeCalledTimes(1);
+    expect(redirectSpy).toBeCalledWith(redirectUrl);
+    expect(pushStateSpy).toBeCalledTimes(1);
+    expect(pushStateSpy).toBeCalledWith({}, '', redirectUrl);
+  });
+
+  test('ignores useHistoryAPI when redirecting to a different origin', async () => {
+    const embed = FormsortWebEmbed(document.body, { useHistoryAPI: true });
+    const iframe = document.body.querySelector('iframe')!;
+
+    const redirectSpy = jest.fn();
+    embed.addEventListener('redirect', redirectSpy);
+    embed.loadFlow(clientLabel, flowLabel);
+
+    const redirectUrl = `https://www.some-other-origin.com/some-other-page`;
+    const msg = new MessageEvent('message', {
+      source: iframe.contentWindow,
+      origin: DEFAULT_FLOW_ORIGIN,
+      data: {
+        type: WebEmbedMessage.EMBED_REDIRECT_MSG,
+        payload: redirectUrl,
+      },
+    });
+    mockPostMessage(msg);
+    expect(redirectSpy).toBeCalledTimes(1);
+    expect(redirectSpy).toBeCalledWith(redirectUrl);
+    expect(window.location.assign).toBeCalledTimes(1);
+    expect(window.location.assign).toBeCalledWith(redirectUrl);
+    expect(pushStateSpy).toBeCalledTimes(0);
   });
 });
