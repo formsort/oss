@@ -13,20 +13,17 @@ jobs:
   web-embed-api-test:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: ./packages/web-embed-api
-
     strategy:
       matrix:
         node-version: [14.x]
 
     steps:
       - uses: actions/checkout@v2
-      - name: Test web-embed-api (node ${{ matrix.node-version }})
-        uses: actions/setup-node@v2
+      - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm ci
+      - run: npm run bootstrap
       - run: npm run build --if-present
+        working-directory: './packages/web-embed-api'
       - run: npm test
+        working-directory: './packages/web-embed-api'
