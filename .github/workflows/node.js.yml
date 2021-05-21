@@ -10,17 +10,20 @@ on:
     branches: [master]
 
 jobs:
-  build:
+  web-embed-api-test:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./packages/web-embed-api
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x, 15.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [14.x]
 
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Test web-embed-api (node ${{ matrix.node-version }})
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
