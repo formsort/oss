@@ -91,11 +91,22 @@ Set a callback to be called when the user abandons the flow before finalizing it
 
 Note that this is only possible if your style set defines a close button.
 
-#### redirect `(url: string) => void`
+#### redirect `(url: string) => { cancel?: boolean, customUrl?: string } | undefined`
 
-Set a callback to handle URL redirects yourself, instead of allowing Formsort to handle them. If not defined, the Formsort embed will handle redirecting the parent page.
+Set a callback to customize the way Formsort handles redirects. To cancel Formsort's handling of the redirect, return: 
+```typescript
+{ cancel: true }
+```
+To provide a custom url for formsort to redirect to, return: 
+```typescript
+{ customUrl: string }
+``` 
 
-This is helpful if you're embedding Formsort within a single-page app that has custom URL route handling.
+If the callback does not return a value, Formsort will handle the redirect as usual.
+
+This is helpful if:
+- You're embedding Formsort within a single-page app that has custom URL route handling. 
+- You want to modifty the urls that formsort redirects to.
 
 ## Development
 
