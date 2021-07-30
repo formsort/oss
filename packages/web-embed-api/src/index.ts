@@ -36,7 +36,12 @@ export interface IEventMap {
   flowloaded?: () => void;
   flowclosed?: () => void;
   flowfinalized?: () => void;
-  redirect?: (p: string) => void;
+  redirect?: (
+    p: string
+  ) => {
+    cancel?: boolean;
+    customUrl?: string;
+  } | undefined;
 }
 
 const FormsortWebEmbed = (
@@ -58,10 +63,17 @@ const FormsortWebEmbed = (
   const eventListeners: { [K in keyof IEventMap]?: IEventMap[K] } = {};
 
   const onRedirectMessage = (redirectData: IIFrameRedirectEventData) => {
-    const url = redirectData.payload;
+    let url = redirectData.payload;
 
     if (eventListeners.redirect) {
-      eventListeners.redirect(url);
+      const { cancel, customUrl } = eventListeners.redirect(url) ?? {};
+      if (cancel) {
+        return;
+      }
+
+      if (customUrl) {
+        url = customUrl;
+      }
     }
 
     if (
