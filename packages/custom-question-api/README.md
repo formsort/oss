@@ -8,14 +8,13 @@ Custom questions allow extending the Formsort platform with custom behavior, wit
 
 0. Build your custom question using whatever javascript framework you'd like
 1. Run [ngrok](https://ngrok.com/) to expose your local server on a public IP with HTTPs
-2. Use the formsort [Custom question scaffold](https://formsort.com/tools/custom-question-scaffold/) to load your custom question and test existing answers.
 
 ### Directly within formsort
 
-1. Add a **custom** question within a Formsort flow.
-2. Set the **source url** (proxied to a URL with a custom question renderer (`localhost` is best for development).
-3. Load the question in the live preview window.
-4. Use the helpers in this library to communicate with Formsort.
+2. Add a **custom** question within a Formsort flow.
+3. Set the **source url** (proxied to a URL with a custom question renderer (`localhost` is best for development)).
+4. Load the question in the live preview window.
+5. Use the helpers in this library to communicate with Formsort.
 
 ## Deployment
 
