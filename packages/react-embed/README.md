@@ -45,11 +45,11 @@ You can add event listeners to flows like `flowloaded`, `redirect` etc. See [all
 | responderUuid | responder uuid to load existing answers for                                                                  | no       | `e4923baa-dc2d-4555-813c-a166952292fa`                     |
 | formsortEnv   | formsort integrations environment label, if not using production                                             | no       | `staging`                                                  |
 | queryParams   | additional query params, to pre-populate answers in the form                                                 | no       | `[['name', 'Olivia']], ['age', '3']]`                      |
-| embedConfig   | config passed to the underlying [`FormsortWebEmbed`](https://github.com/formsort/oss/packages/web-embed-api) | no       | `{ style: { height: '100%' } }`                            |
-| flowloaded    | [event listener](https://github.com/formsort/oss/packages/web-embed-api#flowloaded)                          | no       | `() => { console.log('flow loaded') }`                     |
-| flowclosed    | [event listener](https://github.com/formsort/oss/packages/web-embed-api#flowclosed)                          | no       | `() => { console.log('flow closed') }`                     |
-| flowfinalized | [event listener](https://github.com/formsort/oss/packages/web-embed-api#flowfinalized)                       | no       | `() => { console.log('flow finalized') }`                  |
-| redirect      | [event listener](https://github.com/formsort/oss/packages/web-embed-api#redirect)                            | no       | `(url: string) => { console.log('redirecting to:', url) }` |
+| embedConfig   | config passed to the underlying [`FormsortWebEmbed`](https://github.com/formsort/oss/tree/master/packages/web-embed-api) | no       | `{ style: { height: '100%' } }`                            |
+| flowloaded    | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowloaded---void)                          | no       | `() => { console.log('flow loaded') }`                     |
+| flowclosed    | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowclosed---void)                          | no       | `() => { console.log('flow closed') }`                     |
+| flowfinalized | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowfinalized---void)                       | no       | `() => { console.log('flow finalized') }`                  |
+| redirect      | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#redirect-url-string--void)                            | no       | `(url: string) => { console.log('redirecting to:', url) }` |
 
 ## Testing
 
