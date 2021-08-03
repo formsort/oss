@@ -32,16 +32,22 @@ const DEFAULT_CONFIG: IFormsortWebEmbedConfig = {
   origin: DEFAULT_FLOW_ORIGIN,
 };
 
+interface RedirectParams {
+  url: string;
+}
+
 export interface IEventMap {
   flowloaded?: () => void;
   flowclosed?: () => void;
   flowfinalized?: () => void;
-  redirect?: (
-    p: string
-  ) => {
-    cancel?: boolean;
-    customUrl?: string;
-  } | undefined;
+  redirect?: ({
+    url,
+  }: RedirectParams) =>
+    | {
+        cancel?: boolean;
+        customUrl?: string;
+      }
+    | undefined;
 }
 
 const FormsortWebEmbed = (
@@ -66,13 +72,9 @@ const FormsortWebEmbed = (
     let url = redirectData.payload;
 
     if (eventListeners.redirect) {
-      const { cancel, customUrl } = eventListeners.redirect(url) ?? {};
+      const { cancel } = eventListeners.redirect({ url }) ?? {};
       if (cancel) {
         return;
-      }
-
-      if (customUrl) {
-        url = customUrl;
       }
     }
 

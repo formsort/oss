@@ -444,34 +444,9 @@ describe('FormsortWebEmbed', () => {
     });
     mockPostMessage(msg);
     expect(redirectSpy).toBeCalledTimes(1);
-    expect(redirectSpy).toBeCalledWith(redirectUrl);
+    expect(redirectSpy).toBeCalledWith({ url: redirectUrl });
     expect(window.location.assign).toBeCalledTimes(1);
     expect(window.location.assign).toBeCalledWith(redirectUrl);
-  });
-
-  test('Redirects to a custom URL if one is returned by the callback', async () => {
-    const embed = FormsortWebEmbed(document.body);
-    const iframe = document.body.querySelector('iframe')!;
-
-    const redirectUrl = 'https://example.com';
-    const customUrl = 'https://example-2.com';
-    const redirectCallback = jest.fn(() => ({ customUrl }));
-    embed.addEventListener('redirect', redirectCallback);
-    embed.loadFlow(clientLabel, flowLabel);
-
-    const msg = new MessageEvent('message', {
-      source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
-      data: {
-        type: WebEmbedMessage.EMBED_REDIRECT_MSG,
-        payload: redirectUrl,
-      },
-    });
-    mockPostMessage(msg);
-    expect(redirectCallback).toBeCalledTimes(1);
-    expect(redirectCallback).toBeCalledWith(redirectUrl);
-    expect(window.location.assign).toBeCalledTimes(1);
-    expect(window.location.assign).toBeCalledWith(customUrl);
   });
 
   test('Cancels redirect if callback returns `cancel: true`', async () => {
@@ -479,8 +454,7 @@ describe('FormsortWebEmbed', () => {
     const iframe = document.body.querySelector('iframe')!;
 
     const redirectUrl = 'https://example.com';
-    const customUrl = 'https://example-2.com';
-    const redirectCallback = jest.fn(() => ({ customUrl, cancel: true }));
+    const redirectCallback = jest.fn(() => ({ cancel: true }));
     embed.addEventListener('redirect', redirectCallback);
     embed.loadFlow(clientLabel, flowLabel);
 
@@ -494,7 +468,7 @@ describe('FormsortWebEmbed', () => {
     });
     mockPostMessage(msg);
     expect(redirectCallback).toBeCalledTimes(1);
-    expect(redirectCallback).toBeCalledWith(redirectUrl);
+    expect(redirectCallback).toBeCalledWith({ url: redirectUrl });
     expect(window.location.assign).not.toHaveBeenCalled();
   });
 
@@ -567,7 +541,7 @@ describe('FormsortWebEmbed', () => {
     });
     mockPostMessage(msg);
     expect(redirectSpy).toBeCalledTimes(1);
-    expect(redirectSpy).toBeCalledWith(redirectUrl);
+    expect(redirectSpy).toBeCalledWith({ url: redirectUrl });
     expect(pushStateSpy).toBeCalledTimes(1);
     expect(pushStateSpy).toBeCalledWith({}, '', redirectUrl);
   });
@@ -591,7 +565,7 @@ describe('FormsortWebEmbed', () => {
     });
     mockPostMessage(msg);
     expect(redirectSpy).toBeCalledTimes(1);
-    expect(redirectSpy).toBeCalledWith(redirectUrl);
+    expect(redirectSpy).toBeCalledWith({ url: redirectUrl });
     expect(window.location.assign).toBeCalledTimes(1);
     expect(window.location.assign).toBeCalledWith(redirectUrl);
     expect(pushStateSpy).toBeCalledTimes(0);
