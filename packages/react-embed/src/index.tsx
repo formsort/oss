@@ -10,7 +10,7 @@ interface ILoadProps {
   flowLabel: string;
   variantLabel?: string;
   responderUuid?: string;
-  formsortEnv?: 'staging' | 'production';
+  formsortEnv?: string;
   queryParams?: Array<[string, string]>;
   embedConfig?: IFormsortWebEmbedConfig;
 }
