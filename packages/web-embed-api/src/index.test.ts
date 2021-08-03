@@ -444,9 +444,32 @@ describe('FormsortWebEmbed', () => {
     });
     mockPostMessage(msg);
     expect(redirectSpy).toBeCalledTimes(1);
-    expect(redirectSpy).toBeCalledWith(redirectUrl);
+    expect(redirectSpy).toBeCalledWith({ url: redirectUrl });
     expect(window.location.assign).toBeCalledTimes(1);
     expect(window.location.assign).toBeCalledWith(redirectUrl);
+  });
+
+  test('Cancels redirect if callback returns `cancel: true`', async () => {
+    const embed = FormsortWebEmbed(document.body);
+    const iframe = document.body.querySelector('iframe')!;
+
+    const redirectUrl = 'https://example.com';
+    const redirectCallback = jest.fn(() => ({ cancel: true }));
+    embed.addEventListener('redirect', redirectCallback);
+    embed.loadFlow(clientLabel, flowLabel);
+
+    const msg = new MessageEvent('message', {
+      source: iframe.contentWindow,
+      origin: DEFAULT_FLOW_ORIGIN,
+      data: {
+        type: WebEmbedMessage.EMBED_REDIRECT_MSG,
+        payload: redirectUrl,
+      },
+    });
+    mockPostMessage(msg);
+    expect(redirectCallback).toBeCalledTimes(1);
+    expect(redirectCallback).toBeCalledWith({ url: redirectUrl });
+    expect(window.location.assign).not.toHaveBeenCalled();
   });
 
   test('handles events even when corresponding handlers are not set', async () => {
@@ -518,7 +541,7 @@ describe('FormsortWebEmbed', () => {
     });
     mockPostMessage(msg);
     expect(redirectSpy).toBeCalledTimes(1);
-    expect(redirectSpy).toBeCalledWith(redirectUrl);
+    expect(redirectSpy).toBeCalledWith({ url: redirectUrl });
     expect(pushStateSpy).toBeCalledTimes(1);
     expect(pushStateSpy).toBeCalledWith({}, '', redirectUrl);
   });
@@ -542,7 +565,7 @@ describe('FormsortWebEmbed', () => {
     });
     mockPostMessage(msg);
     expect(redirectSpy).toBeCalledTimes(1);
-    expect(redirectSpy).toBeCalledWith(redirectUrl);
+    expect(redirectSpy).toBeCalledWith({ url: redirectUrl });
     expect(window.location.assign).toBeCalledTimes(1);
     expect(window.location.assign).toBeCalledWith(redirectUrl);
     expect(pushStateSpy).toBeCalledTimes(0);
