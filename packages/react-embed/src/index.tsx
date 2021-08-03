@@ -70,7 +70,7 @@ const onMount = (
   );
 };
 
-function EmbedFlow(props: EmbedFlowProps) {
+const EmbedFlow: React.FunctionComponent<EmbedFlowProps> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const style = props.embedConfig?.style;
 
@@ -79,6 +79,6 @@ function EmbedFlow(props: EmbedFlowProps) {
   }, []);
 
   return <div ref={containerRef} style={style} />;
-}
+};
 
 export default EmbedFlow;
