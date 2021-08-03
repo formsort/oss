@@ -5,12 +5,18 @@ import FormsortWebEmbed, {
 } from '@formsort/web-embed-api';
 import React, { useEffect, useRef } from 'react';
 
+// Using this type to preserve auto-complete for default environments
+// while allowing any other string to be passed.
+// See https://github.com/microsoft/TypeScript/issues/29729
+type LiteralUnion<T extends U, U = string> = T | (U & Record<never, never>);
+type FormsortEnv = LiteralUnion<'staging' | 'production'>;
+
 interface ILoadProps {
   clientLabel: string;
   flowLabel: string;
   variantLabel?: string;
   responderUuid?: string;
-  formsortEnv?: string;
+  formsortEnv?: FormsortEnv;
   queryParams?: Array<[string, string]>;
   embedConfig?: IFormsortWebEmbedConfig;
 }
@@ -64,7 +70,7 @@ const onMount = (
   );
 };
 
-const EmbedFlow: React.FunctionComponent<EmbedFlowProps> = (props) => {
+function EmbedFlow(props: EmbedFlowProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const style = props.embedConfig?.style;
 
@@ -73,6 +79,6 @@ const EmbedFlow: React.FunctionComponent<EmbedFlowProps> = (props) => {
   }, []);
 
   return <div ref={containerRef} style={style} />;
-};
+}
 
 export default EmbedFlow;
