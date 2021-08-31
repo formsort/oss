@@ -27,27 +27,27 @@ export interface IFlowAnswers {
   [answerKey: string]: IAnswer;
 }
 
-interface WebEmbedEventData  {
-  type: WebEmbedMessage;
+interface IWebEmbedEventData<Type extends WebEmbedMessage = WebEmbedMessage> {
+  type: Type;
 }
 
-export interface IIFrameAnalyticsEventData extends WebEmbedEventData {
+export interface IIFrameAnalyticsEventData
+  extends IWebEmbedEventData<WebEmbedMessage.EMBED_EVENT_MSG> {
   createdAt: Date;
   eventType: AnalyticsEventType;
-  type: WebEmbedMessage.EMBED_EVENT_MSG;
   // Answers are only available when the iframe is embedded in a whitelisted domain
   answers: IFlowAnswers | undefined;
 }
 
-export interface IIFrameRedirectEventData extends WebEmbedEventData {
+export interface IIFrameRedirectEventData
+  extends IWebEmbedEventData<WebEmbedMessage.EMBED_REDIRECT_MSG> {
   payload: string;
-  type: WebEmbedMessage.EMBED_REDIRECT_MSG
 }
 
-export interface IIFrameResizeEventData extends WebEmbedEventData {
+export interface IIFrameResizeEventData
+  extends IWebEmbedEventData<WebEmbedMessage.EMBED_RESIZE_MSG> {
   payload: {
     width?: number;
     height?: number;
   };
-  type: WebEmbedMessage.EMBED_REDIRECT_MSG
 }

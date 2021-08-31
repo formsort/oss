@@ -5,7 +5,7 @@ import {
   IIFrameResizeEventData,
 } from './interfaces';
 import {
-  isWebEmbedEventData,
+  isIWebEmbedEventData,
   isIFrameRedirectEventData,
   isIFrameResizeEventData,
   isIframeAnalyticsEventData,
@@ -114,7 +114,7 @@ const FormsortWebEmbed = (
       return;
     }
 
-    if (!isWebEmbedEventData(data)) {
+    if (!isIWebEmbedEventData(data)) {
       return;
     }
 

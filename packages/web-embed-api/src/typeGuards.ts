@@ -3,7 +3,7 @@ import {
   IIFrameAnalyticsEventData,
   IIFrameRedirectEventData,
   IIFrameResizeEventData,
-  WebEmbedEventData,
+  IWebEmbedEventData,
 } from './interfaces';
 
 function isRecord(val: unknown): val is { [key: string]: unknown } {
@@ -14,8 +14,23 @@ function isString(val: unknown): val is string {
   return typeof val === 'string';
 }
 
-export function isWebEmbedEventData(val: unknown): val is WebEmbedEventData {
-  return isRecord(val) && isString(val.type);
+/**
+ * Checks if `val` is equal to one of the values of the enum
+ * @param val
+ * @param anEnum
+ */
+const isEnumMember = <EnumType extends { [key: string]: unknown }>(
+  val: unknown,
+  anEnum: EnumType
+): val is EnumType[keyof EnumType] =>
+  Object.values(anEnum).includes(val as EnumType[keyof EnumType]);
+
+export function isIWebEmbedEventData(val: unknown): val is IWebEmbedEventData {
+  return (
+    isRecord(val) &&
+    isString(val.type) &&
+    isEnumMember(val.type, WebEmbedMessage)
+  );
 }
 
 /**
@@ -25,19 +40,19 @@ export function isWebEmbedEventData(val: unknown): val is WebEmbedEventData {
  */
 
 export function isIframeAnalyticsEventData(
-  data: WebEmbedEventData
+  data: IWebEmbedEventData
 ): data is IIFrameAnalyticsEventData {
   return data.type === WebEmbedMessage.EMBED_EVENT_MSG;
 }
 
 export function isIFrameRedirectEventData(
-  data: WebEmbedEventData
+  data: IWebEmbedEventData
 ): data is IIFrameRedirectEventData {
   return data.type === WebEmbedMessage.EMBED_REDIRECT_MSG;
 }
 
 export function isIFrameResizeEventData(
-  data: WebEmbedEventData
+  data: IWebEmbedEventData
 ): data is IIFrameResizeEventData {
   return data.type === WebEmbedMessage.EMBED_RESIZE_MSG;
 }
