@@ -1,9 +1,15 @@
-import { AnalyticsEventType, WebEmbedMessage } from '@formsort/constants';
+import { AnalyticsEventType } from '@formsort/constants';
 import {
   IIFrameAnalyticsEventData,
   IIFrameRedirectEventData,
   IIFrameResizeEventData,
 } from './interfaces';
+import {
+  isWebEmbedEventData,
+  isIFrameRedirectEventData,
+  isIFrameResizeEventData,
+  isIframeAnalyticsEventData,
+} from './typeGuards';
 
 const DEFAULT_FLOW_ORIGIN = `https://flow.formsort.com`;
 
@@ -69,7 +75,7 @@ const FormsortWebEmbed = (
   const eventListeners: { [K in keyof IEventMap]?: IEventMap[K] } = {};
 
   const onRedirectMessage = (redirectData: IIFrameRedirectEventData) => {
-    let url = redirectData.payload;
+    const url = redirectData.payload;
 
     if (eventListeners.redirect) {
       const { cancel } = eventListeners.redirect({ url }) ?? {};
@@ -94,6 +100,8 @@ const FormsortWebEmbed = (
     setSize(width, height);
   };
 
+  // @TODO: In Typescript v4+ MessageEvent is generic
+  // and can be typed as MessageEvent<unknown> to increase type safety.
   const onWindowMessage = (message: MessageEvent) => {
     const { origin: msgOrigin, source, data } = message;
     if (source !== iframeEl.contentWindow) {
@@ -106,16 +114,16 @@ const FormsortWebEmbed = (
       return;
     }
 
-    if (!data) {
+    if (!isWebEmbedEventData(data)) {
       return;
     }
 
-    if (data.type === WebEmbedMessage.EMBED_EVENT_MSG) {
-      onEventMessage(data as IIFrameAnalyticsEventData);
-    } else if (data.type === WebEmbedMessage.EMBED_REDIRECT_MSG) {
-      onRedirectMessage(data as IIFrameRedirectEventData);
-    } else if (data.type === WebEmbedMessage.EMBED_RESIZE_MSG && autoHeight) {
-      onResizeMessage(data as IIFrameResizeEventData);
+    if (isIframeAnalyticsEventData(data)) {
+      onEventMessage(data);
+    } else if (isIFrameRedirectEventData(data)) {
+      onRedirectMessage(data);
+    } else if (isIFrameResizeEventData(data) && autoHeight) {
+      onResizeMessage(data);
     }
   };
 
