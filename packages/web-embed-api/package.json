@@ -31,16 +31,16 @@
   "license": "MIT",
   "devDependencies": {
     "@formsort/eslint-config": "^1.3.5",
-    "@types/jest": "^26.0.23",
+    "@types/jest": "^27.0.1",
     "@typescript-eslint/eslint-plugin": "^4.11.0",
     "eslint": "^7.16.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsdoc": "^30.7.9",
     "eslint-plugin-prefer-arrow": "^1.2.2",
     "eslint-plugin-react": "^7.21.5",
-    "jest": "^26.6.3",
+    "jest": "^27.1.0",
     "prettier": "^2.2.1",
-    "ts-jest": "^26.5.6",
+    "ts-jest": "^27.0.5",
     "typescript": "^3.8.3"
   },
   "dependencies": {
