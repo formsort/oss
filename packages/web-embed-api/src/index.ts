@@ -3,6 +3,7 @@ import {
   IIFrameAnalyticsEventData,
   IIFrameRedirectEventData,
   IIFrameResizeEventData,
+  IFlowAnswers,
 } from './interfaces';
 import {
   isIWebEmbedEventData,
@@ -38,17 +39,21 @@ const DEFAULT_CONFIG: IFormsortWebEmbedConfig = {
   origin: DEFAULT_FLOW_ORIGIN,
 };
 
-interface RedirectParams {
+interface BaseEventProps {
+  answers?: IFlowAnswers;
+}
+
+interface RedirectParams extends BaseEventProps {
   url: string;
 }
 
 export interface IEventMap {
-  flowloaded?: () => void;
-  flowclosed?: () => void;
-  flowfinalized?: () => void;
-  redirect?: ({
-    url,
-  }: RedirectParams) =>
+  flowloaded?: (props: BaseEventProps) => void;
+  flowclosed?: (props: BaseEventProps) => void;
+  flowfinalized?: (props: BaseEventProps) => void;
+  redirect?: (
+    props: RedirectParams
+  ) =>
     | {
         cancel?: boolean;
         customUrl?: string;
@@ -141,24 +146,25 @@ const FormsortWebEmbed = (
   };
 
   const onEventMessage = (eventData: IIFrameAnalyticsEventData) => {
-    const { eventType } = eventData;
+    const { eventType, answers } = eventData;
     const { flowloaded, flowclosed, flowfinalized } = eventListeners;
     switch (eventType) {
+      // TODO: Also callbacks for StepLoaded, StepCompleted
       case AnalyticsEventType.FlowLoaded:
         if (flowloaded) {
-          flowloaded();
+          flowloaded({ answers });
         }
         break;
       case AnalyticsEventType.FlowClosed:
         removeListeners();
         rootEl.removeChild(iframeEl);
         if (flowclosed) {
-          flowclosed();
+          flowclosed({ answers });
         }
         break;
       case AnalyticsEventType.FlowFinalized:
         if (flowfinalized) {
-          flowfinalized();
+          flowfinalized({ answers });
         }
         break;
     }
