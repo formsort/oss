@@ -3,6 +3,7 @@ import {
   IIFrameAnalyticsEventData,
   IIFrameRedirectEventData,
   IIFrameResizeEventData,
+  IFlowAnswers,
 } from './interfaces';
 import {
   isIWebEmbedEventData,
@@ -38,14 +39,6 @@ const DEFAULT_CONFIG: IFormsortWebEmbedConfig = {
   origin: DEFAULT_FLOW_ORIGIN,
 };
 
-interface BaseEventProps {
-  answers: { [key: string]: any } | undefined;
-}
-
-interface RedirectEventProps extends BaseEventProps {
-  url: string;
-}
-
 const supportedAnalyticsEvents = [
   AnalyticsEventType.FlowLoaded,
   AnalyticsEventType.FlowClosed,
@@ -60,6 +53,14 @@ const isSupportedEventType = (
   eventType: AnalyticsEventType
 ): eventType is SupportedAnalyticsEvent =>
   supportedAnalyticsEvents.includes(eventType as SupportedAnalyticsEvent);
+
+interface BaseEventProps {
+  answers: IFlowAnswers | undefined;
+}
+
+interface RedirectEventProps extends BaseEventProps {
+  url: string;
+}
 
 export interface IAnalyticsEventMap {
   FlowLoaded?: (props: BaseEventProps) => void;
