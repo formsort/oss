@@ -27,7 +27,15 @@ export interface IFlowAnswers {
   [answerKey: string]: IAnswer;
 }
 
-interface IWebEmbedEventData<Type extends WebEmbedMessage = WebEmbedMessage> {
+export interface BaseEventProps {
+  answers: IFlowAnswers | undefined;
+}
+
+export interface RedirectEventProps extends BaseEventProps {
+  url: string;
+}
+
+export interface IWebEmbedEventData<Type extends WebEmbedMessage = WebEmbedMessage> {
   type: Type;
 }
 
