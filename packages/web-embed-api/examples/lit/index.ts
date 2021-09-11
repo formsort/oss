@@ -9,7 +9,6 @@ const CLIENT = process.env.CLIENT;
 const FLOW = process.env.FLOW;
 const VARIANT = process.env.VARIANT;
 
-console.log("process.env.FORMSORT_ORIGIN : ", process.env.FORMSORT_ORIGIN )
 interface LoggedEvent {
   name: string;
   properties: string;
@@ -81,6 +80,13 @@ class RootElement extends LitElement {
       };
     });
 
+    if (!CLIENT || !FLOW || !VARIANT) {
+      window.alert(
+        'Client, Flow and Variant must be provided in the .env file.'
+      );
+      return;
+    }
+
     embed.loadFlow(CLIENT, FLOW, VARIANT);
   }
 
@@ -88,7 +94,6 @@ class RootElement extends LitElement {
     return html`<div class="container">
       <h1>Formsort Embed Example</h1>
       <div class="iframe-container" ${ref(this.formsortEmbedRef)}></div>
-
       <div id="event-list">
         <div>Event Log:</div>
         <ul>
