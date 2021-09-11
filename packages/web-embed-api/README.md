@@ -61,9 +61,10 @@ You may also style the embed's iframe using CSS - it is the iframe child of the 
 addEventListener(eventName: key of IEventMap, fn: IEventMap[eventName]) => void
 ```
 
-The events include:
+If the flow is embedded in a whitelisted domain, each event listener will be passed the user's answers.
 
-#### flowloaded `() => void`
+The events include:
+#### FlowLoaded `(answers?: { [key: string]: any } ) => void`
 
 Set a callback function to be called when the Formsort flow has loaded completely.
 
@@ -79,20 +80,28 @@ embed.addEventListener('flowloaded', () => {
 embed.loadFlow('formsort', 'onboarding', 'main');
 ```
 
-#### flowfinalized `() => void`
+#### FlowFinalized `(answers?: { [key: string]: any }) => void`
 
-Set a callback to be called when the flow is compete, meaning the user has finished all of the steps available to them.
+Set a callback to be called when the flow is complete, meaning the user has finished all of the steps available to them.
 
 Useful for performing an action after the flow is complete, such as displaying a congratulations or starting a payment process.
 
-#### flowclosed `() => void`
+#### FlowClosed `(answers?: { [key: string]: any }) => void`
 
 Set a callback to be called when the user abandons the flow before finalizing it.
 
 Note that this is only possible if your style set defines a close button.
 
+#### StepLoaded `(answers?: { [key: string]: any }) => void`
 
-#### redirect `({ url: string }) => ({ cancel?: boolean }) | undefined`
+Set a callback to be called when a new step is loaded. 
+This will happen once after the flow is loaded, if the user hasn't previously comleted the flow. Subsequently, this event will hapen following the completion of each step, except for the completion of the final step.
+
+#### StepCompleted `(answers?: { [key: string]: any }) => void`
+
+Set a callback to be called when a step is completed. This includes the completion of the final step, before the `"FlowFinalized"` event.
+
+#### redirect `({ url: string, answers?: { [key: string]: any } }) => ({ cancel?: boolean }) | undefined`
 
 Set a callback to customize the way Formsort handles redirects. To cancel Formsort's handling of the redirect, return:
   ```typescript
@@ -109,5 +118,5 @@ This is helpful if you're embedding Formsort within a single-page app that has c
 By default, the web embed accesses the production formsort servers. If you would like to point to another flow server, set `origin` in the config to the correct base URL, for example:
 
 ```tsx
-new FormsortWebEmbed(document.body, { origin: 'http://localhost:4040'})
+FormsortWebEmbed(document.body, { origin: 'http://localhost:4040'})
 ```
