@@ -64,6 +64,7 @@ addEventListener(eventName: key of IEventMap, fn: IEventMap[eventName]) => void
 If the flow is embedded in a whitelisted domain, each event listener will be passed the user's answers.
 
 The events include:
+
 #### FlowLoaded `(answers?: { [key: string]: any } ) => void`
 
 Set a callback function to be called when the Formsort flow has loaded completely.
