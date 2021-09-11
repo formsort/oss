@@ -95,7 +95,7 @@ Note that this is only possible if your style set defines a close button.
 
 #### StepLoaded `(answers?: { [key: string]: any }) => void`
 
-Set a callback to be called when a new step is loaded. 
+Set a callback to be called when a new step is loaded.
 This will happen once after the flow is loaded, if the user hasn't previously comleted the flow. Subsequently, this event will hapen following the completion of each step, except for the completion of the final step.
 
 #### StepCompleted `(answers?: { [key: string]: any }) => void`
@@ -105,19 +105,21 @@ Set a callback to be called when a step is completed. This includes the completi
 #### redirect `({ url: string, answers?: { [key: string]: any } }) => ({ cancel?: boolean }) | undefined`
 
 Set a callback to customize the way Formsort handles redirects. To cancel Formsort's handling of the redirect, return:
-  ```typescript
-  { cancel: true }
-  ```
 
+```typescript
+{
+  cancel: true;
+}
+```
 
-  If the callback does not return a value, Formsort will handle the redirect as usual.
+If the callback does not return a value, Formsort will handle the redirect as usual.
 
-This is helpful if you're embedding Formsort within a single-page app that has custom URL route handling. 
+This is helpful if you're embedding Formsort within a single-page app that has custom URL route handling.
 
 ## Development
 
 By default, the web embed accesses the production formsort servers. If you would like to point to another flow server, set `origin` in the config to the correct base URL, for example:
 
 ```tsx
-FormsortWebEmbed(document.body, { origin: 'http://localhost:4040'})
+FormsortWebEmbed(document.body, { origin: 'http://localhost:4040' });
 ```
