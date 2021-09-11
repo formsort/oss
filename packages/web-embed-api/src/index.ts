@@ -3,7 +3,6 @@ import {
   IIFrameAnalyticsEventData,
   IIFrameRedirectEventData,
   IIFrameResizeEventData,
-  IFlowAnswers,
 } from './interfaces';
 import {
   isIWebEmbedEventData,
@@ -39,10 +38,11 @@ const DEFAULT_CONFIG: IFormsortWebEmbedConfig = {
   origin: DEFAULT_FLOW_ORIGIN,
 };
 
-export interface BaseEventProps {
-  answers: IFlowAnswers | undefined;
+interface BaseEventProps {
+  answers: { [key: string]: any } | undefined;
 }
-export interface RedirectParams extends BaseEventProps {
+
+interface RedirectEventProps extends BaseEventProps {
   url: string;
 }
 
@@ -71,7 +71,7 @@ export interface IAnalyticsEventMap {
 
 export interface IEventMap extends IAnalyticsEventMap {
   redirect?: (
-    props: RedirectParams
+    props: RedirectEventProps
   ) => {
     cancel?: boolean;
     customUrl?: string;
