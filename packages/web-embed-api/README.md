@@ -20,9 +20,13 @@ Then, initialize the embed and load a flow.
 
 Initializes a Formsort iframe as a child of the `rootEl` provided.
 
-The `config` has the following interface:
+```ts
+const embed = FormsortWebEmbed(document.body);
+```
 
-```tsx
+The optional `config` object has the following interface:
+
+```ts
 interface IFormsortWebEmbedConfig {
   useHistoryAPI?: boolean; // Default: false
   autoHeight?: boolean; // Default: false
@@ -57,8 +61,8 @@ You may also style the embed's iframe using CSS - it is the iframe child of the 
 
 ### Event listeners
 
-```tsx
-addEventListener(eventName: key of IEventMap, fn: IEventMap[eventName]) => void
+```ts
+embed.addEventListener(eventName: key of IEventMap, fn: IEventMap[eventName]) => void
 ```
 
 If the flow is embedded in a whitelisted domain, each event listener will be passed the user's answers.
@@ -73,11 +77,11 @@ Note that this is more accurate than listening for the iframe's `load` event, as
 
 You can listen for this to do things like hide the frame container, or display a loading indicator, until everything is loaded to ensure a seamless initial experience.
 
-```
+```ts
 const embed = FormsortWebEmbed(document.body);
 embed.addEventListener('flowloaded', () => {
   console.log('Flow has loaded!');
-})
+});
 embed.loadFlow('formsort', 'onboarding', 'main');
 ```
 
@@ -120,6 +124,6 @@ This is helpful if you're embedding Formsort within a single-page app that has c
 
 By default, the web embed accesses the production formsort servers. If you would like to point to another flow server, set `origin` in the config to the correct base URL, for example:
 
-```tsx
+```ts
 FormsortWebEmbed(document.body, { origin: 'http://localhost:4040' });
 ```
