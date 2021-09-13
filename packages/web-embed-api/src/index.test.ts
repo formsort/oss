@@ -1,5 +1,5 @@
 import { AnalyticsEventType, WebEmbedMessage } from '@formsort/constants';
-import FormsortWebEmbed from '.';
+import FormsortWebEmbed, { supportedAnalyticsEvents } from '.';
 
 type MessageListener = (msg: MessageEvent) => any;
 
@@ -138,7 +138,7 @@ describe('FormsortWebEmbed', () => {
     );
 
     const flowLoadedSpy = jest.fn();
-    embed.addEventListener('flowloaded', flowLoadedSpy);
+    embed.addEventListener('FlowLoaded', flowLoadedSpy);
 
     const msg = new MessageEvent('message', {
       source: iframe.contentWindow,
@@ -194,7 +194,7 @@ describe('FormsortWebEmbed', () => {
     const iframe = document.body.querySelector('iframe')!;
 
     const flowLoadedSpy = jest.fn();
-    embed.addEventListener('flowloaded', flowLoadedSpy);
+    embed.addEventListener('FlowClosed', flowLoadedSpy);
     embed.loadFlow(clientLabel, flowLabel);
 
     const msg = new MessageEvent('message', {
@@ -215,7 +215,7 @@ describe('FormsortWebEmbed', () => {
     const iframe = document.body.querySelector('iframe')!;
 
     const flowLoadedSpy = jest.fn();
-    embed.addEventListener('flowloaded', flowLoadedSpy);
+    embed.addEventListener('FlowLoaded', flowLoadedSpy);
     embed.loadFlow(clientLabel, flowLabel);
 
     const msg = new MessageEvent('message', {
@@ -248,10 +248,10 @@ describe('FormsortWebEmbed', () => {
     );
 
     const firstFlowFinalized = jest.fn();
-    firstEmbed.addEventListener('flowfinalized', firstFlowFinalized);
+    firstEmbed.addEventListener('FlowFinalized', firstFlowFinalized);
 
     const secondFlowFinalized = jest.fn();
-    secondEmbed.addEventListener('flowfinalized', secondFlowFinalized);
+    secondEmbed.addEventListener('FlowFinalized', secondFlowFinalized);
 
     const msg = new MessageEvent('message', {
       source: firstFlowIframe.contentWindow,
@@ -275,7 +275,7 @@ describe('FormsortWebEmbed', () => {
     const iframe = document.body.querySelector('iframe')!;
 
     const flowLoadedSpy = jest.fn();
-    embed.addEventListener('flowloaded', flowLoadedSpy);
+    embed.addEventListener('FlowLoaded', flowLoadedSpy);
     embed.loadFlow(clientLabel, flowLabel);
 
     const msg = new MessageEvent('message', {
@@ -296,7 +296,7 @@ describe('FormsortWebEmbed', () => {
     const iframe = document.body.querySelector('iframe')!;
 
     const flowFinalizedSpy = jest.fn();
-    embed.addEventListener('flowfinalized', flowFinalizedSpy);
+    embed.addEventListener('FlowFinalized', flowFinalizedSpy);
     embed.loadFlow(clientLabel, flowLabel);
 
     const msg = new MessageEvent('message', {
@@ -319,7 +319,7 @@ describe('FormsortWebEmbed', () => {
     const removeEventListenerSpy = jest.spyOn(window, 'removeEventListener');
 
     const flowClosedSpy = jest.fn();
-    embed.addEventListener('flowclosed', flowClosedSpy);
+    embed.addEventListener('FlowClosed', flowClosedSpy);
     embed.loadFlow(clientLabel, flowLabel);
 
     const msg = new MessageEvent('message', {
@@ -470,6 +470,84 @@ describe('FormsortWebEmbed', () => {
     expect(redirectCallback).toBeCalledTimes(1);
     expect(redirectCallback).toBeCalledWith({ url: redirectUrl });
     expect(window.location.assign).not.toHaveBeenCalled();
+  });
+
+  test.each(
+    supportedAnalyticsEvents.flatMap(
+      (eventType) =>
+        [
+          [
+            eventType,
+            {
+              answers: {
+                'a-question': 'an-answer',
+              },
+            },
+          ],
+          [eventType, { answers: undefined }],
+        ] as const
+    )
+  )(
+    'Passes answers if available for event %s',
+    async (eventType, { answers }) => {
+      const embed = FormsortWebEmbed(document.body);
+      const iframe = document.body.querySelector('iframe')!;
+
+      const eventListenerSpy = jest.fn();
+      embed.addEventListener(eventType, eventListenerSpy);
+      embed.loadFlow(clientLabel, flowLabel);
+
+      const msg = new MessageEvent('message', {
+        source: iframe.contentWindow,
+        origin: DEFAULT_FLOW_ORIGIN,
+        data: {
+          type: WebEmbedMessage.EMBED_EVENT_MSG,
+          createdAt: new Date(),
+          eventType,
+          answers,
+        },
+      });
+      mockPostMessage(msg);
+      expect(eventListenerSpy).toBeCalledTimes(1);
+      expect(eventListenerSpy).toBeCalledWith(answers ? { answers } : {});
+    }
+  );
+
+  test.each([
+    {
+      answers: {
+        'a-question': 'an-answer',
+      },
+    },
+    { answers: undefined },
+  ])('Passes answers if available for redirect event', async ({ answers }) => {
+    const embed = FormsortWebEmbed(document.body);
+    const iframe = document.body.querySelector('iframe')!;
+
+    const redirectSpy = jest.fn();
+    embed.addEventListener('redirect', redirectSpy);
+    embed.loadFlow(clientLabel, flowLabel);
+    const redirectUrl = 'https://example.com';
+
+    const msg = new MessageEvent('message', {
+      source: iframe.contentWindow,
+      origin: DEFAULT_FLOW_ORIGIN,
+      data: {
+        type: WebEmbedMessage.EMBED_REDIRECT_MSG,
+        payload: redirectUrl,
+        answers,
+      },
+    });
+    mockPostMessage(msg);
+    expect(redirectSpy).toBeCalledTimes(1);
+
+    const expectedCallArgs: { url: string; answers?: any } = {
+      url: redirectUrl,
+    };
+    if (answers) {
+      expectedCallArgs.answers = answers;
+    }
+    expect(redirectSpy).toBeCalledWith(expectedCallArgs);
   });
 
   test('handles events even when corresponding handlers are not set', async () => {

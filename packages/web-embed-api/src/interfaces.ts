@@ -27,20 +27,33 @@ export interface IFlowAnswers {
   [answerKey: string]: IAnswer;
 }
 
-interface IWebEmbedEventData<Type extends WebEmbedMessage = WebEmbedMessage> {
+export interface IBaseEventProps {
+  answers: IFlowAnswers | undefined;
+}
+
+export interface IRedirectEventProps extends IBaseEventProps {
+  url: string;
+}
+
+export interface IWebEmbedEventData<Type extends WebEmbedMessage = WebEmbedMessage> {
   type: Type;
 }
 
-export interface IIFrameAnalyticsEventData
-  extends IWebEmbedEventData<WebEmbedMessage.EMBED_EVENT_MSG> {
-  createdAt: Date;
-  eventType: AnalyticsEventType;
+export interface IAnswersData {
   // Answers are only available when the iframe is embedded in a whitelisted domain
   answers: IFlowAnswers | undefined;
 }
 
+export interface IIFrameAnalyticsEventData
+  extends IWebEmbedEventData<WebEmbedMessage.EMBED_EVENT_MSG>,
+    IAnswersData {
+  createdAt: Date;
+  eventType: AnalyticsEventType;
+}
+
 export interface IIFrameRedirectEventData
-  extends IWebEmbedEventData<WebEmbedMessage.EMBED_REDIRECT_MSG> {
+  extends IWebEmbedEventData<WebEmbedMessage.EMBED_REDIRECT_MSG>,
+    IAnswersData {
   payload: string;
 }
 
