@@ -100,7 +100,7 @@ Note that this is only possible if your style set defines a close button.
 #### StepLoaded `(answers?: { [key: string]: any }) => void`
 
 Set a callback to be called when a new step is loaded.
-This will happen once after the flow is loaded, if the user hasn't previously comleted the flow. Subsequently, this event will hapen following the completion of each step, except for the completion of the final step.
+This will happen once after the flow is loaded, if the user hasn't previously completed the flow. Subsequently, this event will happen following the completion of each step, except for the completion of the final step.
 
 #### StepCompleted `(answers?: { [key: string]: any }) => void`
 
