@@ -27,11 +27,11 @@ export interface IFlowAnswers {
   [answerKey: string]: IAnswer;
 }
 
-export interface BaseEventProps {
+export interface IBaseEventProps {
   answers: IFlowAnswers | undefined;
 }
 
-export interface RedirectEventProps extends BaseEventProps {
+export interface IRedirectEventProps extends IBaseEventProps {
   url: string;
 }
 

@@ -54,25 +54,25 @@ const isSupportedEventType = (
 ): eventType is SupportedAnalyticsEvent =>
   supportedAnalyticsEvents.includes(eventType as SupportedAnalyticsEvent);
 
-interface BaseEventProps {
+interface IBaseEventProps {
   answers: IFlowAnswers | undefined;
 }
 
-interface RedirectEventProps extends BaseEventProps {
+interface IRedirectEventProps extends IBaseEventProps {
   url: string;
 }
 
 export interface IAnalyticsEventMap {
-  FlowLoaded?: (props: BaseEventProps) => void;
-  FlowClosed?: (props: BaseEventProps) => void;
-  FlowFinalized?: (props: BaseEventProps) => void;
-  StepLoaded?: (props: BaseEventProps) => void;
-  StepCompleted?: (props: BaseEventProps) => void;
+  FlowLoaded?: (props: IBaseEventProps) => void;
+  FlowClosed?: (props: IBaseEventProps) => void;
+  FlowFinalized?: (props: IBaseEventProps) => void;
+  StepLoaded?: (props: IBaseEventProps) => void;
+  StepCompleted?: (props: IBaseEventProps) => void;
 }
 
 export interface IEventMap extends IAnalyticsEventMap {
   redirect?: (
-    props: RedirectEventProps
+    props: IRedirectEventProps
   ) => {
     cancel?: boolean;
     customUrl?: string;
