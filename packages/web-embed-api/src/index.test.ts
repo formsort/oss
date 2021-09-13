@@ -541,7 +541,9 @@ describe('FormsortWebEmbed', () => {
     mockPostMessage(msg);
     expect(redirectSpy).toBeCalledTimes(1);
 
-    const expectedCallArgs: { [key: string]: any } = { url: redirectUrl };
+    const expectedCallArgs: { url: string; answers?: any } = {
+      url: redirectUrl,
+    };
     if (answers) {
       expectedCallArgs.answers = answers;
     }
