@@ -39,7 +39,7 @@ const DEFAULT_CONFIG: IFormsortWebEmbedConfig = {
   origin: DEFAULT_FLOW_ORIGIN,
 };
 
-const supportedAnalyticsEvents = [
+export const supportedAnalyticsEvents = [
   AnalyticsEventType.FlowLoaded,
   AnalyticsEventType.FlowClosed,
   AnalyticsEventType.FlowFinalized,
