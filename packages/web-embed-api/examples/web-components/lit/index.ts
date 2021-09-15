@@ -53,8 +53,8 @@ class RootElement extends LitElement {
 
   firstUpdated() {
     // Embed Formsort in the page
-    const formsortEbmedElem = this.formsortEmbedRef.value!;
-    const embed = FormsortWebEmbed(formsortEbmedElem, {
+    const formsortEmbedElem = this.formsortEmbedRef.value!;
+    const embed = FormsortWebEmbed(formsortEmbedElem, {
       origin: FORMSORT_ORIGIN,
     });
 
@@ -76,7 +76,7 @@ class RootElement extends LitElement {
       this.addToEventLog('redirect', eventProps);
       // Cancel redirect to stay on the current page
       return {
-        cancel: true,
+        cancel: false,
       };
     });
 
