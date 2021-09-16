@@ -76,7 +76,7 @@ class RootElement extends LitElement {
       this.addToEventLog('redirect', eventProps);
       // Cancel redirect to stay on the current page
       return {
-        cancel: false,
+        cancel: true,
       };
     });
 
