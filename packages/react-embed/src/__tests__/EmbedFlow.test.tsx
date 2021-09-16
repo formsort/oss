@@ -61,7 +61,7 @@ describe('EmbedFlow component', () => {
         flowLabel="test-flow"
         clientLabel="test-client"
         variantLabel="test-variant"
-        flowloaded={flowloadedMock}
+        FlowLoaded={flowloadedMock}
       />
     );
 
@@ -72,7 +72,7 @@ describe('EmbedFlow component', () => {
       undefined
     );
     expect(embedMock.addEventListener).toBeCalledWith(
-      'flowloaded',
+      'FlowLoaded',
       flowloadedMock
     );
   });
