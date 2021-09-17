@@ -21,14 +21,37 @@ interface ILoadProps {
   embedConfig?: IFormsortWebEmbedConfig;
 }
 
-export type EmbedFlowProps = ILoadProps & IEventMap;
+export interface IReactEmbedEventMap {
+  onRedirect?: IEventMap['redirect'];
+  onFlowLoaded?: IEventMap['FlowLoaded'];
+  onFlowClosed?: IEventMap['FlowClosed'];
+  onFlowFinalized?: IEventMap['FlowFinalized'];
+  onStepLoaded?: IEventMap['StepLoaded'];
+  onStepCompleted?: IEventMap['StepCompleted'];
+}
+
+export type EmbedFlowProps = ILoadProps & IReactEmbedEventMap;
+
+export const eventMapping: Record<
+  keyof IReactEmbedEventMap,
+  keyof IEventMap
+> = {
+  onRedirect: 'redirect',
+  onFlowLoaded: 'FlowLoaded',
+  onFlowClosed: 'FlowClosed',
+  onFlowFinalized: 'FlowFinalized',
+  onStepLoaded: 'StepLoaded',
+  onStepCompleted: 'StepCompleted',
+};
 
 const attachEventListenersToEmbed = (
   embed: IFormsortWebEmbed,
-  events: IEventMap
+  events: IReactEmbedEventMap
 ): void => {
-  Object.entries(events).forEach(([eventName, listener]) => {
-    embed.addEventListener(eventName as keyof IEventMap, listener);
+  Object.entries(events).forEach(([reactEventName, listener]) => {
+    const embedEventName =
+      eventMapping[reactEventName as keyof IReactEmbedEventMap];
+    embed.addEventListener(embedEventName, listener);
   });
 };
 

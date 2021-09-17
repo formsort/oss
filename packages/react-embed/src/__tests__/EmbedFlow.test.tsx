@@ -2,7 +2,7 @@ import FormsortWebEmbed, { IFormsortWebEmbed } from '@formsort/web-embed-api';
 import { render } from '@testing-library/react';
 import React from 'react';
 
-import EmbedFlow from '..';
+import EmbedFlow, { eventMapping, IReactEmbedEventMap } from '..';
 
 jest.mock('@formsort/web-embed-api');
 
@@ -56,12 +56,17 @@ describe('EmbedFlow component', () => {
 
   it('should pass down the event listeners given as props', () => {
     const flowloadedMock = jest.fn();
+    const flowFinalizedMock = jest.fn();
+    const redirectMock = jest.fn();
+
     render(
       <EmbedFlow
         flowLabel="test-flow"
         clientLabel="test-client"
         variantLabel="test-variant"
-        flowloaded={flowloadedMock}
+        onFlowLoaded={flowloadedMock}
+        onFlowFinalized={flowFinalizedMock}
+        onRedirect={redirectMock}
       />
     );
 
@@ -71,10 +76,17 @@ describe('EmbedFlow component', () => {
       'test-variant',
       undefined
     );
+    expect(embedMock.addEventListener).toHaveBeenCalledTimes(3);
     expect(embedMock.addEventListener).toBeCalledWith(
-      'flowloaded',
+      'FlowLoaded',
       flowloadedMock
     );
+
+    expect(embedMock.addEventListener).toBeCalledWith(
+      'FlowFinalized',
+      flowFinalizedMock
+    );
+    expect(embedMock.addEventListener).toBeCalledWith('redirect', redirectMock);
   });
 
   it('should load flows with URL params', () => {
