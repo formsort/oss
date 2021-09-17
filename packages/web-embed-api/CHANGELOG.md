@@ -4,3 +4,4 @@
 - `"StepLoaded"` and `"StepCompleted"` are now available to embeds.
 - When embedded in a whitelisted origin, event handlers now will receive answers, as `{ answers: { ... } }`
 - Embeds can now cancel redirects, by returning an object `{ cancel: true }` in the handler for the `redirect` event
+- Add react@17 to peerDependencies
