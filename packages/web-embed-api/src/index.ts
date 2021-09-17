@@ -75,7 +75,6 @@ export interface IEventMap extends IAnalyticsEventMap {
     props: IRedirectEventProps
   ) => {
     cancel?: boolean;
-    customUrl?: string;
   } | void;
 }
 
