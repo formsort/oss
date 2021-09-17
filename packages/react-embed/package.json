@@ -59,7 +59,7 @@
     "@formsort/web-embed-api": "^2.0.0"
   },
   "peerDependencies": {
-    "react": "^16.13.0"
+    "react": "^16.13.0 || ^17.0.0"
   },
   "gitHead": "a17af03c2d02ba85c612e33204db18cddaaa00be"
 }
