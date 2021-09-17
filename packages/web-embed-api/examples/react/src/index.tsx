@@ -23,8 +23,8 @@ const App = () => {
     eventName: string,
     eventProps: { [key: string]: any }
   ) => {
-    setLoggedEvents([
-      ...loggedEvents,
+    setLoggedEvents((events) => [
+      ...events,
       { name: eventName, properties: JSON.stringify(eventProps) },
     ]);
   };
@@ -103,7 +103,7 @@ const App = () => {
           <div>Event Log:</div>
           <ul>
             {loggedEvents.map((event, index) => (
-              <>
+              <div key={event.name}>
                 <li>Event No. ${index + 1}:</li>
                 <ul>
                   <li>
@@ -120,7 +120,7 @@ const App = () => {
                     </pre>
                   </li>
                 </ul>
-              </>
+              </div>
             ))}
           </ul>
         </div>
