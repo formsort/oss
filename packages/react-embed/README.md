@@ -46,12 +46,12 @@ You can add event listeners to flows like `Flowloaded`, `redirect` etc. See [all
 | formsortEnv   | formsort integrations environment label, if not using production                                             | no       | `staging`                                                  |
 | queryParams   | additional query params, to pre-populate answers in the form                                                 | no       | `[['name', 'Olivia']], ['age', '3']]`                      |
 | embedConfig   | config passed to the underlying [`FormsortWebEmbed`](https://github.com/formsort/oss/tree/master/packages/web-embed-api) | no       | `{ style: { height: '100%' } }`                            |
-| Flowloaded    | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowloaded-answers--key-string-any----void)                          | no       | `() => { console.log('flow loaded') }`                     |
-| Flowclosed    | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowclosed-answers--key-string-any---void)                          | no       | `() => { console.log('flow closed') }`                     |
-| Flowfinalized | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowfinalized-answers--key-string-any---void)                       | no       | `() => { console.log('flow finalized') }`                  |
-| StepLoaded | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#steploaded-answers--key-string-any---void)                       | no       | `() => { console.log('step loaded') }`                  |
-| StepCompleted | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#steploaded-answers--key-string-any---void)                       | no       | `() => { console.log('step loaded') }`                  |
-| Redirect      | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#redirect--url-string-answers--key-string-any-----cancel-boolean---undefined)                            | no       | `(url: string) => { console.log('redirecting to:', url) }` |
+| onFlowloaded    | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowloaded-answers--key-string-any----void)                          | no       | `() => { console.log('flow loaded') }`                     |
+| onFlowclosed    | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowclosed-answers--key-string-any---void)                          | no       | `() => { console.log('flow closed') }`                     |
+| onFlowfinalized | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowfinalized-answers--key-string-any---void)                       | no       | `() => { console.log('flow finalized') }`                  |
+| onStepLoaded | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#steploaded-answers--key-string-any---void)                       | no       | `() => { console.log('step loaded') }`                  |
+| onStepCompleted | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#steploaded-answers--key-string-any---void)                       | no       | `() => { console.log('step loaded') }`                  |
+| onRedirect      | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#redirect--url-string-answers--key-string-any-----cancel-boolean---undefined)                            | no       | `(url: string) => { console.log('redirecting to:', url) }` |
 
 ## Testing
 
