@@ -79,7 +79,7 @@ You can listen for this to do things like hide the frame container, or display a
 
 ```ts
 const embed = FormsortWebEmbed(document.body);
-embed.addEventListener('flowloaded', () => {
+embed.addEventListener('FlowLoaded', () => {
   console.log('Flow has loaded!');
 });
 embed.loadFlow('formsort', 'onboarding', 'main');
