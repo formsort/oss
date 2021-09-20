@@ -38,7 +38,7 @@ const App = () => {
           width: 100%;
         `}
       >
-        <h1>Formsort Embed Example</h1>
+        <h1>Formsort React-Embed Example</h1>
         <EmbedFlow
           clientLabel={CLIENT}
           flowLabel={FLOW}
@@ -67,7 +67,11 @@ const App = () => {
             };
           }}
         />
-
+        <div
+          css={css`
+            margin-bottom: 2rem;
+          `}
+        />
         <div>
           <div>Event Log:</div>
           <ul>
