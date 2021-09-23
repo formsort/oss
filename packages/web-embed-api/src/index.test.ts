@@ -476,6 +476,41 @@ describe('FormsortWebEmbed', () => {
     expect(window.location.assign).toBeCalledWith(redirectUrl);
   });
 
+  test('handles redirecting to a URL if no callback returns `{cancel: true}`', async () => {
+    const embed = FormsortWebEmbed(document.body);
+    const iframe = document.body.querySelector('iframe')!;
+
+    const redirectCallback1 = jest.fn(() => ({ cancel: false }));
+    const redirectCallback2 = jest.fn(() => ({}));
+    const redirectCallback3 = jest.fn(() => ({}));
+
+    embed.addEventListener('redirect', redirectCallback1);
+    embed.addEventListener('redirect', redirectCallback2);
+    embed.addEventListener('redirect', redirectCallback3);
+
+    embed.loadFlow(clientLabel, flowLabel);
+
+    const redirectUrl = 'https://example.com';
+    const msg = new MessageEvent('message', {
+      source: iframe.contentWindow,
+      origin: DEFAULT_FLOW_ORIGIN,
+      data: {
+        type: WebEmbedMessage.EMBED_REDIRECT_MSG,
+        payload: redirectUrl,
+      },
+    });
+    mockPostMessage(msg);
+
+    expect(redirectCallback1).toBeCalledTimes(1);
+    expect(redirectCallback1).toBeCalledWith({ url: redirectUrl });
+    expect(redirectCallback2).toBeCalledTimes(1);
+    expect(redirectCallback2).toBeCalledWith({ url: redirectUrl });
+    expect(redirectCallback3).toBeCalledTimes(1);
+    expect(redirectCallback3).toBeCalledWith({ url: redirectUrl });
+    expect(window.location.assign).toBeCalledTimes(1);
+    expect(window.location.assign).toBeCalledWith(redirectUrl);
+  });
+
   test('Cancels redirect if callback returns `cancel: true`', async () => {
     const embed = FormsortWebEmbed(document.body);
     const iframe = document.body.querySelector('iframe')!;
