@@ -113,7 +113,7 @@ const FormsortWebEmbed = (
 
     if (!isEmpty(eventListenersArrayMap.redirect)) {
       let cancelRedirect = false;
-      // Cancel redirect if any of the redirect listeners return `{ cancel:  true }`
+      // Cancel redirect if any of the redirect listeners return `{ cancel: true }`
       for (const redirectListener of eventListenersArrayMap.redirect) {
         const { cancel } = redirectListener({ url, answers }) || {};
         if (!cancelRedirect && cancel) {
