@@ -11,7 +11,7 @@ import {
   isIFrameResizeEventData,
   isIframeAnalyticsEventData,
 } from './typeGuards';
-import { addToArrayMap, isEmpty } from './utils';
+import { addToArrayMap, isEmpty, removeFromArrayMap } from './utils';
 
 const DEFAULT_FLOW_ORIGIN = `https://flow.formsort.com`;
 
@@ -26,6 +26,10 @@ export interface IFormsortWebEmbed {
   addEventListener<K extends keyof IEventMap>(
     eventName: K,
     fn: IEventMap[K]
+  ): void;
+  removeEventListener<K extends keyof IEventMap>(
+    eventName: K,
+    eventListener: IEventMap[K]
   ): void;
 }
 
@@ -242,6 +246,12 @@ const FormsortWebEmbed = (
       fn: IEventMap[K]
     ): void {
       addToArrayMap(eventListenersArrayMap, eventName, fn);
+    },
+    removeEventListener<K extends keyof IEventMap>(
+      eventName: K,
+      eventListener: IEventMap[K]
+    ): void {
+      removeFromArrayMap(eventListenersArrayMap, eventName, eventListener);
     },
   };
 };

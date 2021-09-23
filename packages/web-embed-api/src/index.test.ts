@@ -291,19 +291,21 @@ describe('FormsortWebEmbed', () => {
     expect(flowLoadedSpy).toBeCalledTimes(1);
   });
 
-  test('handles adding multiple event handlers', async () => {
+  test('handles adding and removing event handlers', async () => {
     const embed = FormsortWebEmbed(document.body);
     const iframe = document.body.querySelector('iframe')!;
 
     const flowLoadedSpy1 = jest.fn();
     const flowLoadedSpy2 = jest.fn();
+    const flowLoadedSpy3 = jest.fn();
 
     embed.addEventListener('FlowLoaded', flowLoadedSpy1);
     embed.addEventListener('FlowLoaded', flowLoadedSpy2);
+    embed.addEventListener('FlowLoaded', flowLoadedSpy3);
 
     embed.loadFlow(clientLabel, flowLabel);
 
-    const msg = new MessageEvent('message', {
+    const msg1 = new MessageEvent('message', {
       source: iframe.contentWindow,
       origin: DEFAULT_FLOW_ORIGIN,
       data: {
@@ -312,10 +314,48 @@ describe('FormsortWebEmbed', () => {
         eventType: AnalyticsEventType.FlowLoaded,
       },
     });
-    mockPostMessage(msg);
+    mockPostMessage(msg1);
 
     expect(flowLoadedSpy1).toBeCalledTimes(1);
     expect(flowLoadedSpy2).toBeCalledTimes(1);
+    expect(flowLoadedSpy3).toBeCalledTimes(1);
+
+    // Remove second event listener
+    embed.removeEventListener('FlowLoaded', flowLoadedSpy2);
+    const msg2 = new MessageEvent('message', {
+      source: iframe.contentWindow,
+      origin: DEFAULT_FLOW_ORIGIN,
+      data: {
+        type: WebEmbedMessage.EMBED_EVENT_MSG,
+        createdAt: new Date(),
+        eventType: AnalyticsEventType.FlowLoaded,
+      },
+    });
+    mockPostMessage(msg2);
+    expect(flowLoadedSpy1).toBeCalledTimes(2);
+    // removed listener should not be called again
+    expect(flowLoadedSpy2).toBeCalledTimes(1);
+    expect(flowLoadedSpy3).toBeCalledTimes(2);
+
+    // Remove rest of event listeners
+    embed.removeEventListener('FlowLoaded', flowLoadedSpy1);
+    embed.removeEventListener('FlowLoaded', flowLoadedSpy3);
+
+    embed.removeEventListener('FlowLoaded', flowLoadedSpy2);
+    const msg3 = new MessageEvent('message', {
+      source: iframe.contentWindow,
+      origin: DEFAULT_FLOW_ORIGIN,
+      data: {
+        type: WebEmbedMessage.EMBED_EVENT_MSG,
+        createdAt: new Date(),
+        eventType: AnalyticsEventType.FlowLoaded,
+      },
+    });
+    mockPostMessage(msg3);
+    // removed listeners should not be called again
+    expect(flowLoadedSpy1).toBeCalledTimes(2);
+    expect(flowLoadedSpy2).toBeCalledTimes(1);
+    expect(flowLoadedSpy3).toBeCalledTimes(2);
   });
 
   test('handles flow finalized event', async () => {
