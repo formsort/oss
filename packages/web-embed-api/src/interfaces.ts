@@ -35,7 +35,9 @@ export interface IRedirectEventProps extends IBaseEventProps {
   url: string;
 }
 
-export interface IWebEmbedEventData<Type extends WebEmbedMessage = WebEmbedMessage> {
+export interface IWebEmbedEventData<
+  Type extends WebEmbedMessage = WebEmbedMessage
+> {
   type: Type;
 }
 
@@ -64,3 +66,7 @@ export interface IIFrameResizeEventData
     height?: number;
   };
 }
+
+export type ElementType<T extends unknown[]> = T[number];
+
+export type ArrayMap = Record<string, unknown[]>;

@@ -11,6 +11,7 @@ import {
   isIFrameResizeEventData,
   isIframeAnalyticsEventData,
 } from './typeGuards';
+import { addToArrayMap, isEmpty } from './utils';
 
 const DEFAULT_FLOW_ORIGIN = `https://flow.formsort.com`;
 
@@ -22,7 +23,7 @@ export interface IFormsortWebEmbed {
     queryParams?: Array<[string, string]>
   ) => void;
   setSize: (width: string, height: string) => void;
-  addEventListener<K extends string & keyof IEventMap>(
+  addEventListener<K extends keyof IEventMap>(
     eventName: K,
     fn: IEventMap[K]
   ): void;
@@ -63,20 +64,24 @@ interface IRedirectEventProps extends IBaseEventProps {
 }
 
 export interface IAnalyticsEventMap {
-  FlowLoaded?: (props: IBaseEventProps) => void;
-  FlowClosed?: (props: IBaseEventProps) => void;
-  FlowFinalized?: (props: IBaseEventProps) => void;
-  StepLoaded?: (props: IBaseEventProps) => void;
-  StepCompleted?: (props: IBaseEventProps) => void;
+  FlowLoaded: (props: IBaseEventProps) => void;
+  FlowClosed: (props: IBaseEventProps) => void;
+  FlowFinalized: (props: IBaseEventProps) => void;
+  StepLoaded: (props: IBaseEventProps) => void;
+  StepCompleted: (props: IBaseEventProps) => void;
 }
 
 export interface IEventMap extends IAnalyticsEventMap {
-  redirect?: (
+  redirect: (
     props: IRedirectEventProps
   ) => {
     cancel?: boolean;
   } | void;
 }
+
+export type IEventListenersArrayMap = {
+  [K in keyof IEventMap]: Array<IEventMap[K]>;
+};
 
 const FormsortWebEmbed = (
   rootEl: HTMLElement,
@@ -94,14 +99,29 @@ const FormsortWebEmbed = (
 
   rootEl.appendChild(iframeEl);
 
-  const eventListeners: { [K in keyof IEventMap]?: IEventMap[K] } = {};
+  const eventListenersArrayMap: IEventListenersArrayMap = {
+    FlowLoaded: [],
+    FlowClosed: [],
+    FlowFinalized: [],
+    StepLoaded: [],
+    StepCompleted: [],
+    redirect: [],
+  };
 
   const onRedirectMessage = (redirectData: IIFrameRedirectEventData) => {
     const { payload: url, answers } = redirectData;
 
-    if (eventListeners.redirect) {
-      const { cancel } = eventListeners.redirect({ url, answers }) || {};
-      if (cancel) {
+    if (!isEmpty(eventListenersArrayMap.redirect)) {
+      let cancelRedirect = false;
+      // Cancel redirect if any of the redirect listeners return `{ cancel:  true }`
+      for (const redirectListener of eventListenersArrayMap.redirect) {
+        const { cancel } = redirectListener({ url, answers }) || {};
+        if (!cancelRedirect && cancel) {
+          cancelRedirect = true;
+        }
+      }
+
+      if (cancelRedirect) {
         return;
       }
     }
@@ -162,9 +182,9 @@ const FormsortWebEmbed = (
     }
   };
 
-  const getEventListener = (eventType: AnalyticsEventType) => {
+  const getEventListenerArray = (eventType: AnalyticsEventType) => {
     if (isSupportedEventType(eventType)) {
-      return eventListeners[eventType];
+      return eventListenersArrayMap[eventType];
     }
 
     return undefined;
@@ -178,8 +198,13 @@ const FormsortWebEmbed = (
       rootEl.removeChild(iframeEl);
     }
 
-    const eventListener = getEventListener(eventType);
-    if (eventListener) {
+    const eventListenersArr = getEventListenerArray(eventType);
+
+    if (!eventListenersArr) {
+      return;
+    }
+
+    for (const eventListener of eventListenersArr) {
       eventListener({ answers });
     }
   };
@@ -200,7 +225,10 @@ const FormsortWebEmbed = (
     }
     if (queryParams) {
       url += `?${queryParams
-        .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
+        .map(
+          ([key, value]) =>
+            `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+        )
         .join('&')}`;
     }
     iframeEl.src = url;
@@ -209,11 +237,11 @@ const FormsortWebEmbed = (
   return {
     loadFlow,
     setSize,
-    addEventListener<K extends string & keyof IEventMap>(
+    addEventListener<K extends keyof IEventMap>(
       eventName: K,
       fn: IEventMap[K]
     ): void {
-      eventListeners[eventName] = fn;
+      addToArrayMap(eventListenersArrayMap, eventName, fn);
     },
   };
 };

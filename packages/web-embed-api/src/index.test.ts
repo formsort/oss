@@ -291,6 +291,33 @@ describe('FormsortWebEmbed', () => {
     expect(flowLoadedSpy).toBeCalledTimes(1);
   });
 
+  test('handles adding multiple event handlers', async () => {
+    const embed = FormsortWebEmbed(document.body);
+    const iframe = document.body.querySelector('iframe')!;
+
+    const flowLoadedSpy1 = jest.fn();
+    const flowLoadedSpy2 = jest.fn();
+
+    embed.addEventListener('FlowLoaded', flowLoadedSpy1);
+    embed.addEventListener('FlowLoaded', flowLoadedSpy2);
+
+    embed.loadFlow(clientLabel, flowLabel);
+
+    const msg = new MessageEvent('message', {
+      source: iframe.contentWindow,
+      origin: DEFAULT_FLOW_ORIGIN,
+      data: {
+        type: WebEmbedMessage.EMBED_EVENT_MSG,
+        createdAt: new Date(),
+        eventType: AnalyticsEventType.FlowLoaded,
+      },
+    });
+    mockPostMessage(msg);
+
+    expect(flowLoadedSpy1).toBeCalledTimes(1);
+    expect(flowLoadedSpy2).toBeCalledTimes(1);
+  });
+
   test('handles flow finalized event', async () => {
     const embed = FormsortWebEmbed(document.body);
     const iframe = document.body.querySelector('iframe')!;
@@ -469,6 +496,40 @@ describe('FormsortWebEmbed', () => {
     mockPostMessage(msg);
     expect(redirectCallback).toBeCalledTimes(1);
     expect(redirectCallback).toBeCalledWith({ url: redirectUrl });
+    expect(window.location.assign).not.toHaveBeenCalled();
+  });
+
+  test('Cancels redirect if any callback returns `cancel: true`', async () => {
+    const embed = FormsortWebEmbed(document.body);
+    const iframe = document.body.querySelector('iframe')!;
+
+    const redirectUrl = 'https://example.com';
+    const redirectCallback1 = jest.fn(() => ({ cancel: false }));
+    const redirectCallback2 = jest.fn(() => ({ cancel: true }));
+    const redirectCallback3 = jest.fn(() => ({}));
+
+    embed.addEventListener('redirect', redirectCallback1);
+    embed.addEventListener('redirect', redirectCallback2);
+    embed.addEventListener('redirect', redirectCallback3);
+
+    embed.loadFlow(clientLabel, flowLabel);
+
+    const msg = new MessageEvent('message', {
+      source: iframe.contentWindow,
+      origin: DEFAULT_FLOW_ORIGIN,
+      data: {
+        type: WebEmbedMessage.EMBED_REDIRECT_MSG,
+        payload: redirectUrl,
+      },
+    });
+    mockPostMessage(msg);
+
+    expect(redirectCallback1).toBeCalledTimes(1);
+    expect(redirectCallback1).toBeCalledWith({ url: redirectUrl });
+    expect(redirectCallback2).toBeCalledTimes(1);
+    expect(redirectCallback2).toBeCalledWith({ url: redirectUrl });
+    expect(redirectCallback3).toBeCalledTimes(1);
+    expect(redirectCallback3).toBeCalledWith({ url: redirectUrl });
     expect(window.location.assign).not.toHaveBeenCalled();
   });
 
