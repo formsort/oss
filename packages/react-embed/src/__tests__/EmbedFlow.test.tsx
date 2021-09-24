@@ -14,13 +14,17 @@ describe('EmbedFlow component', () => {
   let loadMock: jest.Mock;
   let embedMock: IFormsortWebEmbed;
   let addEventListenerMock: jest.Mock;
+  let removeEventListenerMock: jest.Mock;
+
   beforeEach(() => {
     loadMock = jest.fn();
     addEventListenerMock = jest.fn();
+    removeEventListenerMock = jest.fn();
     embedMock = {
       loadFlow: loadMock,
       setSize: jest.fn(),
       addEventListener: addEventListenerMock,
+      removeEventListener: removeEventListenerMock,
     };
     mockWebEmbedApi.mockReturnValueOnce(embedMock);
   });
