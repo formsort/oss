@@ -1,10 +1,10 @@
-import { AnalyticsEventType } from '@formsort/constants';
 import {
+  AnalyticsEventType,
   IIFrameAnalyticsEventData,
   IIFrameRedirectEventData,
   IIFrameResizeEventData,
   IFlowAnswers,
-} from './interfaces';
+} from '@formsort/constants';
 import {
   isIWebEmbedEventData,
   isIFrameRedirectEventData,
@@ -59,25 +59,25 @@ const isSupportedEventType = (
 ): eventType is SupportedAnalyticsEvent =>
   supportedAnalyticsEvents.includes(eventType as SupportedAnalyticsEvent);
 
-interface IBaseEventProps {
+interface IBaseEventData {
   answers: IFlowAnswers | undefined;
 }
 
-interface IRedirectEventProps extends IBaseEventProps {
+interface IRedirectEventData extends IBaseEventData {
   url: string;
 }
 
 export interface IAnalyticsEventMap {
-  FlowLoaded: (props: IBaseEventProps) => void;
-  FlowClosed: (props: IBaseEventProps) => void;
-  FlowFinalized: (props: IBaseEventProps) => void;
-  StepLoaded: (props: IBaseEventProps) => void;
-  StepCompleted: (props: IBaseEventProps) => void;
+  FlowLoaded: (props: IBaseEventData) => void;
+  FlowClosed: (props: IBaseEventData) => void;
+  FlowFinalized: (props: IBaseEventData) => void;
+  StepLoaded: (props: IBaseEventData) => void;
+  StepCompleted: (props: IBaseEventData) => void;
 }
 
 export interface IEventMap extends IAnalyticsEventMap {
   redirect: (
-    props: IRedirectEventProps
+    props: IRedirectEventData
   ) => {
     cancel?: boolean;
   } | void;

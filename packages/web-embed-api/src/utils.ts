@@ -1,4 +1,4 @@
-import { ArrayMap, ElementType } from './interfaces';
+import { ArrayMap, ElementType } from '@formsort/constants';
 
 export function addToArrayMap<T extends ArrayMap, K extends keyof T>(
   arrayMap: T,
