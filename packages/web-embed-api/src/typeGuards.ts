@@ -1,10 +1,10 @@
-import { WebEmbedMessage } from '@formsort/constants';
 import {
+  WebEmbedMessage,
   IIFrameAnalyticsEventData,
   IIFrameRedirectEventData,
   IIFrameResizeEventData,
   IWebEmbedEventData,
-} from './interfaces';
+} from '@formsort/constants';
 
 function isRecord(val: unknown): val is { [key: string]: unknown } {
   return val !== null && typeof val === 'object';
