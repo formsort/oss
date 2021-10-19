@@ -1,4 +1,5 @@
 import { AnalyticsEventType, WebEmbedMessage } from '@formsort/constants';
+import { LIB_VERSION } from './version';
 import FormsortWebEmbed, { supportedAnalyticsEvents } from '.';
 
 type MessageListener = (msg: MessageEvent) => any;
@@ -118,7 +119,7 @@ describe('FormsortWebEmbed', () => {
 
     const iframe = iframes[0];
     expect(iframe.src).toBe(
-      `https://flow.formsort.com/client/${clientLabel}/flow/${flowLabel}?libVersion=0`
+      `https://flow.formsort.com/client/${clientLabel}/flow/${flowLabel}?libVersion=${LIB_VERSION}`
     );
   });
 
@@ -134,7 +135,7 @@ describe('FormsortWebEmbed', () => {
 
     const iframe = iframes[0];
     expect(iframe.src).toBe(
-      `${customOrigin}/client/${clientLabel}/flow/${flowLabel}?libVersion=0`
+      `${customOrigin}/client/${clientLabel}/flow/${flowLabel}?libVersion=${LIB_VERSION}`
     );
 
     const flowLoadedSpy = jest.fn();
@@ -163,7 +164,7 @@ describe('FormsortWebEmbed', () => {
     const iframe = iframes[0];
     expect(iframe.src).toBe(
       `https://flow.formsort.com` +
-        `/client/${clientLabel}/flow/${flowLabel}/variant/${variantLabel}?libVersion=0`
+        `/client/${clientLabel}/flow/${flowLabel}/variant/${variantLabel}?libVersion=${LIB_VERSION}`
     );
   });
 
@@ -185,7 +186,7 @@ describe('FormsortWebEmbed', () => {
     expect(iframe.src).toBe(
       `https://flow.formsort.com` +
         `/client/${clientLabel}/flow/${flowLabel}` +
-        `?libVersion=0&${queryParamA}=${queryValueA}&${queryParamB}=${queryValueB}`
+        `?libVersion=${LIB_VERSION}&${queryParamA}=${queryValueA}&${queryParamB}=${queryValueB}`
     );
   });
 
@@ -239,12 +240,12 @@ describe('FormsortWebEmbed', () => {
 
     const firstFlowIframe = iframes[0];
     expect(firstFlowIframe.src).toBe(
-      `https://flow.formsort.com/client/${clientLabel}/flow/${flowLabel}?libVersion=0`
+      `https://flow.formsort.com/client/${clientLabel}/flow/${flowLabel}?libVersion=${LIB_VERSION}`
     );
 
     const secondFlowIframe = iframes[1];
     expect(secondFlowIframe.src).toBe(
-      `https://flow.formsort.com/client/${clientLabel}/flow/${secondFlowLabel}?libVersion=0`
+      `https://flow.formsort.com/client/${clientLabel}/flow/${secondFlowLabel}?libVersion=${LIB_VERSION}`
     );
 
     const firstFlowFinalized = jest.fn();
