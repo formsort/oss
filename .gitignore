@@ -1,2 +1,5 @@
 lerna-debug.log
 node_modules/
+
+# Ignore temp Mac files
+.DS_Store
