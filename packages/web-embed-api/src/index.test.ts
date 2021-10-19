@@ -118,7 +118,7 @@ describe('FormsortWebEmbed', () => {
 
     const iframe = iframes[0];
     expect(iframe.src).toBe(
-      `https://flow.formsort.com/client/${clientLabel}/flow/${flowLabel}`
+      `https://flow.formsort.com/client/${clientLabel}/flow/${flowLabel}?libVersion=0`
     );
   });
 
@@ -134,7 +134,7 @@ describe('FormsortWebEmbed', () => {
 
     const iframe = iframes[0];
     expect(iframe.src).toBe(
-      `${customOrigin}/client/${clientLabel}/flow/${flowLabel}`
+      `${customOrigin}/client/${clientLabel}/flow/${flowLabel}?libVersion=0`
     );
 
     const flowLoadedSpy = jest.fn();
@@ -163,7 +163,7 @@ describe('FormsortWebEmbed', () => {
     const iframe = iframes[0];
     expect(iframe.src).toBe(
       `https://flow.formsort.com` +
-        `/client/${clientLabel}/flow/${flowLabel}/variant/${variantLabel}`
+        `/client/${clientLabel}/flow/${flowLabel}/variant/${variantLabel}?libVersion=0`
     );
   });
 
@@ -185,7 +185,7 @@ describe('FormsortWebEmbed', () => {
     expect(iframe.src).toBe(
       `https://flow.formsort.com` +
         `/client/${clientLabel}/flow/${flowLabel}` +
-        `?${queryParamA}=${queryValueA}&${queryParamB}=${queryValueB}`
+        `?libVersion=0&${queryParamA}=${queryValueA}&${queryParamB}=${queryValueB}`
     );
   });
 
@@ -239,12 +239,12 @@ describe('FormsortWebEmbed', () => {
 
     const firstFlowIframe = iframes[0];
     expect(firstFlowIframe.src).toBe(
-      `https://flow.formsort.com/client/${clientLabel}/flow/${flowLabel}`
+      `https://flow.formsort.com/client/${clientLabel}/flow/${flowLabel}?libVersion=0`
     );
 
     const secondFlowIframe = iframes[1];
     expect(secondFlowIframe.src).toBe(
-      `https://flow.formsort.com/client/${clientLabel}/flow/${secondFlowLabel}`
+      `https://flow.formsort.com/client/${clientLabel}/flow/${secondFlowLabel}?libVersion=0`
     );
 
     const firstFlowFinalized = jest.fn();

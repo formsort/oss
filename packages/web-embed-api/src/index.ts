@@ -12,6 +12,7 @@ import {
   isIframeAnalyticsEventData,
 } from './typeGuards';
 import { addToArrayMap, isEmpty, removeFromArrayMap } from './utils';
+import { LIB_VERSION } from './version';
 
 const DEFAULT_FLOW_ORIGIN = `https://flow.formsort.com`;
 
@@ -227,8 +228,9 @@ const FormsortWebEmbed = (
     if (variantLabel) {
       url += `/variant/${variantLabel}`;
     }
+    url += `?libVersion=${LIB_VERSION}`
     if (queryParams) {
-      url += `?${queryParams
+      url += `&${queryParams
         .map(
           ([key, value]) =>
             `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
