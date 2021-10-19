@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
-    "version": "node -p \"'export const LIB_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
+    "version": "node -p \"'export const LIB_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts && git add src/version.ts",
     "build": "tsc",
     "prepare": "npm run build",
     "prepublishOnly": "npm run lint",
