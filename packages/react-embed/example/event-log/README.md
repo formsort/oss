@@ -4,7 +4,6 @@ The project was bundled with [Parcel](https://parceljs.org/cli.html).
 
 ### Instructions
 
-1. Install the [parcel](https://parceljs.org/cli.html) package bundler: `npm install -g parcel-bundler`
 1. Install dependencies using `npm install` or `yarn`.
 1. Add an `.env` file to the project root with the following variables:
 
