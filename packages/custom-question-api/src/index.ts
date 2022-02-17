@@ -1,7 +1,8 @@
 import { AnswerSemanticType, CustomQuestionMessage } from '@formsort/constants';
 import { getValueFromWindowParent, sendMessageToWindowParent } from './utils';
 
-type AnswerPrimitiveType = number | string | boolean;
+// eslint-disable-next-line @typescript-eslint/ban-types
+type AnswerPrimitiveType = number | string | boolean | object;
 type AnswerType = AnswerPrimitiveType | AnswerPrimitiveType[];
 
 export const setQuestionSize = (width?: number, height?: number) => {
@@ -11,21 +12,25 @@ export const setQuestionSize = (width?: number, height?: number) => {
   });
 };
 
-export const getAnswerValue = () =>
-  getValueFromWindowParent<AnswerType>(
+export const getAnswerValue = <T extends AnswerType = AnswerType>() =>
+  getValueFromWindowParent<T | undefined>(
     CustomQuestionMessage.REQUEST_ANSWER_VALUE_MSG,
     CustomQuestionMessage.SET_ANSWER_VALUE_MSG
   );
 
-export const getSemanticAnswerValue = (semanticType: AnswerSemanticType) =>
-  getValueFromWindowParent<AnswerType>(
+export const getSemanticAnswerValue = <T extends AnswerType = AnswerType>(
+  semanticType: AnswerSemanticType
+) =>
+  getValueFromWindowParent<T>(
     CustomQuestionMessage.REQUEST_SEMANTIC_ANSWER_VALUE_MSG,
     CustomQuestionMessage.SET_SEMANTIC_ANSWER_VALUE_MSG,
     semanticType
   );
 
 export const getAllAnswerValues = () =>
-  getValueFromWindowParent<{ [key: string]: AnswerType }>(
+  getValueFromWindowParent<{
+    [key: string]: AnswerType | undefined;
+  }>(
     CustomQuestionMessage.REQUEST_ANSWERS_MSG,
     CustomQuestionMessage.SET_ANSWERS_MSG
   );
@@ -40,6 +45,6 @@ export const clearAnswerValue = () => {
   sendMessageToWindowParent(CustomQuestionMessage.CLEAR_ANSWER_VALUE_MSG);
 };
 
-export const setAnswerValue = (value: number | string | boolean) => {
+export const setAnswerValue = (value: AnswerType) => {
   sendMessageToWindowParent(CustomQuestionMessage.SET_ANSWER_VALUE_MSG, value);
 };
