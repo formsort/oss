@@ -58,7 +58,7 @@ Optionally, the type of the answer can be defined by passing a generic parameter
 getAnswerValue<string>()
 ```
 
-The type paramater parameter can be  either a number, string, boolean, object, or an array consisting of one of these types. The returned value will still be `undefined` if the answer has not been set.
+The type parameter can be  either a number, string, boolean, object, or an array consisting of one of these types. The returned value will still be `undefined` if the answer has not been set.
 
 ```tsx
 getAllAnswerValues() => Promise<{ [key: string]: any }>
