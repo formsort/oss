@@ -1,0 +1,9 @@
+{
+    "eslint.workingDirectories": [
+      "./packages/constants",
+      "./packages/custom-question-api",
+      "./packages/eslint-config",
+      "./packages/react-embed",
+      "./packages/web-embed-api",
+    ]
+  }
