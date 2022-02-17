@@ -38,8 +38,8 @@ import {
   getSemanticAnswerValue,
   getAllAnswerValues,
   getResponderUuid,
-  setQuestionSize
-} from "@formsort/custom-question-api";
+  setQuestionSize,
+} from '@formsort/custom-question-api';
 ```
 
 ## Documentation
@@ -52,8 +52,16 @@ Returns a promise for the current value of the answer this question is collectin
 
 The result from `getAnswer()` should be used upon initial load: to set the local state of any components for the answer that you are collecting in this question, for the case that the value is already known (for example, the user is returning after a reload, or has reached the step by using the back button).
 
+Optionally, the type of the answer can be defined by passing a generic parameter:
+
 ```tsx
-getAllAnswerValues() => Promise<{ [key: string]: any}>
+getAnswerValue<string>()
+```
+
+The type paramater parameter can be  either a number, string, boolean, object, or an array consisting of one of these types. The returned value will still be `undefined` if the answer has not been set.
+
+```tsx
+getAllAnswerValues() => Promise<{ [key: string]: any }>
 ```
 
 Returns a promise for an object containing _all_ of the answers provided by the receipient thus far in filling out their flow. The keys are the variable names as defined within Formsort.
@@ -65,7 +73,7 @@ getResponderUuid() => Promise<string>
 Get the current responder's UUID. Useful if you need to look something up about this user that isn't within the Formsort answer set.
 
 ```tsx
-setAnswerValue(value: number | string | boolean) => void
+setAnswerValue(value: number | string | boolean | object) => void
 ```
 
 Sets the value for this question's answer. If you have `Can autoadvance` checked within the Formsort studio settings for this question and this is the last remaining question within the step, the flow will advance to the next step.
@@ -94,7 +102,7 @@ getResponderUuid() => Promise<string>
 
 Get the current responder's UUID. Useful if you need to look something up about this user that isn't within the Formsort answer set.
 
-```
+```tsx
 setQuestionSize(width?: number, height?: number) => void
 ```
 
@@ -105,14 +113,14 @@ To avoid jumpiness, if you know the size of your component beforehand, it's best
 For example, if you implement your custom question as a React component, you may want to measure the component once it's rendered and tell Formsort its height and width:
 
 ```tsx
-import React, { useEffect, useRef } from "react";
-import { setQuestionSize } from "@formsort/custom-question-api";
+import React, { useEffect, useRef } from 'react';
+import { setQuestionSize } from '@formsort/custom-question-api';
 
 const MyCustomComponent = () => {
   const containerElRef = useRef<HTMLDivElement>();
 
   useEffect(() => {
-    const containerEl = this.containerElRef.current;
+    const containerEl = containerElRef.current;
     if (!containerEl) {
       return;
     }
@@ -130,8 +138,8 @@ const MyCustomComponent = () => {
 Alternatively, written as a class component:
 
 ```tsx
-import * as React from "react";
-import { setQuestionSize } from "@formsort/custom-question-api";
+import * as React from 'react';
+import { setQuestionSize } from '@formsort/custom-question-api';
 
 class MyCustomComponent extends React.Component {
   private containerElRef: React.RefObject<HTMLDivElement>;
