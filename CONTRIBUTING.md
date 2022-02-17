@@ -30,7 +30,7 @@ Now, you can edit across packages. Commit your changes when you are happy.
 To publish, run:
 
 ```
-npm run publish
+lerna publish
 ```
 
 This will guide you through choosing a new version of each of the changed packages, and update dependency versions within the package.jsons and publish to npm when done.
