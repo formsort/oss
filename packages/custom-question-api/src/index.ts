@@ -5,7 +5,10 @@ import { getValueFromWindowParent, sendMessageToWindowParent } from './utils';
 type AnswerPrimitiveType = number | string | boolean | object;
 type AnswerType = AnswerPrimitiveType | AnswerPrimitiveType[];
 
-export const setQuestionSize = (width?: number, height?: number) => {
+export const setQuestionSize = (
+  width?: number | string,
+  height?: number | string
+) => {
   sendMessageToWindowParent(CustomQuestionMessage.SET_QUESTION_SIZE_MSG, {
     width,
     height,
