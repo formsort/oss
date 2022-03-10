@@ -34,8 +34,8 @@ interface IFormsortWebEmbedConfig {
     width?: CSSStyleDeclaration['width'];
     height?: CSSStyleDeclaration['height'];
   };
-  authentication: {
-    idToken: string; // ID Token for authenticated flows
+  authentication?: {
+    idToken?: string; // ID Token for authenticated flows
   };
 }
 ```
