@@ -8,13 +8,6 @@ on:
 
 jobs:
   test:
-    strategy:
-      matrix:
-        package:
-          - web-embed-api
-          - react-embed
-          - constants
-
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -32,7 +25,14 @@ jobs:
         shell: bash
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile --production false
-      - working-directory: packages/${{ matrix.package }}
-        run: yarn build
-      - working-directory: packages/${{ matrix.package }}
-        run: yarn test
+      # Instead of a build matrix we use a for loop in a bash script
+      # because these libraries need to be built for ts type definitions
+      # to be usable and the depend on each other.
+      # TODO(byk): Make these work independently of build order
+      - run: |
+          packages=(web-embed-api react-embed constants)
+          for package in "${packages[@]}"; do
+            cd "${{ github.workdir }}/packages/$package"
+            yarn build
+            yarn test
+          done;
