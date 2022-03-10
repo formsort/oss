@@ -33,12 +33,18 @@ export interface IFormsortWebEmbed {
   ): void;
 }
 
+interface IAuthenticationConfig {
+  idToken: string;
+}
+
 export interface IFormsortWebEmbedConfig {
   useHistoryAPI?: boolean;
   autoHeight?: boolean;
   style?: Partial<Pick<CSSStyleDeclaration, 'width' | 'height'>>;
   origin?: string;
+  authentication?: IAuthenticationConfig;
 }
+
 const DEFAULT_CONFIG: IFormsortWebEmbedConfig = {
   useHistoryAPI: false,
   origin: DEFAULT_FLOW_ORIGIN,
