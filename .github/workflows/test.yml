@@ -31,7 +31,7 @@ jobs:
         shell: bash
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile --production false
-      - working-directory: packages/${{ matrix.package }}
+      - working-directory: ${{ github.workspace }}/packages/${{ matrix.package }}
         run: yarn build
-      - working-directory: packages/${{ matrix.package }}
+      - working-directory: ${{ github.workspace }}/packages/${{ matrix.package }}
         run: yarn test
