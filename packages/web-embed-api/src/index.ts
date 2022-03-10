@@ -3,13 +3,18 @@ import {
   IIFrameAnalyticsEventData,
   IIFrameRedirectEventData,
   IIFrameResizeEventData,
+  IIFrameTokenRequestEventData,
   IFlowAnswers,
+  TokenRequestPayload,
+  WebEmbedMessage,
 } from '@formsort/constants';
+import { getMessageSender } from './iframe-utils';
 import {
   isIWebEmbedEventData,
   isIFrameRedirectEventData,
   isIFrameResizeEventData,
-  isIframeAnalyticsEventData,
+  isIFrameAnalyticsEventData,
+  isIFrameTokenRequestEventData,
 } from './typeGuards';
 import { addToArrayMap, isEmpty, removeFromArrayMap } from './utils';
 
@@ -33,12 +38,18 @@ export interface IFormsortWebEmbed {
   ): void;
 }
 
+interface IAuthenticationConfig {
+  idToken: string;
+}
+
 export interface IFormsortWebEmbedConfig {
   useHistoryAPI?: boolean;
   autoHeight?: boolean;
   style?: Partial<Pick<CSSStyleDeclaration, 'width' | 'height'>>;
   origin?: string;
+  authentication?: IAuthenticationConfig;
 }
+
 const DEFAULT_CONFIG: IFormsortWebEmbedConfig = {
   useHistoryAPI: false,
   origin: DEFAULT_FLOW_ORIGIN,
@@ -102,6 +113,7 @@ const FormsortWebEmbed = (
   }
 
   rootEl.appendChild(iframeEl);
+  const sendMessage = getMessageSender(iframeEl);
 
   const eventListenersArrayMap: IEventListenersArrayMap = {
     FlowLoaded: [],
@@ -111,6 +123,21 @@ const FormsortWebEmbed = (
     StepCompleted: [],
     redirect: [],
   };
+
+  const onTokenRequest = (data: IIFrameTokenRequestEventData) => {
+    const { payload } = data;
+
+    if (payload === TokenRequestPayload.ID) {
+      if (config.authentication?.idToken) {
+        sendMessage({
+          type: WebEmbedMessage.EMBED_TOKEN_RESPONSE_MSG,
+          payload: { token: config.authentication.idToken }
+        });
+      } else {
+        throw new Error(`The loaded Flow requires authentication using an ID token, please provide it in config.authentication.idToken.`)
+      }
+    }
+  }
 
   const onRedirectMessage = (redirectData: IIFrameRedirectEventData) => {
     const { payload: url, answers } = redirectData;
@@ -151,7 +178,7 @@ const FormsortWebEmbed = (
   const onWindowMessage = (message: MessageEvent) => {
     const { origin: msgOrigin, source, data } = message;
     if (source !== iframeEl.contentWindow) {
-      // If we have multiple formsorts within a page, only listen to events coming
+      // If we have multiple Formsort instances within a page, only listen to events coming
       // from the iframe that this embed instance controls.
       return;
     }
@@ -164,8 +191,10 @@ const FormsortWebEmbed = (
       return;
     }
 
-    if (isIframeAnalyticsEventData(data)) {
+    if (isIFrameAnalyticsEventData(data)) {
       onEventMessage(data);
+    } else if (isIFrameTokenRequestEventData(data)) {
+      onTokenRequest(data);
     } else if (isIFrameRedirectEventData(data)) {
       onRedirectMessage(data);
     } else if (isIFrameResizeEventData(data) && autoHeight) {
