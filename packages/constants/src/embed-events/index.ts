@@ -20,6 +20,24 @@ export interface IIFrameAnalyticsEventData
   eventType: AnalyticsEventType;
 }
 
+export enum TokenRequestPayload {
+  ID = 'ID'
+}
+
+export interface IIFrameTokenRequestEventData
+  extends IWebEmbedEventData<WebEmbedMessage.EMBED_TOKEN_REQUEST_MSG> {
+  payload: TokenRequestPayload;
+}
+
+export interface TokenResponsePayload {
+  token: string;
+};
+
+export interface IIFrameTokenResponseMessage {
+  type: WebEmbedMessage.EMBED_TOKEN_RESPONSE_MSG
+  payload: TokenResponsePayload
+}
+
 export interface IIFrameRedirectEventData
   extends IWebEmbedEventData<WebEmbedMessage.EMBED_REDIRECT_MSG> {
   payload: string;
@@ -32,3 +50,5 @@ export interface IIFrameResizeEventData
     height?: number;
   };
 }
+
+export type IIFramePushMessage = IIFrameTokenResponseMessage;
