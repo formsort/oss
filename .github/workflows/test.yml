@@ -29,7 +29,8 @@ jobs:
       # because these libraries need to be built for ts type definitions
       # to be usable and the depend on each other.
       # TODO(byk): Make these work independently of build order
-      - run: |
+      - name: Build & Test in order
+        run: |
           packages=(web-embed-api react-embed constants)
           for package in "${packages[@]}"; do
             cd "${{ github.workdir }}/packages/$package"
