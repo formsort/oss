@@ -34,6 +34,9 @@ interface IFormsortWebEmbedConfig {
     width?: CSSStyleDeclaration['width'];
     height?: CSSStyleDeclaration['height'];
   };
+  authentication: {
+    idToken: string; // ID Token for authenticated flows
+  };
 }
 ```
 
@@ -45,7 +48,9 @@ interface IFormsortWebEmbedConfig {
 
 - `autoHeight`: Should the embedding `<iframe>` resize so that it matches the content of the currently loaded flow?
 
-- `style` CSS properties to be applied to the iframe container.
+- `style`: CSS properties to be applied to the iframe container.
+
+- `authentication.idToken`: When the Flow requires an ID token, this can be used to provide it.
 
 ### `loadFlow(clientLabel: string, flowLabel: string, variantLabel?: string, queryParams?: Array<[string, string]>) => void`
 
