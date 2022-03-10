@@ -33,7 +33,7 @@ jobs:
         run: |
           packages=(web-embed-api react-embed constants)
           for package in "${packages[@]}"; do
-            cd "${{ github.workdir }}/packages/$package"
+            cd "${{ github.workspace }}/packages/$package"
             yarn build
             yarn test
           done;
