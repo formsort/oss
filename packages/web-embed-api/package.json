@@ -1,6 +1,6 @@
 {
   "name": "@formsort/web-embed-api",
-  "version": "2.1.0",
+  "version": "2.0.3",
   "description": "Embed Formsort flows within other webpages",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -44,6 +44,6 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@formsort/constants": "^1.5.0"
+    "@formsort/constants": "^1.4.0"
   }
 }
