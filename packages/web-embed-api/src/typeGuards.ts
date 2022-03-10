@@ -1,6 +1,7 @@
 import {
   WebEmbedMessage,
   IIFrameAnalyticsEventData,
+  IIFrameTokenRequestEventData,
   IIFrameRedirectEventData,
   IIFrameResizeEventData,
   IWebEmbedEventData,
@@ -39,10 +40,16 @@ export function isIWebEmbedEventData(val: unknown): val is IWebEmbedEventData {
  * on the given value.
  */
 
-export function isIframeAnalyticsEventData(
+export function isIFrameAnalyticsEventData(
   data: IWebEmbedEventData
 ): data is IIFrameAnalyticsEventData {
   return data.type === WebEmbedMessage.EMBED_EVENT_MSG;
+}
+
+export function isIFrameTokenRequestEventData(
+  data: IWebEmbedEventData
+): data is IIFrameTokenRequestEventData {
+  return data.type === WebEmbedMessage.EMBED_TOKEN_REQUEST_MSG;
 }
 
 export function isIFrameRedirectEventData(
