@@ -1,4 +1,5 @@
 {
+  "cacheDirectory": "./.jest-cache",
   "transform": {
     "^.+\\.(t|j)sx?$": "ts-jest"
   },

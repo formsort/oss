@@ -14,34 +14,27 @@ Shared ESLint configuration for use across all projects.
 
 Shared tsconfig for use across all projects.
 
-# Editing packages
+## Editing packages
 
-First, bootstrap Lerna. In the root, run:
+First, install all the dependencies (using [Volta](https://volta.sh/) is highly recommended):
 
-```
-npm install
-npm run bootstrap
+```shell
+yarn install
 ```
 
 This will install all the dependencies of the sub packages, and also creates symlinks between references within this repository.
 
 Now, you can edit across packages. Commit your changes when you are happy.
 
-To publish, run:
+To publish, you need to run `yarn publish` in each repo.
 
-```
-lerna publish
-```
+## Adding packages
 
-This will guide you through choosing a new version of each of the changed packages, and update dependency versions within the package.jsons and publish to npm when done.
+Create a folder in `/packages` and initialize a project there (`yarn init`).
 
-# Adding packages
+To allow the project to be public on npm registry, specify the following in the `package.json`:
 
-Create a folder in `/packages` and initialize an npm project there (`npm init`).
-
-To allow the project to be public on NPM, specify the following in the `package.json`:
-
-```
+```json
 "publishConfig": {
   "access": "public"
 }

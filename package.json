@@ -1,11 +1,16 @@
 {
   "name": "root",
   "private": true,
-  "devDependencies": {
-    "husky": "^6.0.0",
-    "lerna": "^4.0.0"
+  "volta": {
+    "node": "16.13.2",
+    "yarn": "1.22.17"
   },
-  "scripts": {
-    "bootstrap": "lerna bootstrap"
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "devDependencies": {
+    "husky": "^6.0.0"
   }
 }
