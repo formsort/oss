@@ -17,6 +17,7 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: volta-cli/action@v1
       - uses: actions/cache@v2
         id: cache
@@ -31,7 +32,7 @@ jobs:
         shell: bash
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile --production false
-      - working-directory: ${{ github.workspace }}/packages/${{ matrix.package }}
+      - working-directory: packages/${{ matrix.package }}
         run: yarn build
-      - working-directory: ${{ github.workspace }}/packages/${{ matrix.package }}
+      - working-directory: packages/${{ matrix.package }}
         run: yarn test
