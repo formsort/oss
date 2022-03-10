@@ -31,7 +31,7 @@ jobs:
       # TODO(byk): Make these work independently of build order
       - name: Build & Test in order
         run: |
-          packages=(web-embed-api react-embed constants)
+          packages=(constants web-embed-api react-embed)
           for package in "${packages[@]}"; do
             cd "${{ github.workspace }}/packages/$package"
             yarn build
