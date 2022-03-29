@@ -4,7 +4,8 @@
   "description": "Formsort tsconfig for use across all projects",
   "main": "tsconfig.json",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "echo built",
+    "test": "echo pass"
   },
   "repository": {
     "type": "git",

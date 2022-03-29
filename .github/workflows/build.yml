@@ -1,4 +1,4 @@
-name: Test
+name: Build
 
 on:
   push:
@@ -31,9 +31,18 @@ jobs:
       # TODO(byk): Make these work independently of build order
       - name: Build & Test in order
         run: |
-          packages=(constants web-embed-api react-embed)
+          packages=(constants eslint-config tsconfig custom-question-api web-embed-api react-embed)
           for package in "${packages[@]}"; do
             cd "${{ github.workspace }}/packages/$package"
             yarn build
             yarn test
+            yarn pack
           done;
+      - name: Archive Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ github.sha }}
+          if-no-files-found: error
+          path: |
+            ${{ github.workspace }}/packages/**/*.tgz
+            !node_modules/**/*

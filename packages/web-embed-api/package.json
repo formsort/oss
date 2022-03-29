@@ -8,11 +8,8 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "build": "tsc",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm run lint",
-    "preversion": "npm run lint",
-    "format": "eslint -c .eslintrc.js --ext .ts,.tsx src --fix",
-    "lint": "eslint -c .eslintrc.js --ext .ts,.tsx src",
+    "format": "eslint --ext .ts,.tsx src --fix",
+    "lint": "eslint --ext .ts,.tsx src",
     "pretty-check": "prettier --check src"
   },
   "repository": {
@@ -45,5 +42,19 @@
   },
   "dependencies": {
     "@formsort/constants": "^1.6.0"
+  },
+  "jest": {
+    "cacheDirectory": "./.jest-cache",
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.+(ts|tsx|js)",
+      "**/?(*.)+(spec|test).+(ts|tsx|js)"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "testEnvironment": "jsdom"
   }
 }

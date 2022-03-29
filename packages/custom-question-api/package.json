@@ -6,16 +6,11 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "format": "eslint -c .eslintrc.js --ext .ts,.tsx src --fix",
-    "lint": "eslint -c .eslintrc.js --ext .ts,.tsx src",
-    "pretty-check": "prettier --check src",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm run lint",
-    "preversion": "npm run lint",
-    "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags"
+    "format": "eslint --ext .ts,.tsx src --fix",
+    "lint": "eslint --ext .ts,.tsx src",
+    "test": "yarn lint",
+    "pretty-check": "prettier --check src"
   },
-  "prepare": "npm run build",
   "files": [
     "lib/**/*"
   ],

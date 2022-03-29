@@ -19,14 +19,12 @@ Shared tsconfig for use across all projects.
 First, install all the dependencies (using [Volta](https://volta.sh/) is highly recommended):
 
 ```shell
-yarn install
+yarn install --frozen-lockfile
 ```
 
 This will install all the dependencies of the sub packages, and also creates symlinks between references within this repository.
 
 Now, you can edit across packages. Commit your changes when you are happy.
-
-To publish, you need to run `yarn publish` in each repo.
 
 ## Adding packages
 

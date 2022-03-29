@@ -1,0 +1,23 @@
+minVersion: '0.30.1'
+changelogPolicy: auto
+preReleaseCommand: >-
+  node -p "
+    const {execSync} = require('child_process');
+    const packages = Object.values(JSON.parse(execSync('yarn -s workspaces info'))).map(({ location }) => location);
+    packages.map(
+      package => execSync(`yarn --no-git-tag-version version --new-version \${process.env.CRAFT_NEW_VERSION}`, {cwd: package}).toString()
+    ).join('\n');
+  "
+postReleaseCommand: >-
+  node -p "
+    const {execSync} = require('child_process');
+    const packages = Object.values(JSON.parse(execSync('yarn -s workspaces info'))).map(({ location }) => location);
+    for (const package of packages)
+      execSync('yarn --no-git-tag-version version --preminor --preid=dev', {cwd: package});
+
+    execSync('git diff --quiet || git commit -anm \'meta: Bump new development version\\n\\n#skip-changelog\' && git pull --rebase && git push').toString();"
+requireNames:
+  - /^formsort-.+\.tgz$/
+targets:
+  - name: npm
+  - name: github

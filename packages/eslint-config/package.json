@@ -6,6 +6,10 @@
     "access": "public"
   },
   "main": "index.js",
+  "scripts": {
+    "build": "echo built",
+    "test": "echo pass"
+  },
   "dependencies": {
     "@typescript-eslint/parser": "^4.11.0",
     "eslint": "^7.16.0",
@@ -21,6 +25,5 @@
     "prettier": "^2.2.1"
   },
   "author": "Fil Zembowicz <fil@formsort.com>",
-  "license": "MIT",
-  "gitHead": "743aeeb98a0c2f61e3cce8cbf2ca21679523f6d8"
+  "license": "MIT"
 }

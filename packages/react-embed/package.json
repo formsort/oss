@@ -9,15 +9,10 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "jest --config jestconfig.json",
-    "format": "eslint -c .eslintrc.js --ext .ts,.tsx src --fix",
-    "lint": "eslint -c .eslintrc.js --ext .ts,.tsx src",
-    "pretty-check": "prettier --check src",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test && npm run lint",
-    "preversion": "npm test && npm run lint",
-    "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags"
+    "test": "jest",
+    "format": "eslint --ext .ts,.tsx src --fix",
+    "lint": "eslint --ext .ts,.tsx src",
+    "pretty-check": "prettier --check src"
   },
   "repository": {
     "type": "git",
@@ -61,5 +56,18 @@
   "peerDependencies": {
     "react": "^16.13.0 || ^17.0.0"
   },
-  "gitHead": "a17af03c2d02ba85c612e33204db18cddaaa00be"
+  "jest": {
+    "cacheDirectory": "./.jest-cache",
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.+(ts|tsx|js)",
+      "**/?(*.)+(spec|test).+(ts|tsx|js)"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "testEnvironment": "jsdom"
+  }
 }
