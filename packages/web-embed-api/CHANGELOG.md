@@ -1,3 +1,7 @@
+# 2.2.0
+
+- Add `unauthorized` event listeners.
+
 # 2.0.2
 
 - `addEventListener` now has the correct behavior of _adding_ a new listener, rather than replacing any existing listener.
