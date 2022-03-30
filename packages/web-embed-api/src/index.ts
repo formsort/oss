@@ -15,6 +15,7 @@ import {
   isIFrameResizeEventData,
   isIFrameAnalyticsEventData,
   isIFrameTokenRequestEventData,
+  isIFrameUnauthorizedEventData,
 } from './typeGuards';
 import { addToArrayMap, isEmpty, removeFromArrayMap } from './utils';
 
@@ -92,6 +93,7 @@ export interface IEventMap extends IAnalyticsEventMap {
   ) => {
     cancel?: boolean;
   } | void;
+  unauthorized: () => void;
 }
 
 export type IEventListenersArrayMap = {
@@ -122,6 +124,7 @@ const FormsortWebEmbed = (
     StepLoaded: [],
     StepCompleted: [],
     redirect: [],
+    unauthorized: [],
   };
 
   const onTokenRequest = (data: IIFrameTokenRequestEventData) => {
@@ -168,6 +171,14 @@ const FormsortWebEmbed = (
     }
   };
 
+  const onUnauthorizedMessage = () => {
+    if (!isEmpty(eventListenersArrayMap.unauthorized)) {
+      for (const unathorizedListener of eventListenersArrayMap.unauthorized) {
+        unathorizedListener();
+      }
+    }
+  }
+
   const onResizeMessage = (data: IIFrameResizeEventData) => {
     const { width, height } = data.payload;
     setSize(width, height);
@@ -199,6 +210,8 @@ const FormsortWebEmbed = (
       onRedirectMessage(data);
     } else if (isIFrameResizeEventData(data) && autoHeight) {
       onResizeMessage(data);
+    } else if (isIFrameUnauthorizedEventData(data)) {
+      onUnauthorizedMessage();
     }
   };
 

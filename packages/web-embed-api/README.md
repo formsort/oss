@@ -126,6 +126,12 @@ If the callback does not return a value, Formsort will handle the redirect as us
 
 This is helpful if you're embedding Formsort within a single-page app that has custom URL route handling.
 
+#### unauthorized `() => void`
+
+Set a callback for unauthorized Formsort messages.
+
+This callback is used when the Formsort Flow is authenticated but the ID token is missing or invalid.
+
 ## Development
 
 By default, the web embed accesses the production formsort servers. If you would like to point to another flow server, set `origin` in the config to the correct base URL, for example:
