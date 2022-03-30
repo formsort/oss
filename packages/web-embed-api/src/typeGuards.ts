@@ -63,3 +63,9 @@ export function isIFrameResizeEventData(
 ): data is IIFrameResizeEventData {
   return data.type === WebEmbedMessage.EMBED_RESIZE_MSG;
 }
+
+export function isIFrameUnauthorizedEventData(
+  data: IWebEmbedEventData
+): data is IIFrameResizeEventData {
+  return data.type === WebEmbedMessage.EMBED_UNAUTHORIZED_MSG;
+}
