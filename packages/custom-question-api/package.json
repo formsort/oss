@@ -8,8 +8,7 @@
     "build": "tsc",
     "format": "eslint --ext .ts,.tsx src --fix",
     "lint": "eslint --ext .ts,.tsx src",
-    "test": "yarn lint",
-    "pretty-check": "prettier --check src"
+    "test": "yarn lint"
   },
   "files": [
     "lib/**/*"

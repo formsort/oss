@@ -31,7 +31,7 @@ export interface IIFrameTokenRequestEventData
 
 export interface TokenResponsePayload {
   token: string;
-};
+}
 
 export interface IIFrameTokenResponseMessage {
   type: WebEmbedMessage.EMBED_TOKEN_RESPONSE_MSG

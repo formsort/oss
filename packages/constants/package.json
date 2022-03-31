@@ -8,6 +8,8 @@
   },
   "scripts": {
     "build": "tsc",
+    "format": "eslint --ext .ts,.tsx src --fix",
+    "lint": "eslint --ext .ts,.tsx src",
     "test": "jest"
   },
   "files": [

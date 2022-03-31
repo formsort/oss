@@ -11,8 +11,7 @@
     "build": "tsc",
     "test": "jest",
     "format": "eslint --ext .ts,.tsx src --fix",
-    "lint": "eslint --ext .ts,.tsx src",
-    "pretty-check": "prettier --check src"
+    "lint": "eslint --ext .ts,.tsx src"
   },
   "repository": {
     "type": "git",

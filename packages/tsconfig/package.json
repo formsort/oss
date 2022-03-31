@@ -5,7 +5,9 @@
   "main": "tsconfig.json",
   "scripts": {
     "build": "echo built",
-    "test": "echo pass"
+    "test": "echo pass",
+    "format": "eslint --ext .js,.json . --fix",
+    "lint": "eslint --ext .js,.json ."
   },
   "repository": {
     "type": "git",
