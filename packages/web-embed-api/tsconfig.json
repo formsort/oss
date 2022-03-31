@@ -1,15 +1,12 @@
 {
+  "extends": "@formsort/tsconfig",
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
     "declaration": true,
     "outDir": "./lib",
-    "strict": true
+    "rootDir": "src",
+    "strict": true,
+    "types": ["jest"],
+    "lib": ["ES2019", "DOM"]
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "**/__tests__/*"]
+  "include": ["src/**/*.ts", "**/__tests__/*"]
 }

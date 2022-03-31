@@ -37,7 +37,7 @@ export const getValueFromWindowParent: <T>(
   return new Promise((resolve) => {
     const onMessage = (value: any, returningRequestId?: string) => {
       if (requestId === returningRequestId) {
-        resolve(value);
+        resolve(value); // eslint-disable-line @typescript-eslint/no-unsafe-argument
         getEmitter().removeListener(responseEventType, onMessage);
       }
     };

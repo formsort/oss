@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import EmbedFlow from '@formsort/react-embed';
-import React, { Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 import ReactDom from 'react-dom';
 
 const FORMSORT_ORIGIN =
@@ -76,7 +76,7 @@ const App = () => {
           <div>Event Log:</div>
           <ul>
             {loggedEvents.map((event, index) => (
-              <div key={event.name + index}>
+              <div key={event.name + index.toString()}>
                 <li>Event No. {index + 1}:</li>
                 <ul>
                   <li>

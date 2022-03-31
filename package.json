@@ -7,11 +7,16 @@
   },
   "workspaces": {
     "packages": [
-      "packages/*"
+      "packages/*",
+      "packages/*/examples/*"
     ]
   },
   "devDependencies": {
     "husky": "^6.0.0"
+  },
+  "scripts": {
+    "lint": "eslint . --ext .ts,.tsx,.js --cache --cache-strategy content",
+    "format": "eslint . --ext .ts,.tsx,.js --cache --cache-strategy content --fix"
   },
   "version": "0.0.0"
 }

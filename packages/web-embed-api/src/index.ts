@@ -62,14 +62,14 @@ export const supportedAnalyticsEvents = [
   AnalyticsEventType.FlowFinalized,
   AnalyticsEventType.StepLoaded,
   AnalyticsEventType.StepCompleted,
-] as const;
+];
 
 type SupportedAnalyticsEvent = typeof supportedAnalyticsEvents[number];
 
 const isSupportedEventType = (
   eventType: AnalyticsEventType
 ): eventType is SupportedAnalyticsEvent =>
-  supportedAnalyticsEvents.includes(eventType as SupportedAnalyticsEvent);
+  supportedAnalyticsEvents.includes(eventType);
 
 interface IBaseEventData {
   answers: IFlowAnswers | undefined;
@@ -79,18 +79,18 @@ interface IRedirectEventData extends IBaseEventData {
   url: string;
 }
 
+export type IEventListener = (props: IBaseEventData) => void;
+
 export interface IAnalyticsEventMap {
-  FlowLoaded: (props: IBaseEventData) => void;
-  FlowClosed: (props: IBaseEventData) => void;
-  FlowFinalized: (props: IBaseEventData) => void;
-  StepLoaded: (props: IBaseEventData) => void;
-  StepCompleted: (props: IBaseEventData) => void;
+  FlowLoaded: IEventListener;
+  FlowClosed: IEventListener;
+  FlowFinalized: IEventListener;
+  StepLoaded: IEventListener;
+  StepCompleted: IEventListener;
 }
 
 export interface IEventMap extends IAnalyticsEventMap {
-  redirect: (
-    props: IRedirectEventData
-  ) => {
+  redirect: (props: IRedirectEventData) => {
     cancel?: boolean;
   } | void;
   unauthorized: () => void;
@@ -134,13 +134,15 @@ const FormsortWebEmbed = (
       if (config.authentication?.idToken) {
         sendMessage({
           type: WebEmbedMessage.EMBED_TOKEN_RESPONSE_MSG,
-          payload: { token: config.authentication.idToken }
+          payload: { token: config.authentication.idToken },
         });
       } else {
-        throw new Error(`The loaded Flow requires authentication using an ID token, please provide it in config.authentication.idToken.`)
+        throw new Error(
+          `The loaded Flow requires authentication using an ID token, please provide it in config.authentication.idToken.`
+        );
       }
     }
-  }
+  };
 
   const onRedirectMessage = (redirectData: IIFrameRedirectEventData) => {
     const { payload: url, answers } = redirectData;
@@ -177,7 +179,7 @@ const FormsortWebEmbed = (
         unathorizedListener();
       }
     }
-  }
+  };
 
   const onResizeMessage = (data: IIFrameResizeEventData) => {
     const { width, height } = data.payload;
@@ -228,9 +230,11 @@ const FormsortWebEmbed = (
     }
   };
 
-  const getEventListenerArray = (eventType: AnalyticsEventType) => {
+  const getEventListenerArray = (
+    eventType: AnalyticsEventType
+  ): IEventListener[] | undefined => {
     if (isSupportedEventType(eventType)) {
-      return eventListenersArrayMap[eventType];
+      return eventListenersArrayMap[eventType] as IEventListener[];
     }
 
     return undefined;

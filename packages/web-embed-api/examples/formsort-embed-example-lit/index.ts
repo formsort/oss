@@ -15,6 +15,7 @@ interface LoggedEvent {
 }
 
 @customElement('root-element')
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class RootElement extends LitElement {
   static styles = css`
     .container {

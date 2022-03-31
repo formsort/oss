@@ -32,27 +32,25 @@ export interface IReactEmbedEventMap {
 
 export type EmbedFlowProps = ILoadProps & IReactEmbedEventMap;
 
-export const eventMapping: Record<
-  keyof IReactEmbedEventMap,
-  keyof IEventMap
-> = {
-  onRedirect: 'redirect',
-  onFlowLoaded: 'FlowLoaded',
-  onFlowClosed: 'FlowClosed',
-  onFlowFinalized: 'FlowFinalized',
-  onStepLoaded: 'StepLoaded',
-  onStepCompleted: 'StepCompleted',
-};
+export const eventMapping: Record<keyof IReactEmbedEventMap, keyof IEventMap> =
+  {
+    onRedirect: 'redirect',
+    onFlowLoaded: 'FlowLoaded',
+    onFlowClosed: 'FlowClosed',
+    onFlowFinalized: 'FlowFinalized',
+    onStepLoaded: 'StepLoaded',
+    onStepCompleted: 'StepCompleted',
+  };
 
 const attachEventListenersToEmbed = (
   embed: IFormsortWebEmbed,
   events: IReactEmbedEventMap
 ): void => {
-  Object.entries(events).forEach(([reactEventName, listener]) => {
+  for (const [reactEventName, listener] of Object.entries(events)) {
     const embedEventName =
       eventMapping[reactEventName as keyof IReactEmbedEventMap];
-    embed.addEventListener(embedEventName, listener);
-  });
+    embed.addEventListener<typeof listener>(embedEventName, listener);
+  }
 };
 
 const onMount = (
