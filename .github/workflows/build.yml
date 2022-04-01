@@ -34,8 +34,8 @@ jobs:
       # TODO(byk): Streamline this a bit and run the rest of the build in parallel
       - name: Build prerequisites first
         run: |
-          yarn workspace run @formsort/constants build
-          yarn workspace run @formsort/web-embed-api build
+          yarn workspace @formsort/constants run build
+          yarn workspace @formsort/web-embed-api run build
       - name: Lint
         run: yarn lint
       - name: Build
