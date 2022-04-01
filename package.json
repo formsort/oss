@@ -14,9 +14,6 @@
   "resolutions": {
     "tslib": ">=1.10.0"
   },
-  "devDependencies": {
-    "husky": "^6.0.0"
-  },
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx,.js --cache --cache-strategy content",
     "format": "yarn lint --fix",
