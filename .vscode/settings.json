@@ -7,6 +7,6 @@
     "./packages/web-embed-api"
   ],
   "yaml.schemas": {
-    "https://json.schemastore.org/github-workflow.json": "file:///c%3A/Users/byk/Projects/formsort/oss/.github/workflows/build.yml"
+    "https://json.schemastore.org/github-workflow.json": "<workdir>/.github/workflows/build.yml"
   }
 }
