@@ -3,7 +3,7 @@ changelogPolicy: auto
 preReleaseCommand: >-
   node -p "
     const {execSync} = require('child_process');
-    const packages = Object.values(JSON.parse(execSync('yarn -s workspaces info'))).map(({ location }) => location);
+    const packages = Object.values(JSON.parse(execSync('yarn -s workspaces info', {env: {FORCE_COLOR: 0}}))).map(({ location }) => location);
     packages.map(
       package => execSync(`yarn --no-git-tag-version version --new-version \${process.env.CRAFT_NEW_VERSION}`, {cwd: package}).toString()
     ).join('\n');
