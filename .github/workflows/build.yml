@@ -36,10 +36,10 @@ jobs:
         run: |
           yarn workspace @formsort/constants run build
           yarn workspace @formsort/web-embed-api run build
-      - name: Lint
-        run: yarn lint
       - name: Build
         run: yarn build
+      - name: Lint
+        run: yarn lint
       - name: Test
         run: yarn test
       - name: Pack for NPM
