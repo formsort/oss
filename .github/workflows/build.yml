@@ -28,19 +28,22 @@ jobs:
         shell: bash
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile --production false
-      - name: Lint
-        run: yarn lint
-      # Instead of a build matrix we use a for loop in a bash script
-      # because these libraries need to be built for ts type definitions
-      # to be usable and the depend on each other.
-      # TODO(byk): Make these work independently of build order
-      - name: Build & Test
+      # We build these two ahead of time and before linting
+      # because these libraries need to be built for TS type definitions
+      # to be usable, even during linting.
+      # TODO(byk): Streamline this a bit and run the rest of the build in parallel
+      - name: Build prerequisites first
         run: |
           yarn workspace run @formsort/constants build
           yarn workspace run @formsort/web-embed-api build
-          yarn build
-          yarn test
-          yarn workspaces run pack
+      - name: Lint
+        run: yarn lint
+      - name: Build
+        run: yarn build
+      - name: Test
+        run: yarn test
+      - name: Pack for NPM
+        run: yarn workspaces run pack
       - name: Archive Artifacts
         uses: actions/upload-artifact@v3
         with:
