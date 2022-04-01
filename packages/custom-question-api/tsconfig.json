@@ -10,5 +10,5 @@
   "rules": {
     "prettier": true
   },
-  "include": ["src", "**/__tests__/*"]
+  "exclude": ["lib"]
 }

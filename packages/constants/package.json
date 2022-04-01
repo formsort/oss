@@ -7,10 +7,11 @@
     "lib": "lib"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --project tsconfig.build.json",
     "format": "eslint --ext .ts,.tsx src --fix",
     "lint": "eslint --ext .ts,.tsx src",
-    "test": "jest"
+    "test": "jest",
+    "pack": "yarn pack"
   },
   "files": [
     "lib/**/*"
@@ -33,6 +34,10 @@
       "^.+\\.(t|j)sx?$": "ts-jest"
     },
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/lib/"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",

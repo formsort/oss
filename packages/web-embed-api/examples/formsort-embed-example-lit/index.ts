@@ -1,4 +1,6 @@
-import FormsortWebEmbed from '@formsort/web-embed-api';
+import FormsortWebEmbed, {
+  SupportedAnalyticsEvent,
+} from '@formsort/web-embed-api';
 import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators';
 import { createRef, ref } from 'lit/directives/ref';
@@ -14,8 +16,8 @@ interface LoggedEvent {
   properties: string;
 }
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 @customElement('root-element')
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class RootElement extends LitElement {
   static styles = css`
     .container {
@@ -39,6 +41,7 @@ class RootElement extends LitElement {
       white-space: pre-line;
     }
   `;
+  /* eslint-enable @typescript-eslint/no-unused-vars */
 
   @state()
   loggedEvents: LoggedEvent[] = [];
@@ -60,13 +63,7 @@ class RootElement extends LitElement {
     });
 
     // Add analytics events to event log
-    for (const event of [
-      'FlowLoaded',
-      'FlowFinalized',
-      'FlowClosed',
-      'StepLoaded',
-      'StepCompleted',
-    ] as const) {
+    for (const event of Object.values(SupportedAnalyticsEvent)) {
       embed.addEventListener(event, (eventProps) =>
         this.addToEventLog(event, eventProps)
       );
@@ -81,14 +78,14 @@ class RootElement extends LitElement {
       };
     });
 
-    if (!CLIENT || !FLOW || !VARIANT) {
+    if (CLIENT && FLOW && VARIANT) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      embed.loadFlow(CLIENT, FLOW, VARIANT);
+    } else {
       window.alert(
         'Client, Flow and Variant must be provided in the .env file.'
       );
-      return;
     }
-
-    embed.loadFlow(CLIENT, FLOW, VARIANT);
   }
 
   render() {

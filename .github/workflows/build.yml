@@ -18,7 +18,10 @@ jobs:
           path: |
             **/node_modules
             **/.jest-cache
-          key: ${{ runner.os }}-yarn-v5-${{ hashFiles('**/package.json', '**/yarn.lock') }}
+            **/.eslintcache
+            **/.parcel-cache
+            **/*.tsbuildinfo
+          key: ${{ runner.os }}-yarn-v6-${{ hashFiles('**/package.json', '**/yarn.lock', '**/tsconfig.json') }}
           restore-keys: |
             ${{ runner.os }}-yarn-v5-
       - name: Install Dependencies
@@ -26,20 +29,18 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile --production false
       - name: Lint
-        run: yarn eslint
+        run: yarn lint
       # Instead of a build matrix we use a for loop in a bash script
       # because these libraries need to be built for ts type definitions
       # to be usable and the depend on each other.
       # TODO(byk): Make these work independently of build order
-      - name: Build & Test in order
+      - name: Build & Test
         run: |
-          packages=(constants eslint-config tsconfig custom-question-api web-embed-api react-embed)
-          for package in "${packages[@]}"; do
-            cd "${{ github.workspace }}/packages/$package"
-            yarn build
-            yarn test
-            yarn pack
-          done;
+          yarn workspace run @formsort/constants build
+          yarn workspace run @formsort/web-embed-api build
+          yarn build
+          yarn test
+          yarn workspaces run pack
       - name: Archive Artifacts
         uses: actions/upload-artifact@v3
         with:

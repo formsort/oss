@@ -5,10 +5,11 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --project tsconfig.build.json",
     "format": "eslint --ext .ts,.tsx src --fix",
     "lint": "eslint --ext .ts,.tsx src",
-    "test": "yarn lint"
+    "test": "yarn lint",
+    "pack": "yarn pack"
   },
   "files": [
     "lib/**/*"
@@ -40,7 +41,7 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@formsort/constants": "^1.5.0",
+    "@formsort/constants": "^1.6.0",
     "events": "^3.2.0"
   }
 }

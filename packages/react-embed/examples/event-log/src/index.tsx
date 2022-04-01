@@ -1,6 +1,6 @@
-/** @jsx jsx */
-import { css, jsx } from '@emotion/react';
+import { css } from '@emotion/react';
 import EmbedFlow from '@formsort/react-embed';
+import React from 'react';
 import { Fragment, useState } from 'react';
 import ReactDom from 'react-dom';
 

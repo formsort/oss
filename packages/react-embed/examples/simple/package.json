@@ -5,6 +5,11 @@
   "main": "index.js",
   "author": "",
   "license": "ISC",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo pass",
+    "pack": "echo pass"
+  },
   "dependencies": {
     "@formsort/react-embed": "^2.1.0",
     "react": "^17.0.2",

@@ -4,5 +4,5 @@ module.exports = {
     project: ['./tsconfig.json', 'packages/**/tsconfig.json'],
     sourceType: 'module',
   },
-  ignorePatterns: ['packages/*/lib/**/*'],
+  ignorePatterns: ['packages/**/lib/**/*', 'packages/**/dist/**/*'],
 };

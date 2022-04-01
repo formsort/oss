@@ -2,6 +2,7 @@ import FormsortWebEmbed, {
   IEventMap,
   IFormsortWebEmbed,
   IFormsortWebEmbedConfig,
+  SupportedAnalyticsEvent,
 } from '@formsort/web-embed-api';
 import React, { useEffect, useRef } from 'react';
 
@@ -35,11 +36,11 @@ export type EmbedFlowProps = ILoadProps & IReactEmbedEventMap;
 export const eventMapping: Record<keyof IReactEmbedEventMap, keyof IEventMap> =
   {
     onRedirect: 'redirect',
-    onFlowLoaded: 'FlowLoaded',
-    onFlowClosed: 'FlowClosed',
-    onFlowFinalized: 'FlowFinalized',
-    onStepLoaded: 'StepLoaded',
-    onStepCompleted: 'StepCompleted',
+    onFlowLoaded: SupportedAnalyticsEvent.FlowLoaded,
+    onFlowClosed: SupportedAnalyticsEvent.FlowClosed,
+    onFlowFinalized: SupportedAnalyticsEvent.FlowFinalized,
+    onStepLoaded: SupportedAnalyticsEvent.StepLoaded,
+    onStepCompleted: SupportedAnalyticsEvent.StepCompleted,
   };
 
 const attachEventListenersToEmbed = (

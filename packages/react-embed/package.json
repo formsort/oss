@@ -8,10 +8,11 @@
     "example": "example"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --project tsconfig.build.json",
     "test": "jest",
     "format": "eslint --ext .ts,.tsx src --fix",
-    "lint": "eslint --ext .ts,.tsx src"
+    "lint": "eslint --ext .ts,.tsx src",
+    "pack": "yarn pack"
   },
   "repository": {
     "type": "git",
@@ -63,6 +64,11 @@
     "testMatch": [
       "**/__tests__/**/*.+(ts|tsx|js)",
       "**/?(*.)+(spec|test).+(ts|tsx|js)"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/lib/",
+      "/dist/"
     ],
     "transform": {
       "^.+\\.(ts|tsx)$": "ts-jest"

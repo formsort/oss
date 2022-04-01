@@ -3,13 +3,18 @@
   "version": "1.0.0",
   "author": "Lev Izraelit",
   "license": "MIT",
+  "source": "src/index.html",
   "scripts": {
-    "start": "parcel src/index.html"
+    "start": "parcel",
+    "build": "parcel build",
+    "test": "echo pass",
+    "pack": "echo pass"
   },
   "devDependencies": {
+    "@parcel/transformer-typescript-tsc": "^2.4.1",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
-    "parcel": "^2.3.1"
+    "parcel": "^2.4.1"
   },
   "dependencies": {
     "@formsort/custom-question-api": "^0.1.0",

@@ -3,10 +3,8 @@
   "compilerOptions": {
     "declaration": true,
     "outDir": "./lib",
-    "rootDir": "src",
     "strict": true,
-    "types": ["jest"],
-    "lib": ["ES2019", "DOM"]
+    "types": ["jest"]
   },
-  "include": ["src/**/*.ts", "**/__tests__/*"]
+  "exclude": ["lib"]
 }

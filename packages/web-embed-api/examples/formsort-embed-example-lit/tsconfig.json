@@ -5,6 +5,7 @@
     "experimentalDecorators": true,
     "target": "ES6",
     "jsx": "react",
+    "rootDir": ".",
     "types": ["node"]
   },
   "include": ["**/*.ts"]

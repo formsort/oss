@@ -56,20 +56,17 @@ const DEFAULT_CONFIG: IFormsortWebEmbedConfig = {
   origin: DEFAULT_FLOW_ORIGIN,
 };
 
-export const supportedAnalyticsEvents = [
-  AnalyticsEventType.FlowLoaded,
-  AnalyticsEventType.FlowClosed,
-  AnalyticsEventType.FlowFinalized,
-  AnalyticsEventType.StepLoaded,
-  AnalyticsEventType.StepCompleted,
-];
+export enum SupportedAnalyticsEvent {
+  FlowLoaded = AnalyticsEventType.FlowLoaded,
+  FlowClosed = AnalyticsEventType.FlowClosed,
+  FlowFinalized = AnalyticsEventType.FlowFinalized,
+  StepLoaded = AnalyticsEventType.StepLoaded,
+  StepCompleted = AnalyticsEventType.StepCompleted,
+}
 
-type SupportedAnalyticsEvent = typeof supportedAnalyticsEvents[number];
-
-const isSupportedEventType = (
-  eventType: AnalyticsEventType
-): eventType is SupportedAnalyticsEvent =>
-  supportedAnalyticsEvents.includes(eventType);
+export const isSupportedEventType = (
+  eventType: AnalyticsEventType | SupportedAnalyticsEvent
+): eventType is SupportedAnalyticsEvent => eventType in SupportedAnalyticsEvent;
 
 interface IBaseEventData {
   answers: IFlowAnswers | undefined;
@@ -81,13 +78,10 @@ interface IRedirectEventData extends IBaseEventData {
 
 export type IEventListener = (props: IBaseEventData) => void;
 
-export interface IAnalyticsEventMap {
-  FlowLoaded: IEventListener;
-  FlowClosed: IEventListener;
-  FlowFinalized: IEventListener;
-  StepLoaded: IEventListener;
-  StepCompleted: IEventListener;
-}
+export type IAnalyticsEventMap = Record<
+  SupportedAnalyticsEvent,
+  IEventListener
+>;
 
 export interface IEventMap extends IAnalyticsEventMap {
   redirect: (props: IRedirectEventData) => {
@@ -118,11 +112,11 @@ const FormsortWebEmbed = (
   const sendMessage = getMessageSender(iframeEl);
 
   const eventListenersArrayMap: IEventListenersArrayMap = {
-    FlowLoaded: [],
-    FlowClosed: [],
-    FlowFinalized: [],
-    StepLoaded: [],
-    StepCompleted: [],
+    [SupportedAnalyticsEvent.FlowLoaded]: [],
+    [SupportedAnalyticsEvent.FlowClosed]: [],
+    [SupportedAnalyticsEvent.FlowFinalized]: [],
+    [SupportedAnalyticsEvent.StepLoaded]: [],
+    [SupportedAnalyticsEvent.StepCompleted]: [],
     redirect: [],
     unauthorized: [],
   };
@@ -234,7 +228,7 @@ const FormsortWebEmbed = (
     eventType: AnalyticsEventType
   ): IEventListener[] | undefined => {
     if (isSupportedEventType(eventType)) {
-      return eventListenersArrayMap[eventType] as IEventListener[];
+      return eventListenersArrayMap[eventType];
     }
 
     return undefined;

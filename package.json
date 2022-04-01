@@ -11,12 +11,18 @@
       "packages/*/examples/*"
     ]
   },
+  "resolutions": {
+    "tslib": ">=1.10.0"
+  },
   "devDependencies": {
     "husky": "^6.0.0"
   },
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx,.js --cache --cache-strategy content",
-    "format": "eslint . --ext .ts,.tsx,.js --cache --cache-strategy content --fix"
+    "format": "yarn lint --fix",
+    "build": "yarn workspaces run build",
+    "test": "yarn workspaces run test",
+    "pack": "yarn workspaces run pack"
   },
   "version": "0.0.0"
 }
