@@ -24,7 +24,7 @@ module.exports = {
       },
       extends: '@formsort/eslint-config',
       parserOptions: {
-        project: ['packages/**/tsconfig.json'],
+        project: ['**/tsconfig.json'],
         sourceType: 'module',
       },
     },
