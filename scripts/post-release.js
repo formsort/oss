@@ -18,7 +18,7 @@ console.log(
       'git diff --quiet',
       '||',
       'git commit -anm',
-      "'meta: Bump new development version\\n\\n#skip-changelog'",
+      '\'meta: Bump new development version\\n\\n#skip-changelog\'',
       '&&',
       'git pull --rebase',
       '&&',

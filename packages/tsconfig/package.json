@@ -23,5 +23,8 @@
   "homepage": "https://github.com/formsort/oss#readme",
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "eslint": "^8.12.0"
   }
 }

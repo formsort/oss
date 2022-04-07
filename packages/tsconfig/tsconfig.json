@@ -4,12 +4,7 @@
     "target": "ES2015",
     "module": "CommonJS",
     "lib": ["es2017", "es2019", "dom"],
-    "types": [
-      "jest",
-      "jest-expect-message",
-      "jest-environment-puppeteer",
-      "@emotion/core"
-    ],
+    "types": ["jest"],
     "allowJs": true,
     "checkJs": true,
     "jsx": "react",

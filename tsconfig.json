@@ -1,4 +1,0 @@
-{
-  "extends": "@formsort/tsconfig",
-  "include": [".*.js", "packages/eslint-config/*.js"]
-}
