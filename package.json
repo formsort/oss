@@ -19,11 +19,10 @@
     "format": "yarn lint --fix",
     "build": "yarn workspaces run build",
     "test": "yarn workspaces run test",
-    "pack": "yarn workspaces run pack",
-    "release": "craft prepare --publish"
+    "pack": "yarn workspaces run pack"
   },
   "devDependencies": {
-    "@sentry/craft": "^0.30.1"
+    "@sentry/craft": "^0.31.0"
   },
   "version": "0.0.0"
 }

@@ -11,7 +11,8 @@
     "test": "echo pass",
     "format": "eslint --ext .js,.json . --fix",
     "lint": "eslint --ext .js,.json .",
-    "pack": "yarn pack"
+    "pack": "yarn pack",
+    "release": "craft prepare --publish"
   },
   "dependencies": {
     "@typescript-eslint/parser": "^5.17.0",

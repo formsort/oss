@@ -9,7 +9,8 @@
     "format": "eslint --ext .ts,.tsx src --fix",
     "lint": "eslint --ext .ts,.tsx src",
     "test": "yarn lint",
-    "pack": "yarn pack"
+    "pack": "yarn pack",
+    "release": "craft prepare --publish"
   },
   "files": [
     "lib/**/*"

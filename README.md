@@ -16,14 +16,14 @@ Embed flows within other webpages, allowing communication between the embed and 
 
 ## Publishing
 
-This repo is published as a single unit with all packages at the same version. It uses [Craft](https://github.com/getsentry/craft) for publishing.
+This repo is published using [Craft](https://github.com/getsentry/craft).
 
 You need to set the following environment variables to be able to work with Craft:
 
 1. `GITHUB_TOKEN`: [Create a personal access token](https://github.com/settings/tokens/new?scopes=repo&description=Craft) from GitHub with `repo` permissions and set the token value to this env variable
 2. `NPM_TOKEN`: Create an automation token from NPM by visiting https://www.npmjs.com/settings/<npm_user>/tokens/new and select **Automation** as the token type.
 
-Then all you need to do is `yarn release <version>`. We'll take it from here :)
+Then all you need to do is `yarn workspace @formsort/<package> run release <version>`. We'll take it from here :)
 
 ## Contributing
 

@@ -8,7 +8,8 @@
     "test": "echo pass",
     "format": "eslint --ext .js,.json . --fix",
     "lint": "eslint --ext .js,.json .",
-    "pack": "yarn pack"
+    "pack": "yarn pack",
+    "release": "craft prepare --publish"
   },
   "repository": {
     "type": "git",
