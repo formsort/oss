@@ -1463,10 +1463,10 @@
     chrome-trace-event "^1.0.2"
     nullthrows "^1.1.1"
 
-"@sentry/craft@^0.31.0":
-  version "0.31.0"
-  resolved "https://registry.yarnpkg.com/@sentry/craft/-/craft-0.31.0.tgz#aa35801f17be7ebaf95a24cb2711c45cf72f0dff"
-  integrity sha512-Lc6vzsSVawlJ85uJ+VROMl7heeGQXy847hSFCEBFu5bPiBqxhMiaVwAFmiDPrivadkMl4+mEJGVHPZlg47u7ng==
+"@sentry/craft@^0.32.0":
+  version "0.32.0"
+  resolved "https://registry.yarnpkg.com/@sentry/craft/-/craft-0.32.0.tgz#01c5d7022afa6df663a392783642bdf5af423add"
+  integrity sha512-IHM34SUPDka2sFwv4qzWgYX2gxH4yh+fejAyLi+xGm2vvn716sP/QONoGdBJQO/ecu2XOQo0CXMB736WSXxugA==
 
 "@sinonjs/commons@^1.7.0":
   version "1.8.3"

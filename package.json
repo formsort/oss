@@ -22,7 +22,7 @@
     "pack": "yarn workspaces run pack"
   },
   "devDependencies": {
-    "@sentry/craft": "^0.31.0",
+    "@sentry/craft": "^0.32.0",
     "eslint": "^8.12.0"
   },
   "version": "0.0.0"
