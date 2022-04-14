@@ -1,0 +1,60 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+      - release/*/*
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: volta-cli/action@v1
+      - uses: actions/cache@v3
+        id: cache
+        with:
+          path: |
+            **/node_modules
+            **/.jest-cache
+            **/.eslintcache
+            **/.parcel-cache
+            **/*.tsbuildinfo
+            **/lib
+            **/dist
+          key: ${{ runner.os }}-yarn-v7-${{ hashFiles('**/package.json', '**/yarn.lock', '**/tsconfig.json') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-v7-
+      - name: Install Dependencies
+        shell: bash
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile --production false
+      # We build all ahead of time before linting as we need the build
+      # step for TS type definitions to be usable. These are used during both
+      # linting and testing.
+      # Even more, we need to build the two specific ones first as their type
+      # definitions are required for the other project builds.
+      # TODO(byk): Streamline this a bit and run the rest of the build in parallel
+      - name: Build prerequisites first
+        run: |
+          yarn workspace @formsort/constants run build
+          yarn workspace @formsort/web-embed-api run build
+      - name: Build
+        run: yarn build
+      - name: Lint
+        run: yarn lint
+      - name: Test
+        run: yarn test
+      - name: Pack for NPM
+        run: yarn workspaces run pack
+      - name: Archive Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ github.sha }}
+          if-no-files-found: error
+          path: |
+            ${{ github.workspace }}/packages/**/*.tgz
+            !node_modules/**/*

@@ -4,7 +4,12 @@
   "description": "Formsort tsconfig for use across all projects",
   "main": "tsconfig.json",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "echo built",
+    "test": "echo pass",
+    "format": "eslint --ext .js,.json . --fix",
+    "lint": "eslint --ext .js,.json .",
+    "pack": "yarn pack",
+    "release": "craft prepare --publish"
   },
   "repository": {
     "type": "git",
@@ -18,5 +23,8 @@
   "homepage": "https://github.com/formsort/oss#readme",
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "eslint": "^8.12.0"
   }
 }

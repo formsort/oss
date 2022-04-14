@@ -2,8 +2,8 @@ import { AnswerSemanticType, CustomQuestionMessage } from '@formsort/constants';
 import { getValueFromWindowParent, sendMessageToWindowParent } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-type AnswerPrimitiveType = number | string | boolean | object;
-type AnswerType = AnswerPrimitiveType | AnswerPrimitiveType[];
+export type AnswerPrimitiveType = number | string | boolean | object;
+export type AnswerType = AnswerPrimitiveType | AnswerPrimitiveType[];
 
 export const setQuestionSize = (
   width?: number | string,

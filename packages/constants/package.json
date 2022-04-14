@@ -7,10 +7,12 @@
     "lib": "lib"
   },
   "scripts": {
-    "build": "tsc",
-    "test": "jest --config jestconfig.json",
-    "prepublishOnly": "npm test",
-    "prepare": "npm run build"
+    "build": "tsc --project tsconfig.build.json",
+    "format": "eslint --ext .ts,.tsx src --fix",
+    "lint": "eslint --ext .ts,.tsx src",
+    "test": "jest",
+    "pack": "yarn pack",
+    "release": "craft prepare --publish"
   },
   "files": [
     "lib/**/*"
@@ -25,6 +27,26 @@
     "@types/jest": "^26.0.19",
     "jest": "^26.6.3",
     "ts-jest": "^26.4.4",
-    "typescript": "^3.8.3"
+    "typescript": "^4.6.3",
+    "eslint": "^8.12.0"
+  },
+  "jest": {
+    "cacheDirectory": "./.jest-cache",
+    "transform": {
+      "^.+\\.(t|j)sx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/lib/"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }

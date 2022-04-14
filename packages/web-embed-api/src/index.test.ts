@@ -1,5 +1,5 @@
 import { AnalyticsEventType, WebEmbedMessage } from '@formsort/constants';
-import FormsortWebEmbed, { supportedAnalyticsEvents } from '.';
+import FormsortWebEmbed, { SupportedAnalyticsEvent } from '.';
 
 type MessageListener = (msg: MessageEvent) => any;
 
@@ -138,7 +138,7 @@ describe('FormsortWebEmbed', () => {
     );
 
     const flowLoadedSpy = jest.fn();
-    embed.addEventListener('FlowLoaded', flowLoadedSpy);
+    embed.addEventListener(SupportedAnalyticsEvent.FlowLoaded, flowLoadedSpy);
 
     const msg = new MessageEvent('message', {
       source: iframe.contentWindow,
@@ -194,7 +194,7 @@ describe('FormsortWebEmbed', () => {
     const iframe = document.body.querySelector('iframe')!;
 
     const flowLoadedSpy = jest.fn();
-    embed.addEventListener('FlowClosed', flowLoadedSpy);
+    embed.addEventListener(SupportedAnalyticsEvent.FlowClosed, flowLoadedSpy);
     embed.loadFlow(clientLabel, flowLabel);
 
     const msg = new MessageEvent('message', {
@@ -215,7 +215,7 @@ describe('FormsortWebEmbed', () => {
     const iframe = document.body.querySelector('iframe')!;
 
     const flowLoadedSpy = jest.fn();
-    embed.addEventListener('FlowLoaded', flowLoadedSpy);
+    embed.addEventListener(SupportedAnalyticsEvent.FlowLoaded, flowLoadedSpy);
     embed.loadFlow(clientLabel, flowLabel);
 
     const msg = new MessageEvent('message', {
@@ -248,10 +248,16 @@ describe('FormsortWebEmbed', () => {
     );
 
     const firstFlowFinalized = jest.fn();
-    firstEmbed.addEventListener('FlowFinalized', firstFlowFinalized);
+    firstEmbed.addEventListener(
+      SupportedAnalyticsEvent.FlowFinalized,
+      firstFlowFinalized
+    );
 
     const secondFlowFinalized = jest.fn();
-    secondEmbed.addEventListener('FlowFinalized', secondFlowFinalized);
+    secondEmbed.addEventListener(
+      SupportedAnalyticsEvent.FlowFinalized,
+      secondFlowFinalized
+    );
 
     const msg = new MessageEvent('message', {
       source: firstFlowIframe.contentWindow,
@@ -275,7 +281,7 @@ describe('FormsortWebEmbed', () => {
     const iframe = document.body.querySelector('iframe')!;
 
     const flowLoadedSpy = jest.fn();
-    embed.addEventListener('FlowLoaded', flowLoadedSpy);
+    embed.addEventListener(SupportedAnalyticsEvent.FlowLoaded, flowLoadedSpy);
     embed.loadFlow(clientLabel, flowLabel);
 
     const msg = new MessageEvent('message', {
@@ -299,9 +305,9 @@ describe('FormsortWebEmbed', () => {
     const flowLoadedSpy2 = jest.fn();
     const flowLoadedSpy3 = jest.fn();
 
-    embed.addEventListener('FlowLoaded', flowLoadedSpy1);
-    embed.addEventListener('FlowLoaded', flowLoadedSpy2);
-    embed.addEventListener('FlowLoaded', flowLoadedSpy3);
+    embed.addEventListener(SupportedAnalyticsEvent.FlowLoaded, flowLoadedSpy1);
+    embed.addEventListener(SupportedAnalyticsEvent.FlowLoaded, flowLoadedSpy2);
+    embed.addEventListener(SupportedAnalyticsEvent.FlowLoaded, flowLoadedSpy3);
 
     embed.loadFlow(clientLabel, flowLabel);
 
@@ -321,7 +327,10 @@ describe('FormsortWebEmbed', () => {
     expect(flowLoadedSpy3).toBeCalledTimes(1);
 
     // Remove second event listener
-    embed.removeEventListener('FlowLoaded', flowLoadedSpy2);
+    embed.removeEventListener(
+      SupportedAnalyticsEvent.FlowLoaded,
+      flowLoadedSpy2
+    );
     const msg2 = new MessageEvent('message', {
       source: iframe.contentWindow,
       origin: DEFAULT_FLOW_ORIGIN,
@@ -338,10 +347,19 @@ describe('FormsortWebEmbed', () => {
     expect(flowLoadedSpy3).toBeCalledTimes(2);
 
     // Remove rest of event listeners
-    embed.removeEventListener('FlowLoaded', flowLoadedSpy1);
-    embed.removeEventListener('FlowLoaded', flowLoadedSpy3);
+    embed.removeEventListener(
+      SupportedAnalyticsEvent.FlowLoaded,
+      flowLoadedSpy1
+    );
+    embed.removeEventListener(
+      SupportedAnalyticsEvent.FlowLoaded,
+      flowLoadedSpy3
+    );
 
-    embed.removeEventListener('FlowLoaded', flowLoadedSpy2);
+    embed.removeEventListener(
+      SupportedAnalyticsEvent.FlowLoaded,
+      flowLoadedSpy2
+    );
     const msg3 = new MessageEvent('message', {
       source: iframe.contentWindow,
       origin: DEFAULT_FLOW_ORIGIN,
@@ -363,7 +381,10 @@ describe('FormsortWebEmbed', () => {
     const iframe = document.body.querySelector('iframe')!;
 
     const flowFinalizedSpy = jest.fn();
-    embed.addEventListener('FlowFinalized', flowFinalizedSpy);
+    embed.addEventListener(
+      SupportedAnalyticsEvent.FlowFinalized,
+      flowFinalizedSpy
+    );
     embed.loadFlow(clientLabel, flowLabel);
 
     const msg = new MessageEvent('message', {
@@ -386,7 +407,7 @@ describe('FormsortWebEmbed', () => {
     const removeEventListenerSpy = jest.spyOn(window, 'removeEventListener');
 
     const flowClosedSpy = jest.fn();
-    embed.addEventListener('FlowClosed', flowClosedSpy);
+    embed.addEventListener(SupportedAnalyticsEvent.FlowClosed, flowClosedSpy);
     embed.loadFlow(clientLabel, flowLabel);
 
     const msg = new MessageEvent('message', {
@@ -608,24 +629,11 @@ describe('FormsortWebEmbed', () => {
     expect(window.location.assign).not.toHaveBeenCalled();
   });
 
-  test.each(
-    supportedAnalyticsEvents.flatMap(
-      (eventType) =>
-        [
-          [
-            eventType,
-            {
-              answers: {
-                'a-question': 'an-answer',
-              },
-            },
-          ],
-          [eventType, { answers: undefined }],
-        ] as const
-    )
-  )(
-    'Passes answers if available for event %s',
-    async (eventType, { answers }) => {
+  describe.each(Object.values(SupportedAnalyticsEvent))('%s', (event) => {
+    const sendMessage = (
+      eventType: SupportedAnalyticsEvent,
+      answers: Record<string, unknown> | undefined
+    ) => {
       const embed = FormsortWebEmbed(document.body);
       const iframe = document.body.querySelector('iframe')!;
 
@@ -645,9 +653,28 @@ describe('FormsortWebEmbed', () => {
       });
       mockPostMessage(msg);
       expect(eventListenerSpy).toBeCalledTimes(1);
-      expect(eventListenerSpy).toBeCalledWith(answers ? { answers } : {});
-    }
-  );
+      return eventListenerSpy;
+    };
+
+    it('passes answers when defined', () => {
+      const answers = {
+        'a-question': 'an-answer',
+      };
+      const eventListenerSpy = sendMessage(
+        event as SupportedAnalyticsEvent,
+        answers
+      );
+      expect(eventListenerSpy).toBeCalledWith({ answers });
+    });
+
+    it('does not crash with empty answers', () => {
+      const eventListenerSpy = sendMessage(
+        event as SupportedAnalyticsEvent,
+        undefined
+      );
+      expect(eventListenerSpy).toBeCalledWith({});
+    });
+  });
 
   test.each([
     {

@@ -1,28 +1,32 @@
-import ReactDom from "react-dom";
-import React, { useEffect, useState } from "react";
-import { setAnswerValue, getAnswerValue } from "@formsort/custom-question-api";
+import {
+  setAnswerValue,
+  getAnswerValue,
+  AnswerType,
+} from '@formsort/custom-question-api';
+import React, { useEffect, useState } from 'react';
+import ReactDom from 'react-dom';
 
 const MyCustomComponent = () => {
   // Set name to null before initializing
-  const [name, setName] = useState<string | null>(null);
+  const [name, setName] = useState<AnswerType | null>(null);
 
   useEffect(() => {
     const updateName = async () => {
       if (name === null) {
         // If remote value exists, set to remote
         // Otherwise, initialize the local value
-        const answerValue = await getAnswerValue<string>();
+        const answerValue = await getAnswerValue();
         if (answerValue !== undefined) {
           setName(answerValue);
         } else {
-          setName("");
+          setName('');
         }
         return;
       }
       setAnswerValue(name);
     };
 
-    updateName();
+    void updateName();
   }, [name]);
 
   // Check if not initialized yet
@@ -35,11 +39,11 @@ const MyCustomComponent = () => {
       What is your name?
       <input
         type="text"
-        value={name}
+        value={name.toString()}
         onChange={(e) => setName(e.target.value)}
       />
     </div>
   );
 };
 
-ReactDom.render(<MyCustomComponent />, document.getElementById("root"));
+ReactDom.render(<MyCustomComponent />, document.getElementById('root'));

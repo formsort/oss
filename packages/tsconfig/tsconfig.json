@@ -1,21 +1,14 @@
 {
   "compilerOptions": {
-    "module": "esnext",
-    "target": "es5",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
-    "types": [
-      "jest",
-      "jest-expect-message",
-      "jest-environment-puppeteer",
-      "@emotion/core"
-    ],
+    "composite": true,
+    "target": "ES2015",
+    "module": "CommonJS",
+    "lib": ["es2017", "es2019", "dom"],
+    "types": ["jest"],
     "allowJs": true,
+    "checkJs": true,
     "jsx": "react",
     "moduleResolution": "node",
-    "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -27,8 +20,8 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "newLine": "lf"
   },
-  "exclude": [
-    "node_modules",
-  ]
+  "exclude": ["node_modules"]
 }

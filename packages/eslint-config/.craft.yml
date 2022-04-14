@@ -1,0 +1,13 @@
+minVersion: '0.32.0'
+changelogPolicy: auto
+preReleaseCommand: node ../../scripts/pre-release.js
+postReleaseCommand: node ../../scripts/post-release.js
+
+releaseBranchPrefix: release/eslint-config
+
+requireNames:
+  - /^formsort-.+\.tgz$/
+targets:
+  - name: npm
+  - name: github
+    tagPrefix: eslint-config-

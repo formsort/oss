@@ -1,0 +1,11 @@
+{
+  "extends": "@formsort/tsconfig",
+  "compilerOptions": {
+    "declaration": true,
+    "rootDir": ".",
+    "outDir": "./lib",
+    "strict": true,
+    "types": ["jest"]
+  },
+  "include": ["src", "**/__tests__/*"]
+}

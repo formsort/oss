@@ -17,7 +17,10 @@ class WindowMessageEventsEmitter extends EventEmitter {
 
   onWindowMessage = (e: MessageEvent) => {
     const { type, payload, requestId } = e.data;
-    if (!type || !EVENTS_TO_EMIT.has(type)) {
+    if (
+      typeof type !== 'string' ||
+      !EVENTS_TO_EMIT.has(type as CustomQuestionMessage)
+    ) {
       return;
     }
 

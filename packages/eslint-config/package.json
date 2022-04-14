@@ -6,14 +6,23 @@
     "access": "public"
   },
   "main": "index.js",
+  "scripts": {
+    "build": "echo built",
+    "test": "echo pass",
+    "format": "eslint --ext .js,.json . --fix",
+    "lint": "eslint --ext .js,.json .",
+    "pack": "yarn pack",
+    "release": "craft prepare --publish"
+  },
   "dependencies": {
-    "@typescript-eslint/parser": "^4.11.0",
-    "eslint": "^7.16.0",
-    "eslint-config-prettier": "^7.1.0",
-    "typescript": "^3.8.3"
+    "@typescript-eslint/parser": "^5.17.0",
+    "eslint-config-prettier": "^8.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.12.0"
   },
   "peerDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.10.0",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsdoc": "^30.7.8",
     "eslint-plugin-prefer-arrow": "^1.2.2",
@@ -21,6 +30,5 @@
     "prettier": "^2.2.1"
   },
   "author": "Fil Zembowicz <fil@formsort.com>",
-  "license": "MIT",
-  "gitHead": "743aeeb98a0c2f61e3cce8cbf2ca21679523f6d8"
+  "license": "MIT"
 }

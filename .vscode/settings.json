@@ -1,9 +1,12 @@
 {
-    "eslint.workingDirectories": [
-      "./packages/constants",
-      "./packages/custom-question-api",
-      "./packages/eslint-config",
-      "./packages/react-embed",
-      "./packages/web-embed-api",
-    ]
+  "eslint.workingDirectories": [
+    "./packages/constants",
+    "./packages/custom-question-api",
+    "./packages/eslint-config",
+    "./packages/react-embed",
+    "./packages/web-embed-api"
+  ],
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": "<workdir>/.github/workflows/build.yml"
   }
+}

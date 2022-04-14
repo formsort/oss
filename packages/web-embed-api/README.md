@@ -9,6 +9,10 @@ If you're using React, see [@formsort/react-embed](../react-embed) which is a ha
 First, install
 
 ```shell
+yarn add @formsort/web-embed-api
+```
+
+```shell
 npm install @formsort/web-embed-api --save
 ```
 

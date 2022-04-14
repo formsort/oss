@@ -1,15 +1,10 @@
 {
+  "extends": "@formsort/tsconfig",
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
     "declaration": true,
     "outDir": "./lib",
-    "strict": true
+    "strict": true,
+    "types": ["jest"]
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "**/__tests__/*"]
+  "exclude": ["lib"]
 }

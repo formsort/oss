@@ -56,20 +56,17 @@ const DEFAULT_CONFIG: IFormsortWebEmbedConfig = {
   origin: DEFAULT_FLOW_ORIGIN,
 };
 
-export const supportedAnalyticsEvents = [
-  AnalyticsEventType.FlowLoaded,
-  AnalyticsEventType.FlowClosed,
-  AnalyticsEventType.FlowFinalized,
-  AnalyticsEventType.StepLoaded,
-  AnalyticsEventType.StepCompleted,
-] as const;
+export enum SupportedAnalyticsEvent {
+  FlowLoaded = AnalyticsEventType.FlowLoaded,
+  FlowClosed = AnalyticsEventType.FlowClosed,
+  FlowFinalized = AnalyticsEventType.FlowFinalized,
+  StepLoaded = AnalyticsEventType.StepLoaded,
+  StepCompleted = AnalyticsEventType.StepCompleted,
+}
 
-type SupportedAnalyticsEvent = typeof supportedAnalyticsEvents[number];
-
-const isSupportedEventType = (
-  eventType: AnalyticsEventType
-): eventType is SupportedAnalyticsEvent =>
-  supportedAnalyticsEvents.includes(eventType as SupportedAnalyticsEvent);
+export const isSupportedEventType = (
+  eventType: AnalyticsEventType | SupportedAnalyticsEvent
+): eventType is SupportedAnalyticsEvent => eventType in SupportedAnalyticsEvent;
 
 interface IBaseEventData {
   answers: IFlowAnswers | undefined;
@@ -79,18 +76,15 @@ interface IRedirectEventData extends IBaseEventData {
   url: string;
 }
 
-export interface IAnalyticsEventMap {
-  FlowLoaded: (props: IBaseEventData) => void;
-  FlowClosed: (props: IBaseEventData) => void;
-  FlowFinalized: (props: IBaseEventData) => void;
-  StepLoaded: (props: IBaseEventData) => void;
-  StepCompleted: (props: IBaseEventData) => void;
-}
+export type IEventListener = (props: IBaseEventData) => void;
+
+export type IAnalyticsEventMap = Record<
+  SupportedAnalyticsEvent,
+  IEventListener
+>;
 
 export interface IEventMap extends IAnalyticsEventMap {
-  redirect: (
-    props: IRedirectEventData
-  ) => {
+  redirect: (props: IRedirectEventData) => {
     cancel?: boolean;
   } | void;
   unauthorized: () => void;
@@ -118,11 +112,11 @@ const FormsortWebEmbed = (
   const sendMessage = getMessageSender(iframeEl);
 
   const eventListenersArrayMap: IEventListenersArrayMap = {
-    FlowLoaded: [],
-    FlowClosed: [],
-    FlowFinalized: [],
-    StepLoaded: [],
-    StepCompleted: [],
+    [SupportedAnalyticsEvent.FlowLoaded]: [],
+    [SupportedAnalyticsEvent.FlowClosed]: [],
+    [SupportedAnalyticsEvent.FlowFinalized]: [],
+    [SupportedAnalyticsEvent.StepLoaded]: [],
+    [SupportedAnalyticsEvent.StepCompleted]: [],
     redirect: [],
     unauthorized: [],
   };
@@ -134,13 +128,15 @@ const FormsortWebEmbed = (
       if (config.authentication?.idToken) {
         sendMessage({
           type: WebEmbedMessage.EMBED_TOKEN_RESPONSE_MSG,
-          payload: { token: config.authentication.idToken }
+          payload: { token: config.authentication.idToken },
         });
       } else {
-        throw new Error(`The loaded Flow requires authentication using an ID token, please provide it in config.authentication.idToken.`)
+        throw new Error(
+          `The loaded Flow requires authentication using an ID token, please provide it in config.authentication.idToken.`
+        );
       }
     }
-  }
+  };
 
   const onRedirectMessage = (redirectData: IIFrameRedirectEventData) => {
     const { payload: url, answers } = redirectData;
@@ -177,7 +173,7 @@ const FormsortWebEmbed = (
         unathorizedListener();
       }
     }
-  }
+  };
 
   const onResizeMessage = (data: IIFrameResizeEventData) => {
     const { width, height } = data.payload;
@@ -228,7 +224,9 @@ const FormsortWebEmbed = (
     }
   };
 
-  const getEventListenerArray = (eventType: AnalyticsEventType) => {
+  const getEventListenerArray = (
+    eventType: AnalyticsEventType
+  ): IEventListener[] | undefined => {
     if (isSupportedEventType(eventType)) {
       return eventListenersArrayMap[eventType];
     }

@@ -5,8 +5,8 @@
 
 ## Install
 
-```
-$ npm install --save-dev @formsort/tsconfig
+```shell
+yarn add --dev @formsort/tsconfig
 ```
 
 

@@ -2,11 +2,11 @@
 
 Embed [Formsort](https://formsort.com) flows within react components
 
-### Installation
+## Installation
 
-Add @formsort/react-embed to your project by executing `npm install @formsort/react-embed` or `yarn add @formsort/react-embed`.
+Add @formsort/react-embed to your project by executing `yarn add @formsort/react-embed` or `npm install @formsort/react-embed`.
 
-### Usage
+## Usage
 
 Here's an example of basic usage:
 
@@ -31,11 +31,11 @@ const EmbedFlowExample: React.FunctionComponent = () => (
 );
 ```
 
-#### Events
+### Events
 
 You can add event listeners to flows like `Flowloaded`, `redirect` etc. See [all event listeners](https://github.com/formsort/oss/tree/master/packages/web-embed-api#event-listeners)
 
-#### Props
+### Props
 
 | Prop name     | Description                                                                                                  | Required | Example values                                             |
 | ------------- | ------------------------------------------------------------------------------------------------------------ | -------- | ---------------------------------------------------------- |
@@ -52,15 +52,3 @@ You can add event listeners to flows like `Flowloaded`, `redirect` etc. See [all
 | onStepLoaded | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#steploaded-answers--key-string-any---void)                       | no       | `() => { console.log('step loaded') }`                  |
 | onStepCompleted | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#steploaded-answers--key-string-any---void)                       | no       | `() => { console.log('step loaded') }`                  |
 | onRedirect      | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#redirect--url-string-answers--key-string-any-----cancel-boolean---undefined)                            | no       | `(url: string) => { console.log('redirecting to:', url) }` |
-
-## Testing
-
-```
-npm run test
-```
-
-## Publishing
-
-```
-npm publish
-```

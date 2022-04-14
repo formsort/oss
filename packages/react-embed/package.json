@@ -8,16 +8,12 @@
     "example": "example"
   },
   "scripts": {
-    "build": "tsc",
-    "test": "jest --config jestconfig.json",
-    "format": "eslint -c .eslintrc.js --ext .ts,.tsx src --fix",
-    "lint": "eslint -c .eslintrc.js --ext .ts,.tsx src",
-    "pretty-check": "prettier --check src",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test && npm run lint",
-    "preversion": "npm test && npm run lint",
-    "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags"
+    "build": "tsc --project tsconfig.build.json",
+    "test": "jest",
+    "format": "eslint --ext .ts,.tsx src --fix",
+    "lint": "eslint --ext .ts,.tsx src",
+    "pack": "yarn pack",
+    "release": "craft prepare --publish"
   },
   "repository": {
     "type": "git",
@@ -42,8 +38,8 @@
     "@testing-library/react": "^11.2.2",
     "@types/jest": "^27.0.1",
     "@types/react": "^16.9.23",
-    "@typescript-eslint/eslint-plugin": "^4.11.0",
-    "eslint": "^7.16.0",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "eslint": "^8.12.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsdoc": "^30.7.9",
     "eslint-plugin-prefer-arrow": "^1.2.2",
@@ -53,13 +49,31 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "ts-jest": "^27.0.5",
-    "typescript": "^3.8.3"
+    "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@formsort/web-embed-api": "^2.1.0"
+    "@formsort/web-embed-api": "^2.2.0"
   },
   "peerDependencies": {
     "react": "^16.13.0 || ^17.0.0"
   },
-  "gitHead": "a17af03c2d02ba85c612e33204db18cddaaa00be"
+  "jest": {
+    "cacheDirectory": "./.jest-cache",
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.+(ts|tsx|js)",
+      "**/?(*.)+(spec|test).+(ts|tsx|js)"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/lib/",
+      "/dist/"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "testEnvironment": "jsdom"
+  }
 }
