@@ -23,7 +23,7 @@ You need to set the following environment variables to be able to work with Craf
 1. `GITHUB_TOKEN`: [Create a personal access token](https://github.com/settings/tokens/new?scopes=repo&description=Craft) from GitHub with `repo` permissions and set the token value to this env variable
 2. `NPM_TOKEN`: Create an automation token from NPM by visiting https://www.npmjs.com/settings/<npm_user>/tokens/new and select **Automation** as the token type.
 
-Then all you need to do is `yarn workspace @formsort/<package> run release <version>`. We'll take it from here :)
+Then all you need to do is `yarn workspace @formsort/<package> run release <version>` from the repo root or `yarn release <version>` from the package directory you want to release. We'll take it from there :)
 
 ## Contributing
 
