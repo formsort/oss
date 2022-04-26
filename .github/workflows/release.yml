@@ -1,0 +1,24 @@
+name: Publish Package
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: Name of the package to release
+        required: true
+      version:
+        description: Version to release
+        required: true
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    environment: release
+    name: 'Publish a new version'
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: >-
+          yarn workspace @formsort/${{ github.event.inputs.package }} run release ${{ github.event.inputs.version }}
