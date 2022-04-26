@@ -7,12 +7,20 @@ on:
       - release/*/*
   pull_request:
     branches: [master]
+  workflow_call:
+    inputs:
+      ref:
+        description: The branch to build
+        type: string
+        required: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref || github.ref }}
       - uses: ./.github/actions/setup-node
       # We build all ahead of time before linting as we need the build
       # step for TS type definitions to be usable. These are used during both
