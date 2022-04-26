@@ -13,6 +13,10 @@ on:
         description: The branch to build
         type: string
         required: true
+      package:
+        description: The package to build
+        type: string
+        required: false
 
 jobs:
   build:
@@ -46,8 +50,12 @@ jobs:
         run: yarn lint
       - name: Test
         run: yarn test
-      - name: Pack for NPM
+      - name: Pack all
+        if: ${{ !inputs.package }}
         run: yarn workspaces run pack
+      - name: Pack single package
+        if: ${{ inputs.package }}
+        run: yarn workspace @formsort/${{ inputs.package }} run pack
       - name: Archive Artifacts
         uses: actions/upload-artifact@v3
         with:

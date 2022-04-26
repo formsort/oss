@@ -6,8 +6,9 @@ postReleaseCommand: node ../../scripts/post-release.js
 releaseBranchPrefix: release/custom-question-api
 
 requireNames:
-  - /^formsort-.+\.tgz$/
+  - /^formsort-custom-question-api-v.+\.tgz$/
 targets:
   - name: npm
+    access: public
   - name: github
     tagPrefix: custom-question-api-

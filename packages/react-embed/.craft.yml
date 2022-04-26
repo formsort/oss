@@ -6,8 +6,9 @@ postReleaseCommand: node ../../scripts/post-release.js
 releaseBranchPrefix: release/react-embed
 
 requireNames:
-  - /^formsort-.+\.tgz$/
+  - /^formsort-react-embed-v.+\.tgz$/
 targets:
   - name: npm
+    access: public
   - name: github
     tagPrefix: react-embed-

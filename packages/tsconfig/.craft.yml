@@ -6,8 +6,9 @@ postReleaseCommand: node ../../scripts/post-release.js
 releaseBranchPrefix: release/tsconfig
 
 requireNames:
-  - /^formsort-.+\.tgz$/
+  - /^formsort-tsconfig-v.+\.tgz$/
 targets:
   - name: npm
+    access: public
   - name: github
     tagPrefix: tsconfig-
