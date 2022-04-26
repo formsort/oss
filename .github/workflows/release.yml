@@ -41,3 +41,19 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       ref: ${{ needs.prepare.outputs.release_branch }}
+
+  store_inputs:
+    name: Store inputs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump inputs to file
+        env:
+          INPUTS: ${{ toJson(github.event.inputs) }}
+        run: |
+          echo "$INPUTS" > inputs.json
+      - name: Store inputs as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ github.run_id }}-inputs
+          if-no-files-found: error
+          path: inputs.json
