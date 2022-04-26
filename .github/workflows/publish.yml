@@ -1,0 +1,36 @@
+name: Publish
+
+on:
+  workflow_run:
+    workflows: [Cut a Release]
+    types:
+      - completed
+
+jobs:
+  printJob:
+    name: Print event
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
+  # publish:
+  #   runs-on: ubuntu-latest
+  #   environment: release
+  #   name: 'Publish the new version'
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: 0
+  #     - uses: ./.github/actions/setup-node
+  #     - name: Publish
+  #       env:
+  #         GITHUB_TOKEN: ${{ github.token }}
+  #         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  #         CRAFT_LOG_LEVEL: Trace
+  #       # Run `craft publish` with `--no-status-check` here as we already depend on the previous step
+  #       # "Build" to finish. Also, if that fails we won't be able to find the artifacts at this stage.
+  #       run: >-
+  #         yarn workspace @formsort/${{ github.event.inputs.package }} run craft publish ${{ github.event.inputs.version }} --no-status-check
