@@ -1,4 +1,4 @@
-name: Publish Package
+name: Cut a Release
 on:
   workflow_dispatch:
     inputs:
@@ -32,29 +32,12 @@ jobs:
           release_branch=$(yarn workspace @formsort/${{ github.event.inputs.package }} run craft prepare ${{ github.event.inputs.version }} | grep -Po '(?<=Pushing the release branch ")release/.+/.+(?=")')
           echo ::set-output name=release_branch::$release_branch
 
+  # We need this manual trigger as when using the built-in GITHUB_TOKEN
+  # we cannot trigger further workflow runs, even that should trigger on
+  # branch pushes. This is a known "protection" from GitHub Actions
   build:
     name: Build
     needs: prepare
     uses: ./.github/workflows/build.yml
     with:
       ref: ${{ needs.prepare.outputs.release_branch }}
-
-  publish:
-    runs-on: ubuntu-latest
-    needs: build
-    environment: release
-    name: 'Publish the new version'
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - uses: ./.github/actions/setup-node
-      - name: Publish
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          CRAFT_LOG_LEVEL: Trace
-        # Run `craft publish` with `--no-status-check` here as we already depend on the previous step
-        # "Build" to finish. Also, if that fails we won't be able to find the artifacts at this stage.
-        run: >-
-          yarn workspace @formsort/${{ github.event.inputs.package }} run craft publish ${{ github.event.inputs.version }} --no-status-check
