@@ -21,6 +21,13 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: ${{ inputs.ref || github.ref }}
+      # We need this as we use this workflow from
+      # release.yml, which has a different SHA from
+      # the `github` context we have here.
+      # Otherwise we could just use `github.sha`
+      - name: Set SHA
+        run: >-
+          echo "SHA=git rev-parse HEAD" >> $GITHUB_ENV
       - uses: ./.github/actions/setup-node
       # We build all ahead of time before linting as we need the build
       # step for TS type definitions to be usable. These are used during both
@@ -43,7 +50,7 @@ jobs:
       - name: Archive Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ github.sha }}
+          name: ${{ env.sha }}
           if-no-files-found: error
           path: |
             ${{ github.workspace }}/packages/**/*.tgz
