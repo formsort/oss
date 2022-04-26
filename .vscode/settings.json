@@ -8,5 +8,6 @@
   ],
   "yaml.schemas": {
     "https://json.schemastore.org/github-workflow.json": "<workdir>/.github/workflows/build.yml"
-  }
+  },
+  "cSpell.words": ["formsort"]
 }
