@@ -22,7 +22,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          release_branch=$(yarn workspace @formsort/${{ github.event.inputs.package }} run craft prepare ${{ github.event.inputs.version }} | -Po '(?<=Pushing the release branch ")release/.+/.+(?=")')
+          release_branch=$(yarn workspace @formsort/${{ github.event.inputs.package }} run craft prepare ${{ github.event.inputs.version }} | grep -Po '(?<=Pushing the release branch ")release/.+/.+(?=")')
           echo ::set-output name=release_branch::$release_branch
       - name: Build
         uses: ./.github/workflows/build.yml
