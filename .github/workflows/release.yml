@@ -41,7 +41,7 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       ref: ${{ needs.prepare.outputs.release_branch }}
-      package: ${{ github.events.inputs.package }}
+      package: ${{ github.event.inputs.package }}
 
   store_inputs:
     name: Store inputs
