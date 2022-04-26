@@ -25,8 +25,8 @@ jobs:
       - name: Set parent inputs
         id: inputs
         run: |
-          echo ::set-output package=$(jq -r '.package' inputs.json)
-          echo ::set-output version=$(jq -r '.version' inputs.json)
+          echo ::set-output name=package::$(jq -r '.package' inputs.json)
+          echo ::set-output name=version::$(jq -r '.version' inputs.json)
           rm inputs.json
 
   publish:
