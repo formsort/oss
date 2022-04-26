@@ -15,8 +15,10 @@ jobs:
       version: ${{ steps.inputs.outputs.version }}
     steps:
       - name: Download parent inputs file
-        uses: actions/download-artifact@v3
+        uses: dawidd6/action-download-artifact@v2
         with:
+          github_token: ${{ github.token }}
+          run_id: ${{ github.event.workflow_run.id }}
           name: ${{ github.event.workflow_run.id }}-inputs
 
       - name: Set parent inputs
