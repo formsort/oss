@@ -53,5 +53,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        # Run `craft publish` with `--no-status-check` here as we already depend on the previous step
+        # "Build" to finish. Also, if that fails we won't be able to find the artifacts at this stage.
         run: >-
-          yarn workspace @formsort/${{ github.event.inputs.package }} run craft publish ${{ github.event.inputs.version }}
+          yarn workspace @formsort/${{ github.event.inputs.package }} run craft publish ${{ github.event.inputs.version }} --no-status-check
