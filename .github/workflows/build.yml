@@ -25,9 +25,10 @@ jobs:
       # release.yml, which has a different SHA from
       # the `github` context we have here.
       # Otherwise we could just use `github.sha`
-      - name: Set SHA
+      - name: Get SHA
+        id: sha
         run: >-
-          echo "SHA=$(git rev-parse --sq HEAD)" >> $GITHUB_ENV
+          echo ::set-output name=sha::$(git rev-parse --sq HEAD)
       - uses: ./.github/actions/setup-node
       # We build all ahead of time before linting as we need the build
       # step for TS type definitions to be usable. These are used during both
@@ -50,7 +51,7 @@ jobs:
       - name: Archive Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.sha }}
+          name: ${{ steps.sha.outputs.sha }}
           if-no-files-found: error
           path: |
             ${{ github.workspace }}/packages/**/*.tgz
