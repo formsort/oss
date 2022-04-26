@@ -8,7 +8,7 @@ on:
 
 jobs:
   inputs:
-    name: Print event
+    name: Get release info
     runs-on: ubuntu-latest
     outputs:
       package: ${{ steps.inputs.outputs.package }}
