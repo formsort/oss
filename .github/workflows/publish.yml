@@ -47,4 +47,4 @@ jobs:
         # Run `craft publish` with `--no-status-check` here as we already depend on the previous step
         # "Build" to finish. Also, if that fails we won't be able to find the artifacts at this stage.
         run: >-
-          yarn workspace @formsort/${{ needs.inputs.package }} run craft publish ${{ needs.inputs.version }} --no-status-check
+          yarn workspace @formsort/${{ needs.inputs.outputs.package }} run craft publish ${{ needs.inputs.outputs.version }} --no-status-check
