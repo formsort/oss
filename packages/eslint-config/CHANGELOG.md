@@ -1,4 +1,8 @@
 # CHANGELOG
+## 1.4.7
+
+- No documented changes.
+
 ## 1.4.5
 
 ### Various fixes & improvements
