@@ -11,7 +11,7 @@ on:
 env:
   GIT_COMMITTER_NAME: Formsort Release Bot
   GIT_AUTHOR_NAME: Formsort Release Bot
-  EMAIL: releases@formsort.com
+  EMAIL: releases+github@formsort.com
 jobs:
   prepare:
     runs-on: ubuntu-latest

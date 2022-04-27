@@ -9,7 +9,7 @@ on:
 env:
   GIT_COMMITTER_NAME: Formsort Release Bot
   GIT_AUTHOR_NAME: Formsort Release Bot
-  EMAIL: releases@formsort.com
+  EMAIL: releases+github@formsort.com
 
 jobs:
   inputs:
@@ -43,11 +43,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          token: ${{ secrets.FS_RELEASE_GITHUB_PAT }}
           fetch-depth: 0
       - uses: ./.github/actions/setup-node
       - name: Publish
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.FS_RELEASE_GITHUB_PAT }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           CRAFT_LOG_LEVEL: ${{ secrets.CRAFT_LOG_LEVEL }}
         # Run `craft publish` with `--no-status-check` here as we already depend on the previous step
