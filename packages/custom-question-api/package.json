@@ -2,6 +2,10 @@
   "name": "@formsort/custom-question-api",
   "version": "0.1.0",
   "description": "Helpers for implementing custom questions in Formsort",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {

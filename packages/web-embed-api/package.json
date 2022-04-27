@@ -2,6 +2,10 @@
   "name": "@formsort/web-embed-api",
   "version": "2.2.0",
   "description": "Embed Formsort flows within other webpages",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {

@@ -2,6 +2,10 @@
   "name": "@formsort/constants",
   "version": "1.6.0",
   "description": "Constants used across Formsort projects. Not intended to be used directly",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "main": "lib/index.js",
   "directories": {
     "lib": "lib"

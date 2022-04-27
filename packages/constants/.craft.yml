@@ -9,6 +9,5 @@ requireNames:
   - /^formsort-constants-v.+\\.tgz$/
 targets:
   - name: npm
-    access: public
   - name: github
     tagPrefix: constants-

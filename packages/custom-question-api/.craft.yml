@@ -9,6 +9,5 @@ requireNames:
   - /^formsort-custom-question-api-v.+\.tgz$/
 targets:
   - name: npm
-    access: public
   - name: github
     tagPrefix: custom-question-api-

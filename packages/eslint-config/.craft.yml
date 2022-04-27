@@ -9,6 +9,5 @@ requireNames:
   - /^formsort-eslint-config-v.+\.tgz$/
 targets:
   - name: npm
-    access: public
   - name: github
     tagPrefix: eslint-config-

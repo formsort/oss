@@ -9,6 +9,5 @@ requireNames:
   - /^formsort-tsconfig-v.+\.tgz$/
 targets:
   - name: npm
-    access: public
   - name: github
     tagPrefix: tsconfig-

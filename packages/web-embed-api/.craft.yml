@@ -9,6 +9,5 @@ requireNames:
   - /^formsort-web-embed-api-v.+\.tgz$/
 targets:
   - name: npm
-    access: public
   - name: github
     tagPrefix: web-embed-api-
