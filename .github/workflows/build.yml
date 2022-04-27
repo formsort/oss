@@ -7,16 +7,6 @@ on:
       - release/*/*
   pull_request:
     branches: [master]
-  workflow_call:
-    inputs:
-      ref:
-        description: The branch to build
-        type: string
-        required: true
-      package:
-        description: The package to build
-        type: string
-        required: false
 
 jobs:
   build:
