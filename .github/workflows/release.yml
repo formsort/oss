@@ -13,48 +13,20 @@ env:
   GIT_AUTHOR_NAME: Formsort Release Bot
   EMAIL: releases+github@formsort.com
 jobs:
-  prepare:
+  prepare_and_publish:
     runs-on: ubuntu-latest
-    name: 'Prepare a new version'
-    outputs:
-      release_branch: ${{ steps.prepare.outputs.release_branch }}
+    name: 'Publish a new version'
+    environment: release
     steps:
       - uses: actions/checkout@v3
         with:
+          token: ${{ secrets.FS_RELEASE_GITHUB_PAT }}
           fetch-depth: 0
       - uses: ./.github/actions/setup-node
-      - name: Prepare
-        id: prepare
+      - name: Publish with Craft
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.FS_RELEASE_GITHUB_PAT }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          CRAFT_LOG_LEVEL: ${{ secrets.CRAFT_LOG_LEVEL }}
         run: |
-          set -euo pipefail
-          release_branch=$(yarn workspace @formsort/${{ github.event.inputs.package }} run craft prepare ${{ github.event.inputs.version }} | grep -Po '(?<=Pushing the release branch ")release/.+/.+(?=")')
-          echo ::set-output name=release_branch::$release_branch
-
-  # We need this manual trigger as when using the built-in GITHUB_TOKEN
-  # we cannot trigger further workflow runs, even that should trigger on
-  # branch pushes. This is a known "protection" from GitHub Actions
-  build:
-    name: Build
-    needs: prepare
-    uses: ./.github/workflows/build.yml
-    with:
-      ref: ${{ needs.prepare.outputs.release_branch }}
-      package: ${{ github.event.inputs.package }}
-
-  store_inputs:
-    name: Store inputs
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dump inputs to file
-        env:
-          INPUTS: ${{ toJson(github.event.inputs) }}
-        run: |
-          echo "$INPUTS" > inputs.json
-      - name: Store inputs as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ github.run_id }}-inputs
-          if-no-files-found: error
-          path: inputs.json
+          yarn workspace @formsort/${{ github.event.inputs.package }} run release ${{ github.event.inputs.version }}
