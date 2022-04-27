@@ -8,6 +8,7 @@ on:
 
 jobs:
   inputs:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: Get release info
     runs-on: ubuntu-latest
     outputs:
