@@ -33,8 +33,8 @@ jobs:
       - name: Pack
         run: |
           # WARN: This grep pattern relies on the `releaseBranchPrefix` field in .craft.yml files
-          release_package=$(echo '${{ github.ref }}' | grep -Po '(?<=release/)[^/]+(?=/[0-9a-z_.]+)')
-          if [[ -n "$release_package "]]; then
+          release_package=$(echo '${{ github.ref_name }}' | grep -Po '(?<=release/)[^/]+(?=/[0-9a-z_.]+)')
+          if [[ -n "$release_package" ]]; then
             yarn workspaces run pack;
           else
             yarn workspace @formsort/${{ inputs.package }} run pack;
