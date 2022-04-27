@@ -5,6 +5,13 @@ on:
       package:
         description: Name of the package to release
         required: true
+        type: choice
+        options:
+          - constants
+          - custom-question-api
+          - eslint-config
+          - react-embed
+          - tsconfig
       version:
         description: Version to release
         required: true
