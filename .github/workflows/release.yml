@@ -12,6 +12,7 @@ on:
           - eslint-config
           - react-embed
           - tsconfig
+          - web-embed-api
       version:
         description: Version to release
         required: true
