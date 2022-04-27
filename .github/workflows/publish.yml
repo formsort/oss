@@ -6,6 +6,11 @@ on:
     types:
       - completed
 
+env:
+  GIT_COMMITTER_NAME: Formsort Release Bot
+  GIT_AUTHOR_NAME: Formsort Release Bot
+  EMAIL: releases@formsort.com
+
 jobs:
   inputs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
