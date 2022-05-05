@@ -9,5 +9,14 @@
   "yaml.schemas": {
     "https://json.schemastore.org/github-workflow.json": "<workdir>/.github/workflows/build.yml"
   },
-  "cSpell.words": ["formsort"]
+  "cSpell.words": [
+    "aquasecurity",
+    "codeql",
+    "dorny",
+    "formsort",
+    "sarif",
+    "SAST",
+    "trivy",
+    "vuln"
+  ]
 }
