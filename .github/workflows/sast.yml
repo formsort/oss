@@ -71,7 +71,8 @@ jobs:
             --config auto \
             --strict \
             --verbose \
-            ${{ github.event_name == 'pull_request' && format('--baseline-commit {0}', github.event.pull_request.base.sha) || '--sarif --output=semgrep.sarif' }}
+            ${{ github.event_name == 'pull_request' && format('--baseline-commit {0}', github.event.pull_request.base.sha) || '--sarif --output=semgrep.sarif' }} \
+            ${{ github.workspace }}
       - name: Upload scan results to GitHub
         if: github.event_name != 'pull_request' && failure()
         uses: github/codeql-action/upload-sarif@v1
