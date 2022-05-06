@@ -64,7 +64,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 10
-          path: repo
       - name: semgrep scan
         run: |
           semgrep scan \
@@ -72,8 +71,8 @@ jobs:
             --config auto \
             --strict \
             --verbose \
+            --exclude '/tmp/**' \
             ${{ github.event_name == 'pull_request' && format('--baseline-commit {0}', github.event.pull_request.base.sha) || '--sarif --output=semgrep.sarif' }} \
-            repo
       - name: Upload scan results to GitHub
         if: github.event_name != 'pull_request' && failure()
         uses: github/codeql-action/upload-sarif@v1
