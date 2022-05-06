@@ -1,9 +1,16 @@
 name: 'SAST'
+# Static Application Security Testing
 on:
   pull_request:
     branches: [master]
   push:
     branches: [master]
+  schedule:
+    - cron: '26 11 * * 0'
+permissions:
+  actions: read # for github/codeql-action
+  contents: read # for actions/checkout to fetch code
+  security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
 
 jobs:
   paths:
@@ -20,10 +27,10 @@ jobs:
     outputs:
       changed: ${{ steps.changes.outputs.packages == 'true' }}
   trivy_fs_scan:
-    name: Static Application Security Testing
+    name: Trivy
     runs-on: ubuntu-latest
     needs: paths
-    if: needs.paths.outputs.changed == 'true'
+    if: github.event_name == 'push' || github.event_name == 'schedule' || needs.paths.outputs.changed == 'true'
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
@@ -41,6 +48,46 @@ jobs:
           cache-dir: .trivy_cache
 
       - name: Upload scan results to GitHub
+        if: failure()
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: 'trivy-results.sarif'
+  semgrep:
+    name: Semgrep
+    runs-on: ubuntu-20.04
+    env:
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+    container:
+      image: returntocorp/semgrep
+    if: (github.actor != 'dependabot[bot]')
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 10
+      - name: semgrep scan
+        run: |
+          semgrep scan \
+            --metrics on \
+            --config auto \
+            --error \
+            ${{ github.event_name == 'pull_request' && format('--baseline-commit {0}', github.event.pull_request.base.sha) || '--sarif --output=semgrep.sarif' }} \
+      - name: Upload scan results to GitHub
+        if: github.event_name != 'pull_request' && failure()
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: 'semgrep.sarif'
+  codeql:
+    name: CodeQL
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Initializes the CodeQL tools for scanning.
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: 'javascript'
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
