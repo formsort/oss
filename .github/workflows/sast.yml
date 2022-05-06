@@ -30,7 +30,7 @@ jobs:
     name: Trivy
     runs-on: ubuntu-latest
     needs: paths
-    if: needs.paths.outputs.changed == 'true'
+    if: github.event_name == 'push' || github.event_name == 'schedule' || needs.paths.outputs.changed == 'true'
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
