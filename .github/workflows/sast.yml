@@ -56,16 +56,20 @@ jobs:
     name: Semgrep
     runs-on: ubuntu-20.04
     env:
-      SEMGREP_SEND_METRICS: 'on'
       SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
     container:
       image: returntocorp/semgrep
     if: (github.actor != 'dependabot[bot]')
     steps:
       - uses: actions/checkout@v3
-      - run: semgrep scan --config auto --strict --sarif --output=semgrep.sarif
+      - run: >-
+          semgrep scan
+            --metrics on
+            --config auto
+            --strict
+            ${{ github.event_name == 'pull_request' && format('--baseline-commit {0}', github.base_ref) || '--sarif --output=semgrep.sarif' }}
       - name: Upload scan results to GitHub
-        if: failure()
+        if: github.event_name != 'pull_request' && failure()
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: 'semgrep.sarif'
