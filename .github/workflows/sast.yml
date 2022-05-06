@@ -71,7 +71,7 @@ jobs:
             --metrics on
             --config auto
             --error
-            ${{ github.event_name == 'pull_request' && format('--json --output=semgrep.json --baseline-commit {0}', github.event.pull_request.base.sha) || '--sarif --output=semgrep.sarif' }} \
+            ${{ github.event_name == 'pull_request' && format('--json --output=semgrep.json --baseline-commit {0}', github.event.pull_request.base.sha) || '--sarif --output=semgrep.sarif' }}
       - name: Upload scan results to GitHub
         if: github.event_name != 'pull_request' && failure()
         uses: github/codeql-action/upload-sarif@v1
