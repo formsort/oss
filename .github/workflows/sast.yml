@@ -55,27 +55,31 @@ jobs:
   semgrep:
     name: Semgrep
     runs-on: ubuntu-20.04
-    env:
-      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-    container:
-      image: returntocorp/semgrep
     if: (github.actor != 'dependabot[bot]')
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 10
-      - name: semgrep scan
-        run: |
-          semgrep scan \
-            --metrics on \
-            --config auto \
-            --error \
-            ${{ github.event_name == 'pull_request' && format('--baseline-commit {0}', github.event.pull_request.base.sha) || '--sarif --output=semgrep.sarif' }} \
+      - uses: 'docker://returntocorp/semgrep-agent:v1'
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+        name: semgrep scan
+        with:
+          entrypoint: semgrep
+          args: >-
+            scan
+            --metrics on
+            --config auto
+            --error
+            ${{ github.event_name == 'pull_request' && format('--json --output=semgrep.json --baseline-commit {0}', github.event.pull_request.base.sha) || '--sarif --output=semgrep.sarif' }} \
       - name: Upload scan results to GitHub
         if: github.event_name != 'pull_request' && failure()
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: 'semgrep.sarif'
+      - name: Annotate
+        if: github.event_name == 'pull_request' && failure()
+        run: jq -r '.results[] | "::error file=\(.path),line=\(.start.line),lineEnd=\(.end.line),col=\(.start.col),endColumn=\(.end.col),title=[\(.extra.severity)]\(.check_id)::\(.extra.message)"' semgrep.json
   codeql:
     name: CodeQL
     runs-on: ubuntu-latest
