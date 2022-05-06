@@ -14,8 +14,10 @@
     "codeql",
     "dorny",
     "formsort",
+    "returntocorp",
     "sarif",
     "SAST",
+    "semgrep",
     "trivy",
     "vuln"
   ]
