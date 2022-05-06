@@ -64,10 +64,10 @@ jobs:
       - uses: actions/checkout@v3
       - run: >-
           semgrep scan
-            --metrics on
-            --config auto
-            --strict
-            ${{ github.event_name == 'pull_request' && format('--baseline-commit {0}', github.base_ref) || '--sarif --output=semgrep.sarif' }}
+          --metrics on
+          --config auto
+          --strict
+          ${{ github.event_name == 'pull_request' && format('--baseline-commit {0}', github.base_ref) || '--sarif --output=semgrep.sarif' }}
       - name: Upload scan results to GitHub
         if: github.event_name != 'pull_request' && failure()
         uses: github/codeql-action/upload-sarif@v1
