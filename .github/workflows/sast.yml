@@ -71,10 +71,9 @@ jobs:
             --metrics on
             --config auto
             ${{ github.event_name == 'push' && '--no-error' || '--error' }}
-            --json --output=semgrep.json
-            ${{ github.event_name == 'pull_request' && format('--baseline-commit {0}', github.event.pull_request.base.sha) || '--sarif --output=semgrep.sarif' }}
+            ${{ github.event_name == 'pull_request' && format('--json --output=semgrep.json --baseline-commit {0}', github.event.pull_request.base.sha) || '--sarif --output=semgrep.sarif' }}
       - name: Annotate
-        if: failure()
+        if: github.event_name == 'pull_request' && failure()
         run: jq -r '.results[] | "::error file=\(.path),line=\(.start.line),lineEnd=\(.end.line),col=\(.start.col),endColumn=\(.end.col),title=[\(.extra.severity)]\(.check_id)::\(.extra.message)"' semgrep.json
       - name: Upload scan results to GitHub
         if: github.event_name != 'pull_request' && failure()
