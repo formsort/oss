@@ -50,7 +50,7 @@ jobs:
           cache-dir: .trivy_cache
       - name: Upload scan results to GitHub
         if: github.event_name != 'pull_request' && failure()
-        uses: github/codeql-action/upload-sarif@v1
+        uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: 'trivy-results.sarif'
   semgrep:
@@ -78,7 +78,7 @@ jobs:
         run: jq -r '.results[] | "::error file=\(.path),line=\(.start.line),lineEnd=\(.end.line),col=\(.start.col),endColumn=\(.end.col),title=[\(.extra.severity)]\(.check_id)::\(.extra.message)"' semgrep.json
       - name: Upload scan results to GitHub
         if: github.event_name != 'pull_request' && failure()
-        uses: github/codeql-action/upload-sarif@v1
+        uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: 'semgrep.sarif'
   codeql:
