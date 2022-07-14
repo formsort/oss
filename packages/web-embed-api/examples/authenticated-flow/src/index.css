@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'Satoshi';
+  src: url('https://usercontent.formsort.com/formsort/Satoshi-Variable.ttf')
+    format('truetype');
+  font-weight: 300 900;
+}
+
+html,
+body {
+  font-family: Satoshi;
+  margin: 0;
+}
+
+body {
+  padding: 24px;
+}
+
+#logo {
+  background: url('./logo.svg') no-repeat;
+  height: 41px;
+}
