@@ -9,7 +9,8 @@
   "scripts": {
     "start": "webpack serve",
     "build": "tsc",
-    "check:types": "tsc --noEmit"
+    "check:types": "tsc --noEmit",
+    "test": "echo pass"
   },
   "author": "Formsort Engineering <engineering@formsort.com>",
   "license": "ISC",
