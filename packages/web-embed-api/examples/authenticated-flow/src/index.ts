@@ -18,7 +18,7 @@ declare global {
 }
 
 (() => {
-  const { googleClientId, rootEl, googleSignInButton } = getConfig();
+  const { googleClientId, rootEl, googleSignInButton, clientLabel, flowLabel, variantLabel, origin } = getConfig();
 
   // Wait for the Google script to load
   window.onload = () => {
@@ -30,7 +30,7 @@ declare global {
         const authentication = { idToken: response.credential };
 
         const embed = FormsortWebEmbed(rootEl, {
-          origin: 'https://flow.beta.formsort.com',
+          origin,
           style: { width: '100%', height: '500px' },
           authentication,
         });
@@ -40,7 +40,7 @@ declare global {
           console.error('Unauthorized');
         });
       
-        embed.loadFlow('formsort_demo', 'authenticated', 'main');
+        embed.loadFlow(clientLabel, flowLabel, variantLabel);
       },
     });
 

@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   mode: 'development',
@@ -38,8 +38,6 @@ module.exports = {
       inject: true,
       template: path.resolve('./src/index.html'),
     }),
-    new webpack.DefinePlugin({
-      'process.env.GOOGLE_CLIENT_ID': `'${process.env.GOOGLE_CLIENT_ID || ''}'`
-    }),
+    new Dotenv(),
   ],
 };
