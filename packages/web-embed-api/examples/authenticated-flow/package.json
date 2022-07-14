@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "webpack serve",
+    "build": "tsc",
     "check:types": "tsc --noEmit"
   },
   "author": "Formsort Engineering <engineering@formsort.com>",
