@@ -118,7 +118,7 @@ describe('FormsortWebEmbed', () => {
 
     const iframe = iframes[0];
     expect(iframe.src).toBe(
-      `https://flow.formsort.com/client/${clientLabel}/flow/${flowLabel}`
+      `https://${clientLabel}.formsort.app/client/${clientLabel}/flow/${flowLabel}`
     );
   });
 
@@ -162,7 +162,7 @@ describe('FormsortWebEmbed', () => {
 
     const iframe = iframes[0];
     expect(iframe.src).toBe(
-      `https://flow.formsort.com` +
+      `https://${clientLabel}.formsort.app` +
         `/client/${clientLabel}/flow/${flowLabel}/variant/${variantLabel}`
     );
   });
@@ -183,7 +183,7 @@ describe('FormsortWebEmbed', () => {
 
     const iframe = iframes[0];
     expect(iframe.src).toBe(
-      `https://flow.formsort.com` +
+      `https://${clientLabel}.formsort.app` +
         `/client/${clientLabel}/flow/${flowLabel}` +
         `?${queryParamA}=${queryValueA}&${queryParamB}=${queryValueB}`
     );
@@ -220,7 +220,7 @@ describe('FormsortWebEmbed', () => {
 
     const msg = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: undefined,
     });
     mockPostMessage(msg);
@@ -239,12 +239,12 @@ describe('FormsortWebEmbed', () => {
 
     const firstFlowIframe = iframes[0];
     expect(firstFlowIframe.src).toBe(
-      `https://flow.formsort.com/client/${clientLabel}/flow/${flowLabel}`
+      `https://${clientLabel}.formsort.app/client/${clientLabel}/flow/${flowLabel}`
     );
 
     const secondFlowIframe = iframes[1];
     expect(secondFlowIframe.src).toBe(
-      `https://flow.formsort.com/client/${clientLabel}/flow/${secondFlowLabel}`
+      `https://${clientLabel}.formsort.app/client/${clientLabel}/flow/${secondFlowLabel}`
     );
 
     const firstFlowFinalized = jest.fn();
@@ -261,7 +261,7 @@ describe('FormsortWebEmbed', () => {
 
     const msg = new MessageEvent('message', {
       source: firstFlowIframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_EVENT_MSG,
         createdAt: new Date(),
@@ -286,7 +286,7 @@ describe('FormsortWebEmbed', () => {
 
     const msg = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_EVENT_MSG,
         createdAt: new Date(),
@@ -313,7 +313,7 @@ describe('FormsortWebEmbed', () => {
 
     const msg1 = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_EVENT_MSG,
         createdAt: new Date(),
@@ -333,7 +333,7 @@ describe('FormsortWebEmbed', () => {
     );
     const msg2 = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_EVENT_MSG,
         createdAt: new Date(),
@@ -362,7 +362,7 @@ describe('FormsortWebEmbed', () => {
     );
     const msg3 = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_EVENT_MSG,
         createdAt: new Date(),
@@ -389,7 +389,7 @@ describe('FormsortWebEmbed', () => {
 
     const msg = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_EVENT_MSG,
         createdAt: new Date(),
@@ -412,7 +412,7 @@ describe('FormsortWebEmbed', () => {
 
     const msg = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_EVENT_MSG,
         createdAt: new Date(),
@@ -438,7 +438,7 @@ describe('FormsortWebEmbed', () => {
 
     const msg = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_RESIZE_MSG,
         payload: {
@@ -458,7 +458,7 @@ describe('FormsortWebEmbed', () => {
 
     const heightMsg = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_RESIZE_MSG,
         payload: {
@@ -472,7 +472,7 @@ describe('FormsortWebEmbed', () => {
 
     const widthMsg = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_RESIZE_MSG,
         payload: {
@@ -499,7 +499,7 @@ describe('FormsortWebEmbed', () => {
     const newHeight = '733px';
     const msg = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_RESIZE_MSG,
         payload: {
@@ -524,7 +524,7 @@ describe('FormsortWebEmbed', () => {
     const redirectUrl = 'https://example.com';
     const msg = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_REDIRECT_MSG,
         payload: redirectUrl,
@@ -554,7 +554,7 @@ describe('FormsortWebEmbed', () => {
     const redirectUrl = 'https://example.com';
     const msg = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_REDIRECT_MSG,
         payload: redirectUrl,
@@ -583,7 +583,7 @@ describe('FormsortWebEmbed', () => {
 
     const msg = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_REDIRECT_MSG,
         payload: redirectUrl,
@@ -612,7 +612,7 @@ describe('FormsortWebEmbed', () => {
 
     const msg = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_REDIRECT_MSG,
         payload: redirectUrl,
@@ -643,7 +643,7 @@ describe('FormsortWebEmbed', () => {
 
       const msg = new MessageEvent('message', {
         source: iframe.contentWindow,
-        origin: DEFAULT_FLOW_ORIGIN,
+        origin: `https://${clientLabel}.formsort.app`,
         data: {
           type: WebEmbedMessage.EMBED_EVENT_MSG,
           createdAt: new Date(),
@@ -694,7 +694,7 @@ describe('FormsortWebEmbed', () => {
 
     const msg = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_REDIRECT_MSG,
         payload: redirectUrl,
@@ -721,7 +721,7 @@ describe('FormsortWebEmbed', () => {
 
     const redirectMsg = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_REDIRECT_MSG,
         payload: 'https://example.com',
@@ -731,7 +731,7 @@ describe('FormsortWebEmbed', () => {
 
     const resizeMsg = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_RESIZE_MSG,
         payload: {
@@ -774,7 +774,7 @@ describe('FormsortWebEmbed', () => {
     const redirectUrl = `${EMBEDDING_WINDOW_ORIGIN}/some-other-page-in-the-parent-origin`;
     const msg = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_REDIRECT_MSG,
         payload: redirectUrl,
@@ -798,7 +798,7 @@ describe('FormsortWebEmbed', () => {
     const redirectUrl = `https://www.some-other-origin.com/some-other-page`;
     const msg = new MessageEvent('message', {
       source: iframe.contentWindow,
-      origin: DEFAULT_FLOW_ORIGIN,
+      origin: `https://${clientLabel}.formsort.app`,
       data: {
         type: WebEmbedMessage.EMBED_REDIRECT_MSG,
         payload: redirectUrl,
