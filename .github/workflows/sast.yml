@@ -1,9 +1,11 @@
 name: 'SAST'
 # Static Application Security Testing
 on:
-  pull_request:
-    branches: [master]
   push:
+    branches:
+      - master
+      - release/*/*
+  pull_request:
     branches: [master]
   schedule:
     - cron: '26 11 * * 0'
