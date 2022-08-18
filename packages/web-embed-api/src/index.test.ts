@@ -3,7 +3,6 @@ import FormsortWebEmbed, { SupportedAnalyticsEvent } from '.';
 
 type MessageListener = (msg: MessageEvent) => any;
 
-const DEFAULT_FLOW_ORIGIN = 'https://flow.formsort.com';
 const EMBEDDING_WINDOW_ORIGIN = 'https://test-origin.formsort.com';
 
 const clientLabel = 'test-client';
