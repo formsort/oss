@@ -1,9 +1,5 @@
 # CHANGELOG
 
-## 2.2.1
-
-- Use `{clientLabel}.formsort.app` if no origin was specified. `flow.formsort.com/{clientLabel}` is deprecated.
-
 ## 2.2.0
 
 - Add `unauthorized` event listeners.
