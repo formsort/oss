@@ -9,7 +9,7 @@
     "test": "echo pass",
     "pack": "echo pass"
   },
-  "author": "",
+  "author": "Formsort Engineering <engineering@formsort.com>",
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.16.7",

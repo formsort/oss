@@ -1,7 +1,7 @@
 {
   "name": "formsort-custom-api-example-react",
   "version": "1.0.0",
-  "author": "Lev Izraelit",
+  "author": "Formsort Engineering <engineering@formsort.com>",
   "license": "MIT",
   "source": "src/index.html",
   "scripts": {

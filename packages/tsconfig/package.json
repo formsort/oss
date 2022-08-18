@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/formsort/oss.git"
   },
-  "author": "Fil Zembowicz <fil@formsort.com>",
+  "author": "Formsort Engineering <engineering@formsort.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/formsort/oss/issues"

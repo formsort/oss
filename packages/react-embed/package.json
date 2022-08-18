@@ -31,7 +31,7 @@
     "embed",
     "react"
   ],
-  "author": "Ali Kirecligol <ali@formsort.com>",
+  "author": "Formsort Engineering <engineering@formsort.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/formsort/oss/packages/react-embed/issues"

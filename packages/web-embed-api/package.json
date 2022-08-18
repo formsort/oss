@@ -29,7 +29,7 @@
     "formsort",
     "embed"
   ],
-  "author": "Fil Zembowicz <fil@formsort.com>",
+  "author": "Formsort Engineering <engineering@formsort.com>",
   "license": "MIT",
   "devDependencies": {
     "@formsort/eslint-config": "^1.3.7",

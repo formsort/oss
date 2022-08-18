@@ -10,7 +10,7 @@
     "pack": "echo pass"
   },
   "keywords": [],
-  "author": "",
+  "author": "Formsort Engineering <engineering@formsort.com>",
   "license": "ISC",
   "devDependencies": {
     "@parcel/transformer-typescript-tsc": "^2.4.1",

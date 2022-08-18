@@ -30,6 +30,6 @@
     "eslint-plugin-react": "^7.21.5",
     "prettier": "^2.2.1"
   },
-  "author": "Fil Zembowicz <fil@formsort.com>",
+  "author": "Formsort Engineering <engineering@formsort.com>",
   "license": "MIT"
 }
