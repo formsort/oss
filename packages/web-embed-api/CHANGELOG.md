@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2.2.1
+
+### Various fixes & improvements
+
+- update default Flow origin to {clientLabel}.formsort.app (#76) by @atikenny
+- Authenticated Flow example (#73) by @atikenny
+
 ## 2.2.0
 
 - Add `unauthorized` event listeners.
