@@ -27,7 +27,7 @@
     "forms",
     "questions"
   ],
-  "author": "Fil Zembowicz <fil@formsort.com>",
+  "author": "Formsort Engineering <engineering@formsort.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/formsort/custom-question-api/issues"
