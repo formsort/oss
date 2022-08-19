@@ -268,8 +268,11 @@ const FormsortWebEmbed = (
     let url;
 
     if (config.origin) {
+      // If a custom origin is set, we need to add the clientLabel and flowLabel to the Url
       url = `${formsortOrigin}/client/${clientLabel}/flow/${flowLabel}`;
     } else {
+      // If there is no custom origin set in the config
+      // we use the default Flow domain which includes the clientLabel
       url = `${formsortOrigin}/flow/${flowLabel}`;
     }
 
