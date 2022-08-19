@@ -265,8 +265,14 @@ const FormsortWebEmbed = (
   ) => {
     // We overwrite `formsortOrigin` because `onWindowMessage` will read it
     formsortOrigin = formsortOrigin || `https://${clientLabel}.${DEFAULT_FLOW_DOMAIN}`;
+    let url;
 
-    let url = `${formsortOrigin}/client/${clientLabel}/flow/${flowLabel}`;
+    if (config.origin) {
+      url = `${formsortOrigin}/client/${clientLabel}/flow/${flowLabel}`;
+    } else {
+      url = `${formsortOrigin}/flow/${flowLabel}`;
+    }
+
     if (variantLabel) {
       url += `/variant/${variantLabel}`;
     }
