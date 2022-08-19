@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2.2.2
+
+### Various fixes & improvements
+
+- Remove Client label from the default Flow Url (#77) by @atikenny
+- release: 2.2.1 (68829a45) by @formsort-release
+
 ## 2.2.1
 
 ### Various fixes & improvements
