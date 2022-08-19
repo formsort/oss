@@ -1,4 +1,10 @@
 # CHANGELOG
+## 2.1.2
+
+### Various fixes & improvements
+
+- Remove Client label from the default Flow Url (#77) by @atikenny
+
 ## 2.1.1
 
 ### Various fixes & improvements
