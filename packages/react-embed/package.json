@@ -1,6 +1,6 @@
 {
   "name": "@formsort/react-embed",
-  "version": "2.1.2",
+  "version": "2.1.1",
   "description": "Embed formsort flows in react components",
   "publishConfig": {
     "access": "public",
@@ -56,7 +56,7 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@formsort/web-embed-api": "^2.2.2"
+    "@formsort/web-embed-api": "^2.2.1"
   },
   "peerDependencies": {
     "react": "^16.13.0 || ^17.0.0"

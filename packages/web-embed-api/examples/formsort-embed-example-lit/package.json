@@ -1,6 +1,6 @@
 {
   "name": "formsort-embed-example-lit",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "",
   "source": "index.html",
   "scripts": {
@@ -19,7 +19,7 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@formsort/web-embed-api": "^2.2.2",
+    "@formsort/web-embed-api": "^2.2.1",
     "lit": "^2.2.1"
   },
   "browerslist": [

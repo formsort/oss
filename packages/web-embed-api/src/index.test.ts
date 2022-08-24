@@ -117,7 +117,7 @@ describe('FormsortWebEmbed', () => {
 
     const iframe = iframes[0];
     expect(iframe.src).toBe(
-      `https://${clientLabel}.formsort.app/flow/${flowLabel}`
+      `https://${clientLabel}.formsort.app/client/${clientLabel}/flow/${flowLabel}`
     );
   });
 
@@ -162,7 +162,7 @@ describe('FormsortWebEmbed', () => {
     const iframe = iframes[0];
     expect(iframe.src).toBe(
       `https://${clientLabel}.formsort.app` +
-        `/flow/${flowLabel}/variant/${variantLabel}`
+        `/client/${clientLabel}/flow/${flowLabel}/variant/${variantLabel}`
     );
   });
 
@@ -183,7 +183,7 @@ describe('FormsortWebEmbed', () => {
     const iframe = iframes[0];
     expect(iframe.src).toBe(
       `https://${clientLabel}.formsort.app` +
-        `/flow/${flowLabel}` +
+        `/client/${clientLabel}/flow/${flowLabel}` +
         `?${queryParamA}=${queryValueA}&${queryParamB}=${queryValueB}`
     );
   });
@@ -238,12 +238,12 @@ describe('FormsortWebEmbed', () => {
 
     const firstFlowIframe = iframes[0];
     expect(firstFlowIframe.src).toBe(
-      `https://${clientLabel}.formsort.app/flow/${flowLabel}`
+      `https://${clientLabel}.formsort.app/client/${clientLabel}/flow/${flowLabel}`
     );
 
     const secondFlowIframe = iframes[1];
     expect(secondFlowIframe.src).toBe(
-      `https://${clientLabel}.formsort.app/flow/${secondFlowLabel}`
+      `https://${clientLabel}.formsort.app/client/${clientLabel}/flow/${secondFlowLabel}`
     );
 
     const firstFlowFinalized = jest.fn();
