@@ -1,6 +1,6 @@
 {
   "name": "formsort-embed-example-lit",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "",
   "source": "index.html",
   "scripts": {
@@ -13,9 +13,9 @@
   "author": "Formsort Engineering <engineering@formsort.com>",
   "license": "ISC",
   "devDependencies": {
-    "@parcel/transformer-typescript-tsc": "^2.4.1",
+    "@parcel/transformer-typescript-tsc": "^2.7.0",
     "@types/node": "^17.0.23",
-    "parcel": "^2.4.1",
+    "parcel": "^2.7.0",
     "typescript": "^4.6.3"
   },
   "dependencies": {
