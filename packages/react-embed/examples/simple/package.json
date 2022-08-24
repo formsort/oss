@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A very simple example project for Formsort's react-embed library",
   "main": "index.js",
-  "author": "Formsort Engineering <engineering@formsort.com>",
+  "author": "",
   "license": "ISC",
   "scripts": {
     "build": "tsc",

@@ -19,7 +19,7 @@ import {
 } from './typeGuards';
 import { addToArrayMap, isEmpty, removeFromArrayMap } from './utils';
 
-const DEFAULT_FLOW_DOMAIN = 'formsort.app';
+const DEFAULT_FLOW_ORIGIN = `https://flow.formsort.com`;
 
 export interface IFormsortWebEmbed {
   loadFlow: (
@@ -53,7 +53,7 @@ export interface IFormsortWebEmbedConfig {
 
 const DEFAULT_CONFIG: IFormsortWebEmbedConfig = {
   useHistoryAPI: false,
-  origin: undefined,
+  origin: DEFAULT_FLOW_ORIGIN,
 };
 
 export enum SupportedAnalyticsEvent {
@@ -100,7 +100,7 @@ const FormsortWebEmbed = (
 ): IFormsortWebEmbed => {
   const iframeEl = document.createElement('iframe');
   const { style, autoHeight } = config;
-  let formsortOrigin = config.origin;
+  const formsortOrigin = config.origin || DEFAULT_FLOW_ORIGIN;
   iframeEl.style.border = 'none';
   if (style) {
     const { width = '', height = '' } = style;
@@ -263,9 +263,6 @@ const FormsortWebEmbed = (
     variantLabel?: string,
     queryParams?: Array<[string, string]>
   ) => {
-    // We overwrite `formsortOrigin` because `onWindowMessage` will read it
-    formsortOrigin = formsortOrigin || `https://${clientLabel}.${DEFAULT_FLOW_DOMAIN}`;
-
     let url = `${formsortOrigin}/client/${clientLabel}/flow/${flowLabel}`;
     if (variantLabel) {
       url += `/variant/${variantLabel}`;

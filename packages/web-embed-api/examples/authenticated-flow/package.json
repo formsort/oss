@@ -16,7 +16,7 @@
   "author": "Formsort Engineering <engineering@formsort.com>",
   "license": "ISC",
   "dependencies": {
-    "@formsort/web-embed-api": "2.2.1"
+    "@formsort/web-embed-api": "2.2.0"
   },
   "devDependencies": {
     "css-loader": "^6.7.1",

@@ -1,6 +1,6 @@
 {
   "name": "@formsort/web-embed-api",
-  "version": "2.2.1",
+  "version": "2.2.0",
   "description": "Embed Formsort flows within other webpages",
   "publishConfig": {
     "access": "public",
@@ -29,7 +29,7 @@
     "formsort",
     "embed"
   ],
-  "author": "Formsort Engineering <engineering@formsort.com>",
+  "author": "Fil Zembowicz <fil@formsort.com>",
   "license": "MIT",
   "devDependencies": {
     "@formsort/eslint-config": "^1.3.7",
