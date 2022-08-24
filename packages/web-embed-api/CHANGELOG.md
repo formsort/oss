@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.2.3
+
+### Various fixes & improvements
+
+- Revert Client subdomain as default domain (#78) by @atikenny
+
 ## 2.2.2
 
 ### Various fixes & improvements
