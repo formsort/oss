@@ -1,6 +1,6 @@
 {
   "name": "@formsort/embed-example-authenticated-flow",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Formsort Embed using an authenticated flow",
   "main": "src/index.js",
   "engines": {
@@ -16,7 +16,7 @@
   "author": "Formsort Engineering <engineering@formsort.com>",
   "license": "ISC",
   "dependencies": {
-    "@formsort/web-embed-api": "2.2.2"
+    "@formsort/web-embed-api": "2.2.3"
   },
   "devDependencies": {
     "css-loader": "^6.7.1",
