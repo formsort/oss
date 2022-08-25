@@ -22,6 +22,7 @@ describe('EmbedFlow component', () => {
     removeEventListenerMock = jest.fn();
     embedMock = {
       loadFlow: loadMock,
+      unloadFlow: jest.fn(),
       setSize: jest.fn(),
       addEventListener: addEventListenerMock,
       removeEventListener: removeEventListenerMock,
