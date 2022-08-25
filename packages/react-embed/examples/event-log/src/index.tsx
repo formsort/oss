@@ -16,6 +16,8 @@ interface LoggedEvent {
 
 const App = () => {
   const [loggedEvents, setLoggedEvents] = useState<LoggedEvent[]>([]);
+
+  // Test useEffect double render
   useEffect(() => {
     document.title = 'Test';
   }, []);
