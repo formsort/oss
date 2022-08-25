@@ -28,6 +28,7 @@ export interface IFormsortWebEmbed {
     variantLabel?: string,
     queryParams?: Array<[string, string]>
   ) => void;
+  unloadFlow: () => void;
   setSize: (width: string, height: string) => void;
   addEventListener<K extends keyof IEventMap>(
     eventName: K,
@@ -278,8 +279,14 @@ const FormsortWebEmbed = (
     iframeEl.src = url;
   };
 
+  const unloadFlow = () => {
+    removeListeners();
+    rootEl.removeChild(iframeEl);
+  };
+
   return {
     loadFlow,
+    unloadFlow,
     setSize,
     addEventListener<K extends keyof IEventMap>(
       eventName: K,
