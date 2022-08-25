@@ -57,7 +57,7 @@ const attachEventListenersToEmbed = (
 const onMount = (
   containerRef: React.RefObject<HTMLDivElement>,
   props: EmbedFlowProps
-): void => {
+): IFormsortWebEmbed | undefined => {
   const containerElement = containerRef.current;
   if (!containerElement) {
     return;
@@ -90,6 +90,8 @@ const onMount = (
     variantLabel,
     queryParams.length ? queryParams : undefined
   );
+
+  return embed;
 };
 
 const EmbedFlow: React.FunctionComponent<EmbedFlowProps> = (props) => {
@@ -97,7 +99,11 @@ const EmbedFlow: React.FunctionComponent<EmbedFlowProps> = (props) => {
   const style = props.embedConfig?.style;
 
   useEffect(() => {
-    onMount(containerRef, props);
+    const embed = onMount(containerRef, props);
+
+    return () => {
+      embed?.unloadFlow();
+    };
   }, []);
 
   return <div ref={containerRef} style={style} />;

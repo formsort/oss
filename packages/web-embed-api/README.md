@@ -62,6 +62,10 @@ Starts loading a Formsort variant, or a flow.
 
 Note that variantLabel is optional: if it is not provided, a variant will be chosen at random from that flow.
 
+### `unloadFlow() => void`
+
+Remove inserted iFrame and all its event listeners.
+
 ### `setSize(width: number, height: number) => void`
 
 Set the CSS size of the embed.
