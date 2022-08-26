@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2.3.0
+
+### Various fixes & improvements
+
+- Issue 72 - Support React 18 (#79) by @atikenny
+- Revert Client subdomain as default domain (#78) by @atikenny
+
 ## 2.2.2
 
 ### Various fixes & improvements
