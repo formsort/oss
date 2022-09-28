@@ -23,6 +23,7 @@ interface ILoadProps {
 }
 
 export interface IReactEmbedEventMap {
+  onUnauthorized?: IEventMap['unauthorized'];
   onRedirect?: IEventMap['redirect'];
   onFlowLoaded?: IEventMap['FlowLoaded'];
   onFlowClosed?: IEventMap['FlowClosed'];
@@ -35,6 +36,7 @@ export type EmbedFlowProps = ILoadProps & IReactEmbedEventMap;
 
 export const eventMapping: Record<keyof IReactEmbedEventMap, keyof IEventMap> =
   {
+    onUnauthorized: 'unauthorized',
     onRedirect: 'redirect',
     onFlowLoaded: SupportedAnalyticsEvent.FlowLoaded,
     onFlowClosed: SupportedAnalyticsEvent.FlowClosed,
