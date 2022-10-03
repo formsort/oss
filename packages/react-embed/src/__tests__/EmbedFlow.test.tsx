@@ -63,6 +63,7 @@ describe('EmbedFlow component', () => {
     const flowloadedMock = jest.fn();
     const flowFinalizedMock = jest.fn();
     const redirectMock = jest.fn();
+    const unauthorizedMock = jest.fn();
 
     render(
       <EmbedFlow
@@ -72,6 +73,7 @@ describe('EmbedFlow component', () => {
         onFlowLoaded={flowloadedMock}
         onFlowFinalized={flowFinalizedMock}
         onRedirect={redirectMock}
+        onUnauthorized={unauthorizedMock}
       />
     );
 
@@ -81,7 +83,7 @@ describe('EmbedFlow component', () => {
       'test-variant',
       undefined
     );
-    expect(embedMock.addEventListener).toHaveBeenCalledTimes(3);
+    expect(embedMock.addEventListener).toHaveBeenCalledTimes(4);
     expect(embedMock.addEventListener).toBeCalledWith(
       'FlowLoaded',
       flowloadedMock
@@ -92,6 +94,7 @@ describe('EmbedFlow component', () => {
       flowFinalizedMock
     );
     expect(embedMock.addEventListener).toBeCalledWith('redirect', redirectMock);
+    expect(embedMock.addEventListener).toBeCalledWith('unauthorized', unauthorizedMock);
   });
 
   it('should load flows with URL params', () => {
