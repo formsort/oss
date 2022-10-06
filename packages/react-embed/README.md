@@ -1,10 +1,12 @@
 # @formsort/react-embed
 
-Embed [Formsort](https://formsort.com) flows within react components
+Embed [Formsort](https://formsort.com) flows within react components.
+
+This is a handy wrapper around [@formsort/web-embed-api](../web-embed-api/).
 
 ## Installation
 
-Add @formsort/react-embed to your project by executing `yarn add @formsort/react-embed` or `npm install @formsort/react-embed`.
+Add `@formsort/react-embed` to your project by executing `yarn add @formsort/react-embed` or `npm install @formsort/react-embed`.
 
 ## Usage
 

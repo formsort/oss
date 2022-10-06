@@ -60,7 +60,11 @@ interface IFormsortWebEmbedConfig {
 
 Starts loading a Formsort variant, or a flow.
 
-Note that variantLabel is optional: if it is not provided, a variant will be chosen at random from that flow.
+Note that `variantLabel` is optional. If it is not provided, a variant will be chosen from the flow:
+
+- Based on weights, if weights are assigned
+
+- At random, if no weights are assigned
 
 ### `unloadFlow() => void`
 
