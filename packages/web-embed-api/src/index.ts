@@ -49,6 +49,10 @@ export interface IFormsortWebEmbedConfig {
   useHistoryAPI?: boolean;
   autoHeight?: boolean;
   style?: Partial<Pick<CSSStyleDeclaration, 'width' | 'height'>>;
+  /**
+   * For Formsort internal use only
+   */
+  styleSet?: Record<string, unknown>;
   origin?: string;
   authentication?: IAuthenticationConfig;
 }
@@ -126,8 +130,7 @@ const FormsortWebEmbed = (
   const onStyleSetRequest = () => {
     sendMessage({
       type: WebEmbedMessage.EMBED_STYLE_SET_RESPONSE_MSG,
-      // @ts-ignore - Intentionally omitted from IFormsortWebEmbedConfig
-      payload: config.styleSet || undefined,
+      payload: { styleSet: config.styleSet },
     });
   };
 
