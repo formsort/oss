@@ -51,13 +51,8 @@ export interface IIFrameResizeEventData
   };
 }
 
-export enum StyleSetRequestPayload {
-  ID = 'ID'
-}
-
-export interface IIFrameStyleSetRequestEventData
-  extends IWebEmbedEventData<WebEmbedMessage.EMBED_STYLE_SET_REQUEST_MSG> {
-  payload: StyleSetRequestPayload;
+export type IIFrameStyleSetRequestEventData = IWebEmbedEventData & {
+  type: WebEmbedMessage.EMBED_STYLE_SET_REQUEST_MSG;
 }
 
 export interface IIFrameStyleSetResponseMessage {
