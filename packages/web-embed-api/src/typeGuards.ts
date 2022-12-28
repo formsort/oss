@@ -4,6 +4,7 @@ import {
   IIFrameTokenRequestEventData,
   IIFrameRedirectEventData,
   IIFrameResizeEventData,
+  IIFrameStyleSetRequestEventData,
   IWebEmbedEventData,
 } from '@formsort/constants';
 
@@ -68,4 +69,10 @@ export function isIFrameUnauthorizedEventData(
   data: IWebEmbedEventData
 ): data is IIFrameResizeEventData {
   return data.type === WebEmbedMessage.EMBED_UNAUTHORIZED_MSG;
+}
+
+export function isIFrameStyleSetRequestEventData(
+  data: IWebEmbedEventData
+): data is IIFrameStyleSetRequestEventData {
+  return data.type === WebEmbedMessage.EMBED_STYLE_SET_REQUEST_MSG;
 }

@@ -51,15 +51,20 @@ export interface IIFrameResizeEventData
   };
 }
 
-export interface IIFrameStyleSetRequestEventData {
-  type: WebEmbedMessage.EMBED_STYLE_SET_REQUEST_MSG
+export enum StyleSetRequestPayload {
+  ID = 'ID'
 }
 
-export interface IIFrameStyleSetResponseMessage
-  extends IWebEmbedEventData<WebEmbedMessage.EMBED_STYLE_SET_RESPONSE_MSG> {
+export interface IIFrameStyleSetRequestEventData
+  extends IWebEmbedEventData<WebEmbedMessage.EMBED_STYLE_SET_REQUEST_MSG> {
+  payload: StyleSetRequestPayload;
+}
+
+export interface IIFrameStyleSetResponseMessage {
+  type: WebEmbedMessage.EMBED_STYLE_SET_RESPONSE_MSG
   payload: {
     styleSet?: Record<string, unknown>;
   };
 }
 
-export type IIFramePushMessage = IIFrameTokenResponseMessage;
+export type IIFramePushMessage = IIFrameTokenResponseMessage | IIFrameStyleSetResponseMessage;

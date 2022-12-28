@@ -14,6 +14,7 @@ import {
   isIFrameRedirectEventData,
   isIFrameResizeEventData,
   isIFrameAnalyticsEventData,
+  isIFrameStyleSetRequestEventData,
   isIFrameTokenRequestEventData,
   isIFrameUnauthorizedEventData,
 } from './typeGuards';
@@ -122,6 +123,14 @@ const FormsortWebEmbed = (
     unauthorized: [],
   };
 
+  const onStyleSetRequest = () => {
+    sendMessage({
+      type: WebEmbedMessage.EMBED_STYLE_SET_RESPONSE_MSG,
+      // @ts-ignore - Intentionally omitted from IFormsortWebEmbedConfig
+      payload: config.styleSet || undefined,
+    });
+  };
+
   const onTokenRequest = (data: IIFrameTokenRequestEventData) => {
     const { payload } = data;
 
@@ -209,6 +218,8 @@ const FormsortWebEmbed = (
       onResizeMessage(data);
     } else if (isIFrameUnauthorizedEventData(data)) {
       onUnauthorizedMessage();
+    } else if (isIFrameStyleSetRequestEventData(data)) {
+      onStyleSetRequest();
     }
   };
 
