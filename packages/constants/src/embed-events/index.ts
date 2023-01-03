@@ -51,4 +51,15 @@ export interface IIFrameResizeEventData
   };
 }
 
-export type IIFramePushMessage = IIFrameTokenResponseMessage;
+export type IIFrameStyleSetRequestEventData = IWebEmbedEventData & {
+  type: WebEmbedMessage.EMBED_STYLE_SET_REQUEST_MSG;
+}
+
+export interface IIFrameStyleSetResponseMessage {
+  type: WebEmbedMessage.EMBED_STYLE_SET_RESPONSE_MSG
+  payload: {
+    styleSet?: Record<string, unknown>;
+  };
+}
+
+export type IIFramePushMessage = IIFrameTokenResponseMessage | IIFrameStyleSetResponseMessage;
