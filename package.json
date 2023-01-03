@@ -12,7 +12,8 @@
     ]
   },
   "resolutions": {
-    "tslib": ">=1.10.0"
+    "tslib": ">=1.10.0",
+    "json5": "^2.2.3"
   },
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx,.js --cache --cache-strategy content",
