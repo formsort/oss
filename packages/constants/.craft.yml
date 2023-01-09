@@ -5,7 +5,7 @@ preReleaseCommand: node ../../scripts/pre-release.js
 releaseBranchPrefix: release/constants
 
 requireNames:
-  - /^formsort-constants-v.+\\.tgz$/
+  - /^formsort-constants-v.+\.tgz$/
 targets:
   - name: npm
   - name: github
