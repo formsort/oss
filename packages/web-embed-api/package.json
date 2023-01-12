@@ -46,7 +46,7 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@formsort/constants": "^1.6.0"
+    "@formsort/constants": "^1.7.0"
   },
   "jest": {
     "cacheDirectory": "./.jest-cache",
