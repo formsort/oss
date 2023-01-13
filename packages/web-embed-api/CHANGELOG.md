@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.4.1
+
+### Various fixes & improvements
+
+- upgrade constants (#89) by @helencho
+
 ## 2.4.0
 
 ### Various fixes & improvements
