@@ -1,4 +1,10 @@
 # CHANGELOG
+## 3.1.1
+
+### Various fixes & improvements
+
+- upgrade web-embed-api dependencies to latest version (#91) by @helencho
+
 ## 3.1.0
 
 ### Various fixes & improvements
