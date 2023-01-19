@@ -433,13 +433,6 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@formsort/react-embed@^2.1.3":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@formsort/react-embed/-/react-embed-2.1.3.tgz#87e2a596531d7534b62b02778a3c90a899e00487"
-  integrity sha512-QPhakHbVGX3aHvoYsReGBxf6eh5jhRGOKJtgsGRyWp0StJ0jyjoD8VFlKI+qVoSqztqPy/YyKyxwA8mpNiv27g==
-  dependencies:
-    "@formsort/web-embed-api" "^2.2.3"
-
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.5"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.9.5.tgz#2cbaf9a89460da24b5ca6531b8bbfc23e1df50c7"
