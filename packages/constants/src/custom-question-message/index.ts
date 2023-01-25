@@ -9,6 +9,7 @@ enum CustomQuestionMessage {
   REQUEST_RESPONDER_UUID_MSG = 'ƒ_rru',
   SET_RESPONDER_UUID_MSG = 'ƒ_sru',
   CLEAR_ANSWER_VALUE_MSG = 'ƒ_cav',
+  SET_DISABLE_BACK_NAVIGATION_MSG = 'ƒ_sdbn',
 }
 
 export default CustomQuestionMessage;
