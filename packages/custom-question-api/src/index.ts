@@ -51,3 +51,10 @@ export const clearAnswerValue = () => {
 export const setAnswerValue = (value: AnswerType) => {
   sendMessageToWindowParent(CustomQuestionMessage.SET_ANSWER_VALUE_MSG, value);
 };
+
+export const setDisableBackNavigation = (disable: boolean) => {
+  sendMessageToWindowParent(
+    CustomQuestionMessage.SET_DISABLE_BACK_NAVIGATION_MSG,
+    disable
+  );
+}
