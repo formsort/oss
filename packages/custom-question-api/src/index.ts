@@ -52,9 +52,16 @@ export const setAnswerValue = (value: AnswerType) => {
   sendMessageToWindowParent(CustomQuestionMessage.SET_ANSWER_VALUE_MSG, value);
 };
 
-export const setDisableBackNavigation = (disable: boolean) => {
+interface IDisableBackNavigationOptions {
+  beforeUnloadMessage?: string;
+}
+
+export const setDisableBackNavigation = (disable: boolean, options?: IDisableBackNavigationOptions) => {
   sendMessageToWindowParent(
     CustomQuestionMessage.SET_DISABLE_BACK_NAVIGATION_MSG,
-    disable
+    {
+      disable,
+      beforeUnloadMessage: options?.beforeUnloadMessage,
+    }
   );
 }

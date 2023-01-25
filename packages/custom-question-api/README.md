@@ -109,6 +109,12 @@ getResponderUuid() => Promise<string>
 Get the current responder's UUID. Useful if you need to look something up about this user that isn't within the Formsort answer set.
 
 ```tsx
+setDisableBackNavigation(disable: boolean, options?: { beforeUnloadMessage?: string }) => void;
+```
+
+Disable/enable back navigation in parent form. If you want to prompt a message when user clicks on browser's back button, like [`window.confirm`](https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm), you can set `beforeUnloadMessage`.
+
+```tsx
 setQuestionSize(width?: number | string, height?: number | string) => void
 ```
 
@@ -116,7 +122,6 @@ Sets the width and height of the question within Formsort. The default unit of m
 For example, `'2em'` or `'100%'`.
 
 To avoid jumpiness, if you know the size of your component beforehand, it's best to set the default width and height within the custom question directly within the Formsort studio. Use `setQuestionSize` when you do not know the dimensions of your question component beforehand, and want to make sure that Formsort gives it enough size to render without scrollbars.
-
 
 For example, if you implement your custom question as a React component, you may want to measure the component once it's rendered and tell Formsort its height and width:
 
