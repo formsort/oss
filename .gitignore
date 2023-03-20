@@ -5,6 +5,7 @@ node_modules/
 .parcel-cache
 *.tsbuildinfo
 dist/
+umd/
 lib/
 .env
 
