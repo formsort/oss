@@ -63,6 +63,7 @@ const DEFAULT_CONFIG: IFormsortWebEmbedConfig = {
 };
 
 export enum SupportedAnalyticsEvent {
+  AnswersSaved = AnalyticsEventType.AnswersSaved,
   FlowLoaded = AnalyticsEventType.FlowLoaded,
   FlowClosed = AnalyticsEventType.FlowClosed,
   FlowFinalized = AnalyticsEventType.FlowFinalized,
@@ -118,6 +119,7 @@ const FormsortWebEmbed = (
   const sendMessage = getMessageSender(iframeEl);
 
   const eventListenersArrayMap: IEventListenersArrayMap = {
+    [SupportedAnalyticsEvent.AnswersSaved]: [],
     [SupportedAnalyticsEvent.FlowLoaded]: [],
     [SupportedAnalyticsEvent.FlowClosed]: [],
     [SupportedAnalyticsEvent.FlowFinalized]: [],

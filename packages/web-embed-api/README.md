@@ -124,6 +124,10 @@ This will happen once after the flow is loaded, if the user hasn't previously co
 
 Set a callback to be called when a step is completed. This includes the completion of the final step, before the `"FlowFinalized"` event.
 
+#### AnswersSaved `(answers?: { [key: string]: any }) => void`
+
+Set a callback to be called when Formsort is about to save answers.
+
 #### redirect `({ url: string, answers?: { [key: string]: any } }) => ({ cancel?: boolean }) | undefined`
 
 Set a callback to customize the way Formsort handles redirects. To cancel Formsort's handling of the redirect, return:

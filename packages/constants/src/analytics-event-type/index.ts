@@ -1,4 +1,5 @@
 enum AnalyticsEventType {
+  AnswersSaved = 'AnswersSaved',
   FlowLoaded = 'FlowLoaded',
   FlowClosed = 'FlowClosed',
   UrlOpened = 'UrlOpened',
