@@ -1,4 +1,11 @@
 # CHANGELOG
+## 0.2.2
+
+### Various fixes & improvements
+
+- fix: upgrade jest to fix CVE-2022-38900 (#99) by @alikirec
+- FLOW-356: generate umd build of custom question api (#97) by @alikirec
+
 ## 0.2.1
 
 ### Various fixes & improvements
