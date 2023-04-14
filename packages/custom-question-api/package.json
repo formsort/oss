@@ -1,6 +1,6 @@
 {
   "name": "@formsort/custom-question-api",
-  "version": "0.1.0",
+  "version": "0.2.2",
   "description": "Helpers for implementing custom questions in Formsort",
   "publishConfig": {
     "access": "public",
@@ -8,8 +8,11 @@
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "unpkg": "umd/custom-question-api.min.js",
   "scripts": {
-    "build": "tsc --project tsconfig.build.json",
+    "build": "yarn build:package && yarn build:umd",
+    "build:package": "tsc --project tsconfig.build.json",
+    "build:umd": "vite build",
     "format": "eslint --ext .ts,.tsx src --fix",
     "lint": "eslint --ext .ts,.tsx src",
     "test": "yarn lint",
@@ -17,7 +20,8 @@
     "release": "craft prepare --publish"
   },
   "files": [
-    "lib/**/*"
+    "lib/**/*",
+    "umd/**/*"
   ],
   "repository": {
     "type": "git",
@@ -42,11 +46,13 @@
     "eslint-plugin-jsdoc": "^30.7.9",
     "eslint-plugin-prefer-arrow": "^1.2.2",
     "eslint-plugin-react": "^7.21.5",
+    "jest-environment-jsdom": "^29.5.0",
     "prettier": "^2.2.1",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "vite": "^4.2.0"
   },
   "dependencies": {
-    "@formsort/constants": "^1.6.0",
+    "@formsort/constants": "^1.8.0",
     "events": "^3.2.0"
   }
 }

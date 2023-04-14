@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 2.4.1
+
+### Various fixes & improvements
+
+- upgrade constants (#89) by @helencho
+
+## 2.4.0
+
+### Various fixes & improvements
+
+- Send `styleSet` to embedded flow when requested (#85) by @helencho
+- update readme for more clarity around embeds (#81) by @helencho
+
 ## 2.3.0
 
 ### Various fixes & improvements

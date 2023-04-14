@@ -1,4 +1,6 @@
-import { AnswerSemanticType, CustomQuestionMessage } from '@formsort/constants';
+import { type AnswerSemanticType } from '@formsort/constants';
+// import from directory for tree shaking
+import CustomQuestionMessage from '@formsort/constants/lib/custom-question-message';
 import { getValueFromWindowParent, sendMessageToWindowParent } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -51,3 +53,17 @@ export const clearAnswerValue = () => {
 export const setAnswerValue = (value: AnswerType) => {
   sendMessageToWindowParent(CustomQuestionMessage.SET_ANSWER_VALUE_MSG, value);
 };
+
+interface IDisableBackNavigationOptions {
+  beforeUnloadMessage?: string;
+}
+
+export const setDisableBackNavigation = (disable: boolean, options?: IDisableBackNavigationOptions) => {
+  sendMessageToWindowParent(
+    CustomQuestionMessage.SET_DISABLE_BACK_NAVIGATION_MSG,
+    {
+      disable,
+      beforeUnloadMessage: options?.beforeUnloadMessage,
+    }
+  );
+}

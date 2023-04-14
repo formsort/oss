@@ -14,6 +14,7 @@ import {
   isIFrameRedirectEventData,
   isIFrameResizeEventData,
   isIFrameAnalyticsEventData,
+  isIFrameStyleSetRequestEventData,
   isIFrameTokenRequestEventData,
   isIFrameUnauthorizedEventData,
 } from './typeGuards';
@@ -48,6 +49,10 @@ export interface IFormsortWebEmbedConfig {
   useHistoryAPI?: boolean;
   autoHeight?: boolean;
   style?: Partial<Pick<CSSStyleDeclaration, 'width' | 'height'>>;
+  /**
+   * For Formsort internal use only
+   */
+  styleSet?: Record<string, unknown>;
   origin?: string;
   authentication?: IAuthenticationConfig;
 }
@@ -120,6 +125,13 @@ const FormsortWebEmbed = (
     [SupportedAnalyticsEvent.StepCompleted]: [],
     redirect: [],
     unauthorized: [],
+  };
+
+  const onStyleSetRequest = () => {
+    sendMessage({
+      type: WebEmbedMessage.EMBED_STYLE_SET_RESPONSE_MSG,
+      payload: { styleSet: config.styleSet },
+    });
   };
 
   const onTokenRequest = (data: IIFrameTokenRequestEventData) => {
@@ -209,6 +221,8 @@ const FormsortWebEmbed = (
       onResizeMessage(data);
     } else if (isIFrameUnauthorizedEventData(data)) {
       onUnauthorizedMessage();
+    } else if (isIFrameStyleSetRequestEventData(data)) {
+      onStyleSetRequest();
     }
   };
 
