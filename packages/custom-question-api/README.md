@@ -45,6 +45,8 @@ import {
   getAllAnswerValues,
   getResponderUuid,
   setQuestionSize,
+  setDisableBackNavigation,
+  setAutoHeight,
 } from '@formsort/custom-question-api';
 ```
 
@@ -61,10 +63,10 @@ The result from `getAnswer()` should be used upon initial load: to set the local
 Optionally, the type of the answer can be defined by passing a generic parameter:
 
 ```tsx
-getAnswerValue<string>()
+getAnswerValue<string>();
 ```
 
-The type parameter can be  either a number, string, boolean, object, or an array consisting of one of these types. The returned value will still be `undefined` if the answer has not been set.
+The type parameter can be either a number, string, boolean, object, or an array consisting of one of these types. The returned value will still be `undefined` if the answer has not been set.
 
 ```tsx
 getAllAnswerValues() => Promise<{ [key: string]: any }>
@@ -115,10 +117,18 @@ setDisableBackNavigation(disable: boolean, options?: { beforeUnloadMessage?: str
 Disable/enable back navigation in parent form. If you want to prompt a message when user clicks on browser's back button, like [`window.confirm`](https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm), you can set `beforeUnloadMessage`.
 
 ```tsx
+setAutoHeight(enabled: boolean) => void
+```
+
+Configures a [`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver) to observe the height of your custom question's `<body>` and automatically set the size of the containing question to match. This should prevent scrolling within Formsort in the vast majority of cases.
+
+```tsx
 setQuestionSize(width?: number | string, height?: number | string) => void
 ```
 
-Sets the width and height of the question within Formsort. The default unit of measurement when passing a number is pixels (px). A different unit of measurement can be passed as a string.
+Manually sets the width and height of the question within Formsort. This should not be used if `setAutoHeight` has been enabled
+
+The default unit of measurement when passing a number is pixels (px). A different unit of measurement can be passed as a string.
 For example, `'2em'` or `'100%'`.
 
 To avoid jumpiness, if you know the size of your component beforehand, it's best to set the default width and height within the custom question directly within the Formsort studio. Use `setQuestionSize` when you do not know the dimensions of your question component beforehand, and want to make sure that Formsort gives it enough size to render without scrollbars.
@@ -146,32 +156,4 @@ const MyCustomComponent = () => {
     </div>
   );
 };
-```
-
-Alternatively, written as a class component:
-
-```tsx
-import * as React from 'react';
-import { setQuestionSize } from '@formsort/custom-question-api';
-
-class MyCustomComponent extends React.Component {
-  private containerElRef: React.RefObject<HTMLDivElement>;
-  constructor(props: null) {
-    super(any);
-    this.containerElRef = React.createRef<HTMLDivElement>();
-  }
-
-  componentDidMount() {
-    const containerEl = this.containerElRef!.current;
-    setQuestionSize(containerEl.offsetWidth, containerEl.offsetHeight);
-  }
-
-  render() {
-    return (
-      <div ref={this.containerElRef}>
-        <h1>My custom component</h1>
-      </div>
-    );
-  }
-}
 ```

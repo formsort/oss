@@ -5,10 +5,39 @@ import { getValueFromWindowParent, sendMessageToWindowParent } from './utils';
 export type AnswerPrimitiveType = number | string | boolean | object;
 export type AnswerType = AnswerPrimitiveType | AnswerPrimitiveType[];
 
+let bodyResizeObserver: ResizeObserver | undefined;
+export const setAutoHeight = (enabled: boolean) => {
+  if (enabled) {
+    if (!bodyResizeObserver) {
+      bodyResizeObserver = new ResizeObserver(onBodyHeightChanged);
+    }
+    bodyResizeObserver.observe(document.body);
+  } else {
+    if (bodyResizeObserver) {
+      bodyResizeObserver.disconnect();
+      bodyResizeObserver = undefined;
+    }
+  }
+};
+
+const onBodyHeightChanged: ResizeObserverCallback = (entries) => {
+  for (const entry of entries) {
+    if (entry.target === document.body) {
+      const { offsetHeight: height } = document.documentElement;
+      setQuestionSize(undefined /* width */, `${height}px`);
+    }
+  }
+};
+
 export const setQuestionSize = (
   width?: number | string,
   height?: number | string
 ) => {
+  if (bodyResizeObserver) {
+    throw new Error(
+      'autoHeight is enabled. To manually size size, call setAutoHeight(false) first.'
+    );
+  }
   sendMessageToWindowParent(CustomQuestionMessage.SET_QUESTION_SIZE_MSG, {
     width,
     height,
@@ -56,7 +85,10 @@ interface IDisableBackNavigationOptions {
   beforeUnloadMessage?: string;
 }
 
-export const setDisableBackNavigation = (disable: boolean, options?: IDisableBackNavigationOptions) => {
+export const setDisableBackNavigation = (
+  disable: boolean,
+  options?: IDisableBackNavigationOptions
+) => {
   sendMessageToWindowParent(
     CustomQuestionMessage.SET_DISABLE_BACK_NAVIGATION_MSG,
     {
@@ -64,4 +96,4 @@ export const setDisableBackNavigation = (disable: boolean, options?: IDisableBac
       beforeUnloadMessage: options?.beforeUnloadMessage,
     }
   );
-}
+};
