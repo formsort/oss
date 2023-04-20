@@ -2,7 +2,7 @@
 
 Embed [Formsort](https://formsort.com) flows within react components.
 
-This is a handy wrapper around [@formsort/web-embed-api](../web-embed-api/).
+This is a handy wrapper around [@formsort/web-embed-api](https://github.com/formsort/oss/tree/master/packages/web-embed-api).
 
 ## Installation
 
@@ -12,7 +12,7 @@ Add `@formsort/react-embed` to your project by executing `yarn add @formsort/rea
 
 Here's an example of basic usage:
 
-```js
+```tsx
 import React from 'react';
 import EmbedFlow from '@formsort/react-embed';
 
@@ -55,3 +55,24 @@ You can add event listeners to flows like `Flowloaded`, `redirect` etc. See [all
 | onStepCompleted | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#steploaded-answers--key-string-any---void)                       | no       | `() => { console.log('step loaded') }`                  |
 | onRedirect      | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#redirect--url-string-answers--key-string-any-----cancel-boolean---undefined)                            | no       | `(url: string) => { console.log('redirecting to:', url) }` |
 | onUnauthorized      | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#unauthorized---void)                            | no       | `() => { console.log('ID token is missing or invalid.') }` |
+
+### Loading a specific variant revision
+
+You can use query parameters to load a specific variant revision. Don't use it if you want to show latest variant.
+
+```tsx
+import React from 'react';
+import EmbedFlow from '@formsort/react-embed';
+
+const EmbedFlowExample: React.FunctionComponent = () => (
+  <div>
+    <EmbedFlow
+      clientLabel="formsort"
+      flowLabel="onboarding"
+      variantLabel="main"
+      queryParams={['variantRevisionUuid', '<uuidv4>']}
+    />
+  </div>
+);
+```
+

@@ -1,4 +1,10 @@
 # CHANGELOG
+## 3.1.2
+
+### Various fixes & improvements
+
+- Update docs (#100) by @alikirec
+
 ## 3.1.1
 
 ### Various fixes & improvements

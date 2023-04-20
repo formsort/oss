@@ -15,7 +15,7 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
   },
-  ignorePatterns: ['packages/**/lib/**/*', 'packages/**/dist/**/*'],
+  ignorePatterns: ['packages/**/lib/**/*', 'packages/**/dist/**/*', 'packages/**/umd/**/*'],
   overrides: [
     {
       files: ['packages/**/*.ts', 'packages/**/*.tsx'],

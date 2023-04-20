@@ -1,4 +1,6 @@
-import { AnswerSemanticType, CustomQuestionMessage } from '@formsort/constants';
+import { type AnswerSemanticType } from '@formsort/constants';
+// import from directory for tree shaking
+import CustomQuestionMessage from '@formsort/constants/lib/custom-question-message';
 import { getValueFromWindowParent, sendMessageToWindowParent } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/ban-types

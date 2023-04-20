@@ -13,7 +13,7 @@ export const sendMessageToWindowParent = (
   payload?: any,
   requestId?: string
 ) => {
-  if (!window.parent) {
+  if (window.location === window.parent.location) {
     throw new Error(
       'Custom questions must run within a Formsort flow custom question to work.'
     );
