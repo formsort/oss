@@ -1,6 +1,6 @@
 {
   "name": "@formsort/custom-question-api",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Helpers for implementing custom questions in Formsort",
   "publishConfig": {
     "access": "public",
