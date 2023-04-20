@@ -1,4 +1,8 @@
 # CHANGELOG
+## 0.3.0
+
+- No documented changes.
+
 ## 0.2.2
 
 ### Various fixes & improvements
