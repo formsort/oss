@@ -1,4 +1,10 @@
 # CHANGELOG
+## 0.3.2
+
+### Various fixes & improvements
+
+- Add a setAutoHeight method to allow automatic sync of body <> question height (#101) by @fzembow
+
 ## 0.3.0
 
 - No documented changes.
