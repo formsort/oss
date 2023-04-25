@@ -4,6 +4,8 @@ Embed [Formsort](https://formsort.com) flows within react components.
 
 This is a handy wrapper around [@formsort/web-embed-api](https://github.com/formsort/oss/tree/master/packages/web-embed-api).
 
+**Important note:** This package is intended for use in React web applications. If you're looking to embed Formsort flows in React Native applications, please see [React native embed guide](./ReactNativeEmbed.md).
+
 ## Installation
 
 Add `@formsort/react-embed` to your project by executing `yarn add @formsort/react-embed` or `npm install @formsort/react-embed`.
@@ -75,4 +77,3 @@ const EmbedFlowExample: React.FunctionComponent = () => (
   </div>
 );
 ```
-
