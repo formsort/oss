@@ -1,4 +1,10 @@
 # CHANGELOG
+## 0.3.3
+
+### Various fixes & improvements
+
+- Don't warn about using autoHeight when autoHeight is enabled (#103) by @fzembow
+
 ## 0.3.2
 
 ### Various fixes & improvements
