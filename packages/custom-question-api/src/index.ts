@@ -26,7 +26,7 @@ const onBodyHeightChanged: ResizeObserverCallback = (entries) => {
   for (const entry of entries) {
     if (entry.target === document.body) {
       const { offsetHeight: height } = document.documentElement;
-      setQuestionSize(undefined /* width */, `${height}px`);
+      sendResizeMessage(undefined /* width */, `${height}px`);
     }
   }
 };
@@ -40,6 +40,13 @@ export const setQuestionSize = (
       'autoHeight is enabled. To manually size size, call setAutoHeight(false) first.'
     );
   }
+  sendResizeMessage(width, height);
+};
+
+const sendResizeMessage = (
+  width?: number | string,
+  height?: number | string
+) => {
   sendMessageToWindowParent(CustomQuestionMessage.SET_QUESTION_SIZE_MSG, {
     width,
     height,
