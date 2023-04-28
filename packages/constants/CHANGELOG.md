@@ -1,4 +1,10 @@
 # CHANGELOG
+## 0.3.0
+
+### Various fixes & improvements
+
+- Add a ResponderStateUpdated analytics event type (#104) by @fzembow
+
 ## 0.2.3
 
 - No documented changes.
