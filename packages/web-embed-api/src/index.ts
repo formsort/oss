@@ -68,6 +68,7 @@ export enum SupportedAnalyticsEvent {
   FlowFinalized = AnalyticsEventType.FlowFinalized,
   StepLoaded = AnalyticsEventType.StepLoaded,
   StepCompleted = AnalyticsEventType.StepCompleted,
+  ResponderStateUpdated = AnalyticsEventType.ResponderStateUpdated,
 }
 
 export const isSupportedEventType = (
@@ -123,6 +124,7 @@ const FormsortWebEmbed = (
     [SupportedAnalyticsEvent.FlowFinalized]: [],
     [SupportedAnalyticsEvent.StepLoaded]: [],
     [SupportedAnalyticsEvent.StepCompleted]: [],
+    [SupportedAnalyticsEvent.ResponderStateUpdated]: [],
     redirect: [],
     unauthorized: [],
   };

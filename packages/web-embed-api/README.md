@@ -124,6 +124,12 @@ This will happen once after the flow is loaded, if the user hasn't previously co
 
 Set a callback to be called when a step is completed. This includes the completion of the final step, before the `"FlowFinalized"` event.
 
+#### ResponderStateUpdated `(answers?: { [key: string]: any }) => void`
+
+Set a callback to be called whenever the responder state is updated, corresponding to when Formsort itself saves responder answers and delivers them to integrations.
+
+By default, this will correlate roughly to the `StepCompleted` event, since the default behavior is to save answers only when advancing between steps. However, if you have enabled [autoSave](https://docs.formsort.com/building-flows/variant-settings/additional-flow-settings#enable-autosave), then you will receive answers a short delay after a user has finished entering data.
+
 #### redirect `({ url: string, answers?: { [key: string]: any } }) => ({ cancel?: boolean }) | undefined`
 
 Set a callback to customize the way Formsort handles redirects. To cancel Formsort's handling of the redirect, return:
