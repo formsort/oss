@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.5.0
+
+### Various fixes & improvements
+
+- Add support for ResponderStateUpdated in web-embed-api (#105) by @fzembow
+
 ## 2.4.1
 
 ### Various fixes & improvements
