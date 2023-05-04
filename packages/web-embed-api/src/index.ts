@@ -195,9 +195,7 @@ const FormsortWebEmbed = (
     setSize(width, height);
   };
 
-  // @TODO: In Typescript v4+ MessageEvent is generic
-  // and can be typed as MessageEvent<unknown> to increase type safety.
-  const onWindowMessage = (message: MessageEvent) => {
+  const onWindowMessage = (message: MessageEvent<unknown>) => {
     const { origin: msgOrigin, source, data } = message;
     if (source !== iframeEl.contentWindow) {
       // If we have multiple Formsort instances within a page, only listen to events coming
