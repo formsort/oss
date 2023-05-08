@@ -5,5 +5,5 @@
     "rootDir": "src"
   },
   "include": ["src"],
-  "exclude": ["lib", "__tests__", "node_modules"]
+  "exclude": ["lib", "**/*.test.ts", "**/*.test.tsx", "node_modules"]
 }
