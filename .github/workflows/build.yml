@@ -23,6 +23,7 @@ jobs:
       - name: Build prerequisites first
         run: |
           yarn workspace @formsort/constants run build
+          yarn workspace @formsort/embed-messaging-manager run build
           yarn workspace @formsort/web-embed-api run build
       - name: Build
         run: yarn build

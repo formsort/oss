@@ -1,0 +1,12 @@
+minVersion: '0.32.0'
+changelogPolicy: auto
+preReleaseCommand: node ../../scripts/pre-release.js
+
+releaseBranchPrefix: release/embed-messaging-manager
+
+requireNames:
+  - /^formsort-embed-messaging-manager-v.+\.tgz$/
+targets:
+  - name: npm
+  - name: github
+    tagPrefix: embed-messaging-manager-
