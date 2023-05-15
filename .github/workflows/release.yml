@@ -13,6 +13,7 @@ on:
           - react-embed
           - tsconfig
           - web-embed-api
+          - embed-messaging-manager
       version:
         description: Version to release
         required: true
