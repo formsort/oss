@@ -49,7 +49,7 @@
     "jest-environment-jsdom": "^29.5.0",
     "prettier": "^2.2.1",
     "typescript": "^4.6.3",
-    "vite": "^4.2.0"
+    "vite": "^4.2.3"
   },
   "dependencies": {
     "@formsort/constants": "^1.8.0",
