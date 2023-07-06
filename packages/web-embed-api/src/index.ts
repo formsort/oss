@@ -1,7 +1,7 @@
 import EmbedMessagingManager, {
   type IFormsortEmbedConfig,
   type IEventMap,
-} from './EmbedMessagingManager';
+} from '@formsort/embed-messaging-manager';
 import { getMessageSender } from './iframe-utils';
 
 const DEFAULT_FLOW_ORIGIN = 'https://flow.formsort.com';
@@ -136,12 +136,5 @@ const FormsortWebEmbed = (
 };
 
 export { IFormsortWebEmbed, IFormsortWebEmbedConfig, IEventMap };
-export {
-  type IAnalyticsEventMap,
-  type IEventListener,
-  type IEventListenersArrayMap,
-  isSupportedEventType,
-  SupportedAnalyticsEvent,
-} from './EmbedMessagingManager'; 
 
 export default FormsortWebEmbed;

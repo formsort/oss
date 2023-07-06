@@ -1,9 +1,10 @@
+import { SupportedAnalyticsEvent } from '@formsort/embed-messaging-manager';
 import FormsortWebEmbed, {
   IEventMap,
   IFormsortWebEmbed,
   IFormsortWebEmbedConfig,
-  SupportedAnalyticsEvent,
 } from '@formsort/web-embed-api';
+
 import React, { useEffect, useRef } from 'react';
 
 // Using this type to preserve auto-complete for default environments

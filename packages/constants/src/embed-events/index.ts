@@ -1,7 +1,7 @@
 import { AnalyticsEventType, WebEmbedMessage, IFlowAnswers } from '../';
 
 export interface IBaseEventData {
-  answers: IFlowAnswers | undefined;
+  answers?: IFlowAnswers;
 }
 
 export interface IRedirectEventData extends IBaseEventData {
@@ -18,10 +18,11 @@ export interface IIFrameAnalyticsEventData
   extends IWebEmbedEventData<WebEmbedMessage.EMBED_EVENT_MSG> {
   createdAt: Date;
   eventType: AnalyticsEventType;
+  variantRevisionUuid: string;
 }
 
 export enum TokenRequestPayload {
-  ID = 'ID'
+  ID = 'ID',
 }
 
 export interface IIFrameTokenRequestEventData
@@ -34,8 +35,8 @@ export interface TokenResponsePayload {
 }
 
 export interface IIFrameTokenResponseMessage {
-  type: WebEmbedMessage.EMBED_TOKEN_RESPONSE_MSG
-  payload: TokenResponsePayload
+  type: WebEmbedMessage.EMBED_TOKEN_RESPONSE_MSG;
+  payload: TokenResponsePayload;
 }
 
 export interface IIFrameRedirectEventData
@@ -53,13 +54,15 @@ export interface IIFrameResizeEventData
 
 export type IIFrameStyleSetRequestEventData = IWebEmbedEventData & {
   type: WebEmbedMessage.EMBED_STYLE_SET_REQUEST_MSG;
-}
+};
 
 export interface IIFrameStyleSetResponseMessage {
-  type: WebEmbedMessage.EMBED_STYLE_SET_RESPONSE_MSG
+  type: WebEmbedMessage.EMBED_STYLE_SET_RESPONSE_MSG;
   payload: {
     styleSet?: Record<string, unknown>;
   };
 }
 
-export type IIFramePushMessage = IIFrameTokenResponseMessage | IIFrameStyleSetResponseMessage;
+export type IIFramePushMessage =
+  | IIFrameTokenResponseMessage
+  | IIFrameStyleSetResponseMessage;
