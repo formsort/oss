@@ -1,4 +1,10 @@
 # CHANGELOG
+## 1.10.0
+
+### Various fixes & improvements
+
+- Add variant revision UUID to events (#111) by @fzembow
+
 ## 1.9.0
 
 - No documented changes.
