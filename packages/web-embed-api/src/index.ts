@@ -137,4 +137,6 @@ const FormsortWebEmbed = (
 
 export { IFormsortWebEmbed, IFormsortWebEmbedConfig, IEventMap };
 
+export { SupportedAnalyticsEvent } from '@formsort/embed-messaging-manager';
+
 export default FormsortWebEmbed;
