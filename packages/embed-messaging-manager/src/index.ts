@@ -4,9 +4,10 @@ import {
   type IIFrameRedirectEventData,
   type IIFrameTokenRequestEventData,
   TokenRequestPayload,
-  type IFlowAnswers,
   type IIFramePushMessage,
   WebEmbedMessage,
+  IBaseEventData,
+  IFlowAnswers,
 } from '@formsort/constants';
 import {
   isIFrameAnalyticsEventData,
@@ -15,12 +16,17 @@ import {
   isIFrameStyleSetRequestEventData,
   isIFrameTokenRequestEventData,
   isIFrameUnauthorizedEventData,
-  isIWebEmbedEventData
+  isIWebEmbedEventData,
 } from './typeGuards';
 import { addToArrayMap, isEmpty, removeFromArrayMap } from './utils';
 
 interface IAuthenticationConfig {
   idToken: string;
+}
+
+interface IFlowEventPayload {
+  variantRevisionUuid: string;
+  answers?: IFlowAnswers;
 }
 
 export interface IFormsortEmbedConfig {
@@ -47,15 +53,11 @@ export enum SupportedAnalyticsEvent {
   ResponderStateUpdated = AnalyticsEventType.ResponderStateUpdated,
 }
 
-interface IBaseEventData {
-  answers: IFlowAnswers | undefined;
-}
-
 interface IRedirectEventData extends IBaseEventData {
   url: string;
 }
 
-export type IEventListener = (props: IBaseEventData) => void;
+export type IEventListener = (props: IFlowEventPayload) => void;
 
 export type IAnalyticsEventMap = Record<
   SupportedAnalyticsEvent,
@@ -160,7 +162,8 @@ class EmbedMessagingManager {
 
   private onUnauthorizedMessage = () => {
     if (!isEmpty(this.eventListenersArrayMap.unauthorized)) {
-      for (const unathorizedListener of this.eventListenersArrayMap.unauthorized) {
+      for (const unathorizedListener of this.eventListenersArrayMap
+        .unauthorized) {
         unathorizedListener();
       }
     }
@@ -177,7 +180,7 @@ class EmbedMessagingManager {
   };
 
   private onEventMessage = (eventData: IIFrameAnalyticsEventData) => {
-    const { eventType, answers } = eventData;
+    const { eventType, answers, variantRevisionUuid } = eventData;
 
     if (eventType === AnalyticsEventType.FlowClosed) {
       this.onFlowClosed();
@@ -190,7 +193,7 @@ class EmbedMessagingManager {
     }
 
     for (const eventListener of eventListenersArr) {
-      eventListener({ answers });
+      eventListener({ answers, variantRevisionUuid });
     }
   };
 
@@ -213,7 +216,7 @@ class EmbedMessagingManager {
     } else if (isIFrameStyleSetRequestEventData(data)) {
       this.onStyleSetRequest();
     }
-  }
+  };
 
   addEventListener = <K extends keyof IEventMap>(
     eventName: K,
