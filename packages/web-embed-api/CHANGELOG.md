@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2.6.0
+
+### Various fixes & improvements
+
+- update `constants` in `web-embed-api` (#117) by @alikirec
+- Update `embed-messaging-manager` in `web-embed-api` (#116) by @alikirec
+
 ## 2.5.0
 
 ### Various fixes & improvements
