@@ -1,6 +1,6 @@
 {
   "name": "@formsort/web-embed-api",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "Embed Formsort flows within other webpages",
   "publishConfig": {
     "access": "public",
