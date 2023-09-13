@@ -1,4 +1,10 @@
 # CHANGELOG
+## 3.2.2
+
+### Various fixes & improvements
+
+- update react-embed dependencies (#118) by @alikirec
+
 ## 3.1.2
 
 ### Various fixes & improvements
