@@ -40,7 +40,7 @@ const FormsortWebEmbed = (
 ): IFormsortWebEmbed => {
   const iframeEl = document.createElement('iframe');
   const { style } = config;
-  const formsortOrigin = config.origin || DEFAULT_FLOW_ORIGIN;
+  let loadedOrigin: string;
   iframeEl.style.border = 'none';
   if (style) {
     const { width = '', height = '' } = style;
@@ -90,7 +90,7 @@ const FormsortWebEmbed = (
       return;
     }
 
-    if (msgOrigin !== formsortOrigin) {
+    if (msgOrigin !== loadedOrigin) {
       return;
     }
 
@@ -111,7 +111,19 @@ const FormsortWebEmbed = (
     variantLabel?: string,
     queryParams?: Array<[string, string]>
   ) => {
-    let url = `${formsortOrigin}/client/${clientLabel}/flow/${flowLabel}`;
+    let urlBase: string;
+    if (config.origin) {
+      loadedOrigin = config.origin;
+      urlBase = `${config.origin}/client/${clientLabel}`;
+    } else {
+      const subdomain = clientLabel
+        .toLowerCase()
+        .replace(/[^0-9a-z]/g, '') // Remove non-alphanumerics
+        .replace(/^[0-9]+/, ''); // Remove leading numbers
+      loadedOrigin = urlBase = `https://${subdomain}.formsort.app`;
+    }
+
+    let url = `${urlBase}/flow/${flowLabel}`;
     if (variantLabel) {
       url += `/variant/${variantLabel}`;
     }
