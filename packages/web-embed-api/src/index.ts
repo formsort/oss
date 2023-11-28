@@ -4,8 +4,6 @@ import EmbedMessagingManager, {
 } from '@formsort/embed-messaging-manager';
 import { getMessageSender } from './iframe-utils';
 
-const DEFAULT_FLOW_ORIGIN = 'https://flow.formsort.com';
-
 interface IFormsortWebEmbed {
   loadFlow: (
     clientLabel: string,
@@ -31,7 +29,6 @@ interface IFormsortWebEmbedConfig extends IFormsortEmbedConfig {
 
 const DEFAULT_CONFIG: IFormsortWebEmbedConfig = {
   useHistoryAPI: false,
-  origin: DEFAULT_FLOW_ORIGIN,
 };
 
 const FormsortWebEmbed = (
