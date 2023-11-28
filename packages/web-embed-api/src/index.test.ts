@@ -3,7 +3,7 @@ import FormsortWebEmbed, { SupportedAnalyticsEvent } from '.';
 
 type MessageListener = (msg: MessageEvent) => any;
 
-const DEFAULT_FLOW_ORIGIN = 'https://flow.formsort.com';
+const DEFAULT_FLOW_ORIGIN = 'https://testclient.formsort.app';
 const EMBEDDING_WINDOW_ORIGIN = 'https://test-origin.formsort.com';
 
 const clientLabel = 'test-client';
@@ -118,7 +118,7 @@ describe('FormsortWebEmbed', () => {
 
     const iframe = iframes[0];
     expect(iframe.src).toBe(
-      `https://flow.formsort.com/client/${clientLabel}/flow/${flowLabel}`
+      `https://testclient.formsort.app/flow/${flowLabel}`
     );
   });
 
@@ -162,8 +162,8 @@ describe('FormsortWebEmbed', () => {
 
     const iframe = iframes[0];
     expect(iframe.src).toBe(
-      `https://flow.formsort.com` +
-        `/client/${clientLabel}/flow/${flowLabel}/variant/${variantLabel}`
+      `https://testclient.formsort.app` +
+        `/flow/${flowLabel}/variant/${variantLabel}`
     );
   });
 
@@ -183,8 +183,8 @@ describe('FormsortWebEmbed', () => {
 
     const iframe = iframes[0];
     expect(iframe.src).toBe(
-      `https://flow.formsort.com` +
-        `/client/${clientLabel}/flow/${flowLabel}` +
+      `https://testclient.formsort.app` +
+        `/flow/${flowLabel}` +
         `?${queryParamA}=${queryValueA}&${queryParamB}=${queryValueB}`
     );
   });
@@ -239,12 +239,12 @@ describe('FormsortWebEmbed', () => {
 
     const firstFlowIframe = iframes[0];
     expect(firstFlowIframe.src).toBe(
-      `https://flow.formsort.com/client/${clientLabel}/flow/${flowLabel}`
+      `https://testclient.formsort.app/flow/${flowLabel}`
     );
 
     const secondFlowIframe = iframes[1];
     expect(secondFlowIframe.src).toBe(
-      `https://flow.formsort.com/client/${clientLabel}/flow/${secondFlowLabel}`
+      `https://testclient.formsort.app/flow/${secondFlowLabel}`
     );
 
     const firstFlowFinalized = jest.fn();
