@@ -12,7 +12,7 @@
   "author": "Formsort Engineering <engineering@formsort.com>",
   "license": "ISC",
   "dependencies": {
-    "@babel/core": "^7.16.7",
+    "@babel/core": "^7.23.5",
     "@emotion/react": "^11.7.1",
     "@formsort/react-embed": "^3.1.1",
     "react": "^18.2.0",
