@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2.6.1
+
+### Various fixes & improvements
+
+- chore: update babel and jest (#122) by @alikirec
+- Load from formsort.app rather than flow.formsort.com (#121) by @fzembow
+
 ## 2.6.0
 
 ### Various fixes & improvements
