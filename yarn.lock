@@ -611,13 +611,6 @@
     "@formsort/constants" "^1.7.0"
     events "^3.2.0"
 
-"@formsort/web-embed-api@2.4.1":
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/@formsort/web-embed-api/-/web-embed-api-2.4.1.tgz#d1911e4688e45fe88c81fe8269733c3d7b09a361"
-  integrity sha512-n73J+obmu3QGu0IKk/f8JGhlgaqvfut13W/lO91BREJH7ZVh5/sKQlevc/bbaxOeOWXV+keJ9zopT7zfy3PV3Q==
-  dependencies:
-    "@formsort/constants" "^1.7.0"
-
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.5"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.9.5.tgz#2cbaf9a89460da24b5ca6531b8bbfc23e1df50c7"
