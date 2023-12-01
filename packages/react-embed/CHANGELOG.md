@@ -1,4 +1,10 @@
 # CHANGELOG
+## 3.2.3
+
+### Various fixes & improvements
+
+- chore: bump web-embed-api in react-embed and example projects (#123) by @alikirec
+
 ## 3.2.2
 
 ### Various fixes & improvements
