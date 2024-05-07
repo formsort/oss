@@ -7,8 +7,8 @@ enum AnalyticsEventType {
   EmailCollected = 'EmailCollected',
   FlowFinalized = 'FlowFinalized',
   PhoneCollected = 'PhoneCollected',
-  SyntheticResponderActivity = 'SyntheticResponderActivity',
   ResponderStateUpdated = 'ResponderStateUpdated',
+  SyntheticResponderActivity = 'SyntheticResponderActivity',
 }
 
 export default AnalyticsEventType;
