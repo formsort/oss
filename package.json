@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "volta": {
-    "node": "16.13.2",
+    "node": "20.12.2",
     "yarn": "1.22.18"
   },
   "workspaces": {
