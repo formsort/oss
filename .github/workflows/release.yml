@@ -27,7 +27,7 @@ jobs:
     name: 'Publish a new version'
     environment: release
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.FS_RELEASE_GITHUB_PAT }}
           fetch-depth: 0
