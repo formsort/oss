@@ -1,4 +1,10 @@
 # CHANGELOG
+## 1.10.1
+
+### Various fixes & improvements
+
+- FLOW-903: add `SyntheticResponderActivity` event (#124) by @alikirec
+
 ## 1.10.0
 
 ### Various fixes & improvements
