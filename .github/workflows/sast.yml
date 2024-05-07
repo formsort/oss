@@ -57,24 +57,19 @@ jobs:
           sarif_file: 'trivy-results.sarif'
   semgrep:
     name: Semgrep
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+    container:
+      # A Docker image with Semgrep installed. Do not change this.
+      image: semgrep/semgrep
     if: (github.actor != 'dependabot[bot]')
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 10
-      - uses: 'docker://returntocorp/semgrep-agent:v1'
+      - run: semgrep ci
         env:
           SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-        name: semgrep scan
-        with:
-          entrypoint: semgrep
-          args: >-
-            scan
-            --metrics on
-            --config auto
-            ${{ github.event_name == 'push' && '--no-error' || '--error' }}
-            ${{ github.event_name == 'pull_request' && format('--json --output=semgrep.json --baseline-commit {0}', github.event.pull_request.base.sha) || '--sarif --output=semgrep.sarif' }}
+      
       - name: Annotate
         if: github.event_name == 'pull_request' && failure()
         run: jq -r '.results[] | "::error file=\(.path),line=\(.start.line),lineEnd=\(.end.line),col=\(.start.col),endColumn=\(.end.col),title=[\(.extra.severity)]\(.check_id)::\(.extra.message)"' semgrep.json
