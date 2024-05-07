@@ -4,7 +4,7 @@
   "description": "Formsort Embed using an authenticated flow",
   "main": "src/index.js",
   "engines": {
-    "node": "20.12.2",
+    "node": "20.12.2"
   },
   "scripts": {
     "start": "webpack serve",
