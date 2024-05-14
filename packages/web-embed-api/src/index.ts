@@ -3,6 +3,7 @@ import EmbedMessagingManager, {
   type IEventMap,
 } from '@formsort/embed-messaging-manager';
 import { getMessageSender } from './iframe-utils';
+import { isLocalOrLegacyFlowOrigin } from './utils';
 
 interface IFormsortWebEmbed {
   loadFlow: (
@@ -111,7 +112,12 @@ const FormsortWebEmbed = (
     let urlBase: string;
     if (config.origin) {
       loadedOrigin = config.origin;
-      urlBase = `${config.origin}/client/${clientLabel}`;
+
+      if (isLocalOrLegacyFlowOrigin(config.origin)) {
+        urlBase = `${config.origin}/client/${clientLabel}`; 
+      } else {
+        urlBase = config.origin;
+      }
     } else {
       const subdomain = clientLabel
         .toLowerCase()
