@@ -16,7 +16,7 @@ runs:
           **/*.tsbuildinfo
           **/lib
           **/dist
-        key: ${{ runner.os }}-yarn-v7-${{ hashFiles('**/package.json', '**/yarn.lock', '**/tsconfig.json') }}
+        key: ${{ runner.os }}-yarn-v8-${{ hashFiles('**/package.json', '**/yarn.lock', '**/tsconfig.json') }}
         restore-keys: |
           ${{ runner.os }}-yarn-v7-
     - name: Install Dependencies
