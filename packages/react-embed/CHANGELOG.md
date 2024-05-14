@@ -1,4 +1,10 @@
 # CHANGELOG
+## 3.2.4
+
+### Various fixes & improvements
+
+- update web-embed-api in react-embed package (#127) by @alikirec
+
 ## 3.2.3
 
 ### Various fixes & improvements
