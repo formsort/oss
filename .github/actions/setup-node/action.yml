@@ -12,7 +12,6 @@ runs:
           **/node_modules
           **/.jest-cache
           **/.eslintcache
-          **/.parcel-cache
           **/*.tsbuildinfo
           **/lib
           **/dist
