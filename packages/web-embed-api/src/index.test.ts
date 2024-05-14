@@ -153,6 +153,37 @@ describe('FormsortWebEmbed', () => {
     expect(flowLoadedSpy).toBeCalledTimes(1);
   });
 
+  test('loads and handles messages from non-local custom origin', () => {
+    const customOrigin = 'https://mycustomdomain.com';
+    const embed = FormsortWebEmbed(document.body, {
+      origin: customOrigin,
+    });
+    const iframes = document.body.querySelectorAll('iframe');
+    expect(iframes.length).toBe(1);
+
+    embed.loadFlow(clientLabel, flowLabel);
+
+    const iframe = iframes[0];
+    expect(iframe.src).toBe(
+      `${customOrigin}/flow/${flowLabel}`
+    );
+
+    const flowLoadedSpy = jest.fn();
+    embed.addEventListener(SupportedAnalyticsEvent.FlowLoaded, flowLoadedSpy);
+
+    const msg = new MessageEvent('message', {
+      source: iframe.contentWindow,
+      origin: customOrigin,
+      data: {
+        type: WebEmbedMessage.EMBED_EVENT_MSG,
+        createdAt: new Date(),
+        eventType: AnalyticsEventType.FlowLoaded,
+      },
+    });
+    mockPostMessage(msg);
+    expect(flowLoadedSpy).toBeCalledTimes(1);
+  });
+
   test('loads a variant when load is called', () => {
     const { loadFlow } = FormsortWebEmbed(document.body);
     const iframes = document.body.querySelectorAll('iframe');
