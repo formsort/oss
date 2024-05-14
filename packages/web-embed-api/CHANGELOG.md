@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2.6.2
+
+### Various fixes & improvements
+
+- fix custom-question-api-example build (#126) by @alikirec
+- FLOW-908: remove `/client/client-label` in custom domains case (#125) by @alikirec
+
 ## 2.6.1
 
 ### Various fixes & improvements
