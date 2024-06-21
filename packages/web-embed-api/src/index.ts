@@ -59,7 +59,9 @@ const FormsortWebEmbed = (
 
   const unloadFlow = () => {
     removeListeners();
-    rootEl.removeChild(iframeEl);
+    if (iframeEl.contentDocument) {
+      rootEl.removeChild(iframeEl);
+    }
   };
 
   const messagingManager = new EmbedMessagingManager({
