@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.6.3
+
+### Various fixes & improvements
+
+- fix: removing missing childNode error (#129) by @Zjjc123
+
 ## 2.6.2
 
 ### Various fixes & improvements
