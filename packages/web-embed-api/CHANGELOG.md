@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.6.4
+
+### Various fixes & improvements
+
+- fix unloadFlow (#131) by @alikirec
+
 ## 2.6.3
 
 ### Various fixes & improvements
