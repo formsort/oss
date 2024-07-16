@@ -59,8 +59,10 @@ const FormsortWebEmbed = (
 
   const unloadFlow = () => {
     removeListeners();
-    if (iframeEl.contentDocument) {
+    try {
       rootEl.removeChild(iframeEl);
+    } catch (e) {
+      // noop: iframe already removed OR blur event triggered by iframe removal
     }
   };
 
