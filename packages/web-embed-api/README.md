@@ -41,6 +41,7 @@ interface IFormsortWebEmbedConfig {
   authentication?: {
     idToken?: string; // ID Token for authenticated flows
   };
+  origin?: string; // optional -- use if you want to load your flow in a custom damain
 }
 ```
 
