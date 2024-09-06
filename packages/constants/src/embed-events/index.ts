@@ -2,6 +2,11 @@ import { AnalyticsEventType, WebEmbedMessage, IFlowAnswers } from '../';
 
 export interface IBaseEventData {
   answers?: IFlowAnswers;
+  responder: {
+    responderUuid: string;
+    sessionUuid: string;
+    isReturningResponder?: boolean;
+  }
 }
 
 export interface IRedirectEventData extends IBaseEventData {
@@ -19,6 +24,9 @@ export interface IIFrameAnalyticsEventData
   createdAt: Date;
   eventType: AnalyticsEventType;
   variantRevisionUuid: string;
+  // for StepLoaded and StepCompleted events
+  stepId?: string;
+  stepIndex?: number;
 }
 
 export enum TokenRequestPayload {
