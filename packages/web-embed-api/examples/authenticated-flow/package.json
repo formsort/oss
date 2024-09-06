@@ -19,11 +19,11 @@
     "@formsort/web-embed-api": "2.6.2"
   },
   "devDependencies": {
-    "css-loader": "^6.7.1",
+    "css-loader": "^7.1.2",
     "dotenv-webpack": "^8.0.0",
     "html-webpack-plugin": "^5.5.0",
     "style-loader": "^3.3.1",
-    "ts-loader": "^9.3.1",
+    "ts-loader": "^9.5.1",
     "webpack": "^5.76.2",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^5.0.4"
