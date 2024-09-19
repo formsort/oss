@@ -1,6 +1,6 @@
 {
   "name": "@formsort/embed-messaging-manager",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Utility package used across Formsort projects. Not intended to be used directly",
   "publishConfig": {
     "access": "public",
