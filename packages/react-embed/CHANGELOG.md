@@ -1,4 +1,10 @@
 # CHANGELOG
+## 3.3.0
+
+### Various fixes & improvements
+
+- Update @formsort/web-embed-api to version 2.7.0 (#141) by @alikirec
+
 ## 3.2.4
 
 ### Various fixes & improvements
