@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import EmbedFlow from '@formsort/react-embed';
-import React, { Fragment, useState, useEffect, StrictMode } from 'react';
+import { Fragment, useState, useEffect, StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 const FORMSORT_ORIGIN =
