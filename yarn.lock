@@ -677,6 +677,13 @@
     "@formsort/constants" "^1.7.0"
     events "^3.2.0"
 
+"@formsort/embed-messaging-manager@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@formsort/embed-messaging-manager/-/embed-messaging-manager-0.1.1.tgz#898695467c174e89bf9ca800705bec4aea33d380"
+  integrity sha512-OiiB4DKKLoXPy9IMmQb8INcAU2Fq4ADaqRpRJ3qjthkIAhWytQpOhmQn2YFgX+eGh8KeVsNskrpT3r7W9pBEvQ==
+  dependencies:
+    "@formsort/constants" "^1.10.0"
+
 "@formsort/web-embed-api@2.6.2":
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/@formsort/web-embed-api/-/web-embed-api-2.6.2.tgz#7e5ee7e071af928c3a033d2a86b26a51c26422ae"
