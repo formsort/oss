@@ -611,6 +611,14 @@
     "@formsort/constants" "^1.7.0"
     events "^3.2.0"
 
+"@formsort/web-embed-api@2.6.2":
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@formsort/web-embed-api/-/web-embed-api-2.6.2.tgz#7e5ee7e071af928c3a033d2a86b26a51c26422ae"
+  integrity sha512-3jUiZggAfFl/6ElSy/s1UXYgh4FI+ZeLVODDzNi5bDK1HpiabmTnHIKg1XsE2wT06n3T+OuoFIvPrL+x2GPTlg==
+  dependencies:
+    "@formsort/constants" "^1.10.0"
+    "@formsort/embed-messaging-manager" "^0.1.1"
+
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.5"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.9.5.tgz#2cbaf9a89460da24b5ca6531b8bbfc23e1df50c7"
@@ -7785,7 +7793,7 @@ write-file-atomic@^4.0.2:
     imurmurhash "^0.1.4"
     signal-exit "^3.0.7"
 
-ws@^8.11.0, ws@^8.16.0, ws@^8.17.1:
+ws@^8.11.0, ws@^8.16.0:
   version "8.17.1"
   resolved "https://registry.yarnpkg.com/ws/-/ws-8.17.1.tgz#9293da530bb548febc95371d90f9c878727d919b"
   integrity sha512-6XQFvXTkbfUOZOKKILFG1PDK2NDQs4azKQl26T0YS5CxqWLgXajbPZ+h4gZekJyRqFU8pvnbAbbs/3TgRPy+GQ==

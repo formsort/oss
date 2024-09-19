@@ -6,8 +6,7 @@ import {
   TokenRequestPayload,
   type IIFramePushMessage,
   WebEmbedMessage,
-  IBaseEventData,
-  IFlowAnswers,
+  type IBaseEventData,
 } from '@formsort/constants';
 import {
   isIFrameAnalyticsEventData,
@@ -24,10 +23,7 @@ interface IAuthenticationConfig {
   idToken: string;
 }
 
-interface IFlowEventPayload {
-  variantRevisionUuid: string;
-  answers?: IFlowAnswers;
-}
+type IFlowEventPayload = Omit<IIFrameAnalyticsEventData, 'type' | 'createdAt' | 'eventType'>;
 
 export interface IFormsortEmbedConfig {
   autoHeight?: boolean;
@@ -140,13 +136,13 @@ class EmbedMessagingManager {
   };
 
   private onRedirectMessage = (redirectData: IIFrameRedirectEventData) => {
-    const { payload: url, answers } = redirectData;
+    const { payload: url, answers, responder } = redirectData;
 
     if (!isEmpty(this.eventListenersArrayMap.redirect)) {
       let cancelRedirect = false;
       // Cancel redirect if any of the redirect listeners return `{ cancel: true }`
       for (const redirectListener of this.eventListenersArrayMap.redirect) {
-        const { cancel } = redirectListener({ url, answers }) || {};
+        const { cancel } = redirectListener({ url, answers, responder }) || {};
         if (!cancelRedirect && cancel) {
           cancelRedirect = true;
         }
@@ -180,7 +176,7 @@ class EmbedMessagingManager {
   };
 
   private onEventMessage = (eventData: IIFrameAnalyticsEventData) => {
-    const { eventType, answers, variantRevisionUuid } = eventData;
+    const { eventType, answers, variantRevisionUuid, responder, stepId, stepIndex } = eventData;
 
     if (eventType === AnalyticsEventType.FlowClosed) {
       this.onFlowClosed();
@@ -193,7 +189,13 @@ class EmbedMessagingManager {
     }
 
     for (const eventListener of eventListenersArr) {
-      eventListener({ answers, variantRevisionUuid });
+      eventListener({
+        answers,
+        responder,
+        variantRevisionUuid,
+        stepId,
+        stepIndex,
+      });
     }
   };
 
