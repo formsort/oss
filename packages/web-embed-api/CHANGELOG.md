@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.7.0
+
+### Various fixes & improvements
+
+- update embed-messaging-manager to 0.2.0 (#140) by @alikirec
+
 ## 2.6.4
 
 ### Various fixes & improvements
