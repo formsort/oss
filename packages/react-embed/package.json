@@ -57,7 +57,7 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@formsort/embed-messaging-manager": "^0.1.1",
+    "@formsort/embed-messaging-manager": "^0.2.0",
     "@formsort/web-embed-api": "^2.6.2"
   },
   "peerDependencies": {
