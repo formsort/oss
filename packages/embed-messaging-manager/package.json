@@ -24,7 +24,7 @@
   "author": "Formsort Engineering <engineering@formsort.com>",
   "license": "MIT",
   "dependencies": {
-    "@formsort/constants": "^1.10.0"
+    "@formsort/constants": "^1.11.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.19",

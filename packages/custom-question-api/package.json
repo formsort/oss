@@ -52,7 +52,7 @@
     "vite": "^4.5.3"
   },
   "dependencies": {
-    "@formsort/constants": "^1.8.0",
+    "@formsort/constants": "^1.11.0",
     "events": "^3.2.0"
   }
 }
