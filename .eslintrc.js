@@ -23,6 +23,10 @@ module.exports = {
         browser: true,
       },
       extends: '@formsort/eslint-config',
+      rules: {
+        'react/no-unknown-property': ['error', { ignore: ['css'] }],
+        'react/react-in-jsx-scope': 'off', // not necessary since React 18
+      },
       parserOptions: {
         project: ['**/tsconfig.json'],
         sourceType: 'module',

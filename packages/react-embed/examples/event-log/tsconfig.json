@@ -5,7 +5,9 @@
     "rootDir": ".",
     "outDir": "./lib",
     "strict": true,
-    "types": ["jest"]
+    "types": ["jest", "node"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
   },
   "include": ["src", "**/__tests__/*"]
 }
