@@ -1,4 +1,10 @@
 # CHANGELOG
+## 1.11.0
+
+### Various fixes & improvements
+
+- feat(events): add responder and stepId/Index to flow events (#135) by @alikirec
+
 ## 1.10.1
 
 ### Various fixes & improvements
