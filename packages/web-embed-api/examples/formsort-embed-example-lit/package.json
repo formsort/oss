@@ -20,7 +20,7 @@
     "tslib": "^2.7.0"
   },
   "dependencies": {
-    "@formsort/web-embed-api": "^2.6.2",
+    "@formsort/web-embed-api": "^2.7.0",
     "lit": "^2.2.1"
   },
   "browerslist": [
