@@ -1,3 +1,9 @@
+## 0.2.0
+
+### Various fixes & improvements
+
+- update constants to 1.11.0 (#139) by @alikirec
+
 ## 0.1.1
 
 ### Various fixes & improvements
