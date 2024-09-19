@@ -58,7 +58,7 @@
   },
   "dependencies": {
     "@formsort/embed-messaging-manager": "^0.2.0",
-    "@formsort/web-embed-api": "^2.6.2"
+    "@formsort/web-embed-api": "^2.7.0"
   },
   "peerDependencies": {
     "react": ">=16.13.0, <19.0.0"
