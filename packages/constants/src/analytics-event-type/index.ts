@@ -9,6 +9,12 @@ enum AnalyticsEventType {
   PhoneCollected = 'PhoneCollected',
   ResponderStateUpdated = 'ResponderStateUpdated',
   SyntheticResponderActivity = 'SyntheticResponderActivity',
+  StripeStartedCheckout = 'StripeStartedCheckout',
+  StripeSelectedProduct = 'StripeSelectedProduct',
+  StripeSelectedPlan = 'StripeSelectedPlan',
+  StripeCompletedMobileCheckout = 'StripeCompletedMobileCheckout',
+  StripeAddedPaymentMethod = 'StripeAddedPaymentMethod',
+  StripePaymentCompleted = 'StripePaymentCompleted',
 }
 
 export default AnalyticsEventType;
