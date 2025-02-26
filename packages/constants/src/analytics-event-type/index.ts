@@ -12,8 +12,9 @@ enum AnalyticsEventType {
   StripeStartedCheckout = 'StripeStartedCheckout',
   StripeSelectedProduct = 'StripeSelectedProduct',
   StripeSelectedPlan = 'StripeSelectedPlan',
+  StripeCompletedMobileCheckout = 'StripeCompletedMobileCheckout',
   StripeAddedPaymentMethod = 'StripeAddedPaymentMethod',
-  StripeCompletedCheckout = 'StripeCompletedCheckout',
+  StripePaymentCompleted = 'StripePaymentCompleted',
 }
 
 export default AnalyticsEventType;
