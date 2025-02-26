@@ -20,7 +20,7 @@ jobs:
     name: Check changed paths
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v2
         if: github.event_name != 'schedule'
         id: changes
@@ -36,8 +36,8 @@ jobs:
     needs: paths
     if: always() && (github.event_name == 'push' || github.event_name == 'schedule' || needs.paths.outputs.changed == 'true')
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/cache@v3
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
         with:
           path: .trivy_cache
           key: ${{ runner.os }}-trivy-v1
@@ -63,7 +63,7 @@ jobs:
       image: semgrep/semgrep
     if: (github.actor != 'dependabot[bot]')
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 10
       - run: semgrep ci
@@ -84,7 +84,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
