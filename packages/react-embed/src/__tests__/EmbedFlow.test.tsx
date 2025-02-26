@@ -33,7 +33,7 @@ describe('EmbedFlow component', () => {
     mockWebEmbedApi.mockClear();
   });
 
-  it('should load flows without variant label', () => {
+  test('should load flows without variant label', () => {
     render(<EmbedFlow flowLabel="test-flow" clientLabel="test-client" />);
     expect(loadMock).toBeCalledWith(
       'test-client',
@@ -43,7 +43,7 @@ describe('EmbedFlow component', () => {
     );
   });
 
-  it('should load flows with variant label', () => {
+  test('should load flows with variant label', () => {
     render(
       <EmbedFlow
         flowLabel="test-flow"
@@ -59,7 +59,7 @@ describe('EmbedFlow component', () => {
     );
   });
 
-  it('should pass down the event listeners given as props', () => {
+  test('should pass down the event listeners given as props', () => {
     const flowloadedMock = jest.fn();
     const flowFinalizedMock = jest.fn();
     const redirectMock = jest.fn();
@@ -97,7 +97,7 @@ describe('EmbedFlow component', () => {
     expect(embedMock.addEventListener).toBeCalledWith('unauthorized', unauthorizedMock);
   });
 
-  it('should load flows with URL params', () => {
+  test('should load flows with URL params', () => {
     const uuid = 'b1c7d9c8-f4b0-4f3f-9fc3-abf32ae8a061';
     render(
       <EmbedFlow
