@@ -1,4 +1,10 @@
 # CHANGELOG
+## 1.12.0
+
+### Various fixes & improvements
+
+- feat: add stripe events (#142) by @alikirec
+
 ## 1.11.0
 
 ### Various fixes & improvements
