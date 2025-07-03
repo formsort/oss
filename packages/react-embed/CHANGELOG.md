@@ -1,4 +1,10 @@
 # CHANGELOG
+## 3.3.1
+
+### Various fixes & improvements
+
+- FLOW-1069: fix flow-closed behavior (#146) by @alikirec
+
 ## 3.3.0
 
 ### Various fixes & improvements
