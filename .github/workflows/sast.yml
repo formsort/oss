@@ -40,7 +40,7 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: .trivy_cache
-          key: ${{ runner.os }}-trivy-v1
+          key: ${{ runner.os }}-trivy-v0.31.0
       - uses: aquasecurity/trivy-action@0.31.0
         with:
           scan-type: 'fs'
