@@ -5,7 +5,7 @@ import FormsortWebEmbed, {
   IFormsortWebEmbedConfig,
 } from '@formsort/web-embed-api';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 // Using this type to preserve auto-complete for default environments
 // while allowing any other string to be passed.
@@ -100,14 +100,23 @@ const onMount = (
 const EmbedFlow: React.FunctionComponent<EmbedFlowProps> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const style = props.embedConfig?.style;
+  const [flowClosed, setFlowClosed] = useState(false);
 
   useEffect(() => {
     const embed = onMount(containerRef, props);
+
+    embed?.addEventListener(SupportedAnalyticsEvent.FlowClosed, () => {
+      setFlowClosed(true);
+    })
 
     return () => {
       embed?.unloadFlow();
     };
   }, []);
+
+  if (flowClosed) {
+    return null;
+  }
 
   return <div ref={containerRef} style={style} />;
 };
