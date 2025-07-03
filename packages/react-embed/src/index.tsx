@@ -100,7 +100,7 @@ const onMount = (
 const EmbedFlow: React.FunctionComponent<EmbedFlowProps> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const style = props.embedConfig?.style;
-  const [flowClosed, setFlowClosed] = React.useState(false);
+  const [flowClosed, setFlowClosed] = useState(false);
 
   useEffect(() => {
     const embed = onMount(containerRef, props);
