@@ -50,6 +50,8 @@ jobs:
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
           cache-dir: .trivy_cache
+        env:
+          TRIVY_DEBUG: true
       - name: Upload scan results to GitHub
         if: github.event_name != 'pull_request' && failure()
         uses: github/codeql-action/upload-sarif@v3
