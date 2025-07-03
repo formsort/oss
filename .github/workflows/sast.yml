@@ -44,7 +44,7 @@ jobs:
       - uses: aquasecurity/trivy-action@0.31.0
         with:
           scan-type: 'fs'
-          format: ${{ github.event_name == 'pull_request' && 'table' || 'sarif' }}
+          format: 'table'
           exit-code: '1'
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
