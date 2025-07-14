@@ -14,7 +14,8 @@
   "resolutions": {
     "tslib": ">=1.10.0",
     "json5": "^2.2.3",
-    "@babel/core": "^7.28.0"
+    "@babel/core": "^7.28.0",
+    "esbuild": "^0.25.6"
   },
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx,.js --cache --cache-strategy content",
