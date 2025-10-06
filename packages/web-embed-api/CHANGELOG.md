@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.8.0
+
+### Various fixes & improvements
+
+- feat(web-embed-api): set iframe title when flow loaded (#163) by @alikirec
+
 ## 2.7.0
 
 ### Various fixes & improvements
