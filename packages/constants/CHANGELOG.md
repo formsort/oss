@@ -1,4 +1,10 @@
 # CHANGELOG
+## 1.13.0
+
+### Various fixes & improvements
+
+- feat(embedded-events): add documentTitle to flow loaded event (#162) by @alikirec
+
 ## 1.12.0
 
 ### Various fixes & improvements
