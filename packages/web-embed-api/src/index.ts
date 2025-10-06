@@ -1,6 +1,7 @@
 import EmbedMessagingManager, {
   type IFormsortEmbedConfig,
   type IEventMap,
+  SupportedAnalyticsEvent,
 } from '@formsort/embed-messaging-manager';
 import { getMessageSender } from './iframe-utils';
 import { isLocalOrLegacyFlowOrigin } from './utils';
@@ -83,6 +84,12 @@ const FormsortWebEmbed = (
     onResize: setSize,
     onFlowClosed: unloadFlow,
   });
+
+  messagingManager.addEventListener(SupportedAnalyticsEvent.FlowLoaded, (payload) => {
+    if (payload.documentTitle) {
+      iframeEl.title = payload.documentTitle;
+    }
+  })
 
   const onWindowMessage = (message: MessageEvent<unknown>) => {
     const { origin: msgOrigin, source, data } = message;
