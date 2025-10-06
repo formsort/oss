@@ -653,6 +653,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@formsort/constants@^1.13.0":
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/@formsort/constants/-/constants-1.13.0.tgz#5f4b1eee1bdc4be285b0d73eb1b3f303d6b5fb38"
+  integrity sha512-hK39BhDNhBMogKngRpDF4KcWVVFEUP/AQRyRgngy+b5tEH7vYuHOb3WJJR7hBnbXMjB/lghcvA8opnIe0Wv7dA==
+
 "@formsort/custom-question-api@^0.1.1":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@formsort/custom-question-api/-/custom-question-api-0.1.1.tgz#d7812add4f23756670103ccb8f5b73201597165d"
@@ -3309,7 +3314,7 @@ compressible@~2.0.18:
   dependencies:
     mime-db ">= 1.43.0 < 2"
 
-compression@^1.7.4, compression@^1.8.1:
+compression@^1.7.4:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/compression/-/compression-1.8.1.tgz#4a45d909ac16509195a9a28bd91094889c180d79"
   integrity sha512-9mAqGPHLakhCLeNyxPkK4xVo746zQ/czLH1Ky+vkitMnWfWZps8r0qXuwhwizagCRttsL4lfG4pIOvaWLpAP0w==
