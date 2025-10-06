@@ -27,6 +27,8 @@ export interface IIFrameAnalyticsEventData
   // for StepLoaded and StepCompleted events
   stepId?: string;
   stepIndex?: number;
+  // for FlowLoaded event
+  documentTitle?: string;
 }
 
 export enum TokenRequestPayload {
