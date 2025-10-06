@@ -3,6 +3,7 @@ import EmbedMessagingManager, {
   type IEventMap,
   SupportedAnalyticsEvent,
 } from '@formsort/embed-messaging-manager';
+import { type IFlowAnswers, WebEmbedMessage } from '@formsort/constants';
 import { getMessageSender } from './iframe-utils';
 import { isLocalOrLegacyFlowOrigin } from './utils';
 
@@ -11,7 +12,8 @@ interface IFormsortWebEmbed {
     clientLabel: string,
     flowLabel: string,
     variantLabel?: string,
-    queryParams?: Array<[string, string]>
+    queryParams?: Array<[string, string]>,
+    answers?: IFlowAnswers
   ) => void;
   unloadFlow: () => void;
   setSize: (width: string, height: string) => void;
@@ -40,6 +42,7 @@ const FormsortWebEmbed = (
   const iframeEl = document.createElement('iframe');
   const { style } = config;
   let loadedOrigin: string;
+  let pendingAnswers: IFlowAnswers | undefined;
   iframeEl.style.border = 'none';
   if (style) {
     const { width = '', height = '' } = style;
@@ -67,9 +70,11 @@ const FormsortWebEmbed = (
     }
   };
 
+  const sendMessageToEmbed = getMessageSender(iframeEl);
+
   const messagingManager = new EmbedMessagingManager({
     config,
-    sendMessageToEmbed: getMessageSender(iframeEl),
+    sendMessageToEmbed,
     onRedirect: (url: string) => {
       if (
         config.useHistoryAPI &&
@@ -85,9 +90,18 @@ const FormsortWebEmbed = (
     onFlowClosed: unloadFlow,
   });
 
-  messagingManager.addEventListener(SupportedAnalyticsEvent.FlowLoaded, (payload) => {
-    if (payload.documentTitle) {
-      iframeEl.title = payload.documentTitle;
+  messagingManager.addEventListener(SupportedAnalyticsEvent.FlowLoaded, (eventPayload) => {
+    if (eventPayload.documentTitle) {
+      iframeEl.title = eventPayload.documentTitle;
+    }
+    
+    // Send pending answers via postMessage after the flow has loaded
+    if (pendingAnswers) {
+      sendMessageToEmbed({
+        type: WebEmbedMessage.EMBED_ANSWERS_MSG,
+        payload: { answers: pendingAnswers },
+      });
+      pendingAnswers = undefined;
     }
   })
 
@@ -118,8 +132,15 @@ const FormsortWebEmbed = (
     clientLabel: string,
     flowLabel: string,
     variantLabel?: string,
-    queryParams?: Array<[string, string]>
+    queryParams?: Array<[string, string]>,
+    answers?: IFlowAnswers
   ) => {
+    // Store answers to be sent via postMessage after flow loads
+    // This avoids CloudFront query string length limitations
+    if (answers) {
+      pendingAnswers = answers;
+    }
+
     let urlBase: string;
     if (config.origin) {
       loadedOrigin = config.origin;

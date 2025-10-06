@@ -842,4 +842,86 @@ describe('FormsortWebEmbed', () => {
     expect(window.location.assign).toBeCalledWith(redirectUrl);
     expect(pushStateSpy).toBeCalledTimes(0);
   });
+
+  test('sends answers via postMessage when FlowLoaded event fires', () => {
+    const embed = FormsortWebEmbed(document.body);
+    const iframe = document.body.querySelector('iframe')!;
+
+    // Mock postMessage to capture outgoing messages
+    const postMessageSpy = jest.fn();
+    Object.defineProperty(iframe, 'contentWindow', {
+      value: {
+        postMessage: postMessageSpy,
+      },
+      writable: true,
+    });
+
+    const answers = {
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'john.doe@example.com',
+      preferences: ['option1', 'option2', 'option3'],
+    };
+
+    // Load flow with answers
+    embed.loadFlow(clientLabel, flowLabel, variantLabel, undefined, answers);
+
+    // Initially, no postMessage should be sent (iframe not loaded yet)
+    expect(postMessageSpy).toBeCalledTimes(0);
+
+    // Simulate FlowLoaded event
+    const flowLoadedMsg = new MessageEvent('message', {
+      source: iframe.contentWindow,
+      origin: DEFAULT_FLOW_ORIGIN,
+      data: {
+        type: WebEmbedMessage.EMBED_EVENT_MSG,
+        eventType: AnalyticsEventType.FlowLoaded,
+        createdAt: new Date(),
+        variantRevisionUuid: 'test-uuid',
+      },
+    });
+    mockPostMessage(flowLoadedMsg);
+
+    // After FlowLoaded, answers should be sent via postMessage
+    expect(postMessageSpy).toBeCalledTimes(1);
+    expect(postMessageSpy).toBeCalledWith(
+      {
+        type: WebEmbedMessage.EMBED_ANSWERS_MSG,
+        payload: { answers },
+      },
+      '*'
+    );
+  });
+
+  test('does not send answers if none are provided', () => {
+    const embed = FormsortWebEmbed(document.body);
+    const iframe = document.body.querySelector('iframe')!;
+
+    const postMessageSpy = jest.fn();
+    Object.defineProperty(iframe, 'contentWindow', {
+      value: {
+        postMessage: postMessageSpy,
+      },
+      writable: true,
+    });
+
+    // Load flow without answers
+    embed.loadFlow(clientLabel, flowLabel, variantLabel);
+
+    // Simulate FlowLoaded event
+    const flowLoadedMsg = new MessageEvent('message', {
+      source: iframe.contentWindow,
+      origin: DEFAULT_FLOW_ORIGIN,
+      data: {
+        type: WebEmbedMessage.EMBED_EVENT_MSG,
+        eventType: AnalyticsEventType.FlowLoaded,
+        createdAt: new Date(),
+        variantRevisionUuid: 'test-uuid',
+      },
+    });
+    mockPostMessage(flowLoadedMsg);
+
+    // No postMessage should be sent since no answers were provided
+    expect(postMessageSpy).toBeCalledTimes(0);
+  });
 });

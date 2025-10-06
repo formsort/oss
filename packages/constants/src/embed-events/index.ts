@@ -73,6 +73,14 @@ export interface IIFrameStyleSetResponseMessage {
   };
 }
 
+export interface IIFrameAnswersMessage {
+  type: WebEmbedMessage.EMBED_ANSWERS_MSG;
+  payload: {
+    answers: IFlowAnswers;
+  };
+}
+
 export type IIFramePushMessage =
   | IIFrameTokenResponseMessage
-  | IIFrameStyleSetResponseMessage;
+  | IIFrameStyleSetResponseMessage
+  | IIFrameAnswersMessage;

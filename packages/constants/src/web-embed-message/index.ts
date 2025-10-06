@@ -7,6 +7,7 @@ enum WebEmbedMessage {
   EMBED_TOKEN_REQUEST_MSG = 'ƒ_wetreq',
   EMBED_TOKEN_RESPONSE_MSG = 'ƒ_wetres',
   EMBED_UNAUTHORIZED_MSG = 'ƒ_weua',
+  EMBED_ANSWERS_MSG = 'ƒ_wea',
 }
 
 export default WebEmbedMessage;

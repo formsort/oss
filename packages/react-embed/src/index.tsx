@@ -4,6 +4,7 @@ import FormsortWebEmbed, {
   IFormsortWebEmbed,
   IFormsortWebEmbedConfig,
 } from '@formsort/web-embed-api';
+import { type IFlowAnswers } from '@formsort/constants';
 
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -20,6 +21,7 @@ interface ILoadProps {
   responderUuid?: string;
   formsortEnv?: FormsortEnv;
   queryParams?: Array<[string, string]>;
+  answers?: IFlowAnswers;
   embedConfig?: IFormsortWebEmbedConfig;
 }
 
@@ -74,6 +76,7 @@ const onMount = (
     responderUuid,
     formsortEnv,
     queryParams = [],
+    answers,
     ...eventListeners
   } = props;
 
@@ -91,7 +94,8 @@ const onMount = (
     clientLabel,
     flowLabel,
     variantLabel,
-    queryParams.length ? queryParams : undefined
+    queryParams.length ? queryParams : undefined,
+    answers
   );
 
   return embed;

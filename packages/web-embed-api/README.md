@@ -57,7 +57,7 @@ interface IFormsortWebEmbedConfig {
 
 - `authentication.idToken`: When the Flow requires an ID token, this can be used to provide it.
 
-### `loadFlow(clientLabel: string, flowLabel: string, variantLabel?: string, queryParams?: Array<[string, string]>) => void`
+### `loadFlow(clientLabel: string, flowLabel: string, variantLabel?: string, queryParams?: Array<[string, string]>, answers?: IFlowAnswers) => void`
 
 Starts loading a Formsort variant, or a flow.
 
@@ -66,6 +66,25 @@ Note that `variantLabel` is optional. If it is not provided, a variant will be c
 - Based on weights, if weights are assigned
 
 - At random, if no weights are assigned
+
+#### Pre-populating Answers
+
+The optional `answers` parameter allows you to pre-populate form answers via `postMessage` after the flow loads. This approach avoids CloudFront's query string length limitations that can occur when passing large amounts of data via `queryParams`.
+
+```ts
+const embed = FormsortWebEmbed(document.body);
+embed.loadFlow('formsort', 'onboarding', 'main', undefined, {
+  firstName: 'John',
+  lastName: 'Doe',
+  email: 'john.doe@example.com',
+  preferences: ['option1', 'option2', 'option3']
+});
+```
+
+**When to use `answers` vs `queryParams`:**
+- Use `answers` for large datasets or when you encounter CloudFront errors due to URL length
+- Use `queryParams` for small amounts of data or when you need the values in the URL for tracking purposes
+- Both can be used together if needed
 
 ### `unloadFlow() => void`
 
