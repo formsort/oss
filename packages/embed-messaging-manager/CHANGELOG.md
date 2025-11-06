@@ -1,3 +1,9 @@
+## 0.3.0
+
+### Various fixes & improvements
+
+- feat: handle answer sources in embed messaging manager (#167) by @alikirec
+
 ## 0.2.0
 
 ### Various fixes & improvements
