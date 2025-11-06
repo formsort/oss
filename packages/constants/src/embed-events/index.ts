@@ -2,6 +2,7 @@ import { AnalyticsEventType, WebEmbedMessage, IFlowAnswers } from '../';
 
 export interface IBaseEventData {
   answers?: IFlowAnswers;
+  answerSources?: Record<string, string>;
   responder: {
     responderUuid: string;
     sessionUuid: string;
