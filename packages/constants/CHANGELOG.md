@@ -1,4 +1,10 @@
 # CHANGELOG
+## 1.14.0
+
+### Various fixes & improvements
+
+- feat: add answer sources to event payloads (#166) by @alikirec
+
 ## 1.13.0
 
 ### Various fixes & improvements
