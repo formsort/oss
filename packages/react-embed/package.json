@@ -1,6 +1,6 @@
 {
   "name": "@formsort/react-embed",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "description": "Embed formsort flows in react components",
   "publishConfig": {
     "access": "public",
