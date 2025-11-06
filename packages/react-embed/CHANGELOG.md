@@ -1,4 +1,10 @@
 # CHANGELOG
+## 3.4.1
+
+### Various fixes & improvements
+
+- feat: update web-embed-api in dependent packages (#169) by @alikirec
+
 ## 3.4.0
 
 - No documented changes.
