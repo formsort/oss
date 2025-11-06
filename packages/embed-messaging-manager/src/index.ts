@@ -176,7 +176,7 @@ class EmbedMessagingManager {
   };
 
   private onEventMessage = (eventData: IIFrameAnalyticsEventData) => {
-    const { eventType, answers, variantRevisionUuid, responder, stepId, stepIndex } = eventData;
+    const { eventType, answers, variantRevisionUuid, responder, stepId, stepIndex, answerSources } = eventData;
 
     if (eventType === AnalyticsEventType.FlowClosed) {
       this.onFlowClosed();
@@ -195,6 +195,7 @@ class EmbedMessagingManager {
         variantRevisionUuid,
         stepId,
         stepIndex,
+        answerSources,
       });
     }
   };
