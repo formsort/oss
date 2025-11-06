@@ -661,21 +661,6 @@
     "@formsort/constants" "^1.7.0"
     events "^3.2.0"
 
-"@formsort/embed-messaging-manager@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@formsort/embed-messaging-manager/-/embed-messaging-manager-0.2.0.tgz#029d42b040aed115838ce00e496942dd49299b6d"
-  integrity sha512-nH43uwFun8FmDZu5sG1ce8SbzHCkn/awpgB+m/sSWDSgvnMFv24NEuznBz/c9s1dyiECVHv4ybOgzLjxv7BwMw==
-  dependencies:
-    "@formsort/constants" "^1.11.0"
-
-"@formsort/web-embed-api@2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@formsort/web-embed-api/-/web-embed-api-2.7.0.tgz#584e8d0407ff478bb26bcc906d383db36c5905c2"
-  integrity sha512-MXhIK3DgBGreQYNI8kj2dHwzmYNRwU7HtXH29nTcBypqL7pmgx6G/e8RYXlptXx+hyqmo/CbdL1BWtZd4p52kA==
-  dependencies:
-    "@formsort/constants" "^1.11.0"
-    "@formsort/embed-messaging-manager" "^0.2.0"
-
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.5"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.9.5.tgz#2cbaf9a89460da24b5ca6531b8bbfc23e1df50c7"
