@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.9.0
+
+### Various fixes & improvements
+
+- feat: update embed messaging manager in web embed api (#168) by @alikirec
+
 ## 2.8.0
 
 ### Various fixes & improvements
