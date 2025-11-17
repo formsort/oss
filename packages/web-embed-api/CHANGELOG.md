@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.10.0
+
+### Various fixes & improvements
+
+- feat: `title` and `allow` in web embed iframes (#171) by @alikirec
+
 ## 2.9.0
 
 ### Various fixes & improvements
