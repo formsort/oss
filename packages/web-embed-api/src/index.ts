@@ -27,24 +27,40 @@ interface IFormsortWebEmbed {
 
 interface IFormsortWebEmbedConfig extends IFormsortEmbedConfig {
   useHistoryAPI?: boolean;
+  /**
+   * iframe title attribute for accessibility
+   */
+  iframeTitle?: string;
+  /**
+   * iframe allow attribute for permissions
+   * e.g. "camera;"
+   */
+  iframeAllow?: string;
 }
 
 const DEFAULT_CONFIG: IFormsortWebEmbedConfig = {
   useHistoryAPI: false,
 };
 
+const DEFAULT_ALLOW = 'camera;';
+
 const FormsortWebEmbed = (
   rootEl: HTMLElement,
   config: IFormsortWebEmbedConfig = DEFAULT_CONFIG
 ): IFormsortWebEmbed => {
   const iframeEl = document.createElement('iframe');
-  const { style } = config;
+  const { style, iframeAllow = DEFAULT_ALLOW, iframeTitle } = config;
   let loadedOrigin: string;
   iframeEl.style.border = 'none';
+  iframeEl.allow = iframeAllow || DEFAULT_ALLOW;
   if (style) {
     const { width = '', height = '' } = style;
     iframeEl.style.width = width;
     iframeEl.style.height = height;
+  }
+
+  if (iframeTitle) {
+    iframeEl.title = iframeTitle;
   }
 
   rootEl.appendChild(iframeEl);
@@ -86,7 +102,7 @@ const FormsortWebEmbed = (
   });
 
   messagingManager.addEventListener(SupportedAnalyticsEvent.FlowLoaded, (payload) => {
-    if (payload.documentTitle) {
+    if (payload.documentTitle && !iframeEl.title) {
       iframeEl.title = payload.documentTitle;
     }
   })
