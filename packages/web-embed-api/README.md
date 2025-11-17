@@ -33,6 +33,15 @@ The optional `config` object has the following interface:
 ```ts
 interface IFormsortWebEmbedConfig {
   useHistoryAPI?: boolean; // Default: false
+  /**
+   * iframe title attribute for accessibility
+   */
+  iframeTitle?: string;
+  /**
+   * iframe allow attribute for permissions
+   * e.g. "camera;"
+   */
+  iframeAllow?: string;
   autoHeight?: boolean; // Default: false
   style?: {
     width?: CSSStyleDeclaration['width'];
@@ -55,7 +64,13 @@ interface IFormsortWebEmbedConfig {
 
 - `style`: CSS properties to be applied to the iframe container.
 
+- `iframeTitle`: Optional string to set the iframe's title attribute for accessibility. If not provided, the embed will attempt to set a title from the flow's document title when available.
+
+- `iframeAllow`: Optional string to set the iframe's allow attribute for permissions (for example: `"camera;"`).
+
 - `authentication.idToken`: When the Flow requires an ID token, this can be used to provide it.
+
+- `origin`: When present, loads the flow from your custom domain instead of the default formsort domain.
 
 ### `loadFlow(clientLabel: string, flowLabel: string, variantLabel?: string, queryParams?: Array<[string, string]>) => void`
 
