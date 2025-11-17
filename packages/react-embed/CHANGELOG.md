@@ -1,4 +1,10 @@
 # CHANGELOG
+## 3.5.0
+
+### Various fixes & improvements
+
+- feat(react-embed): iframe title and allow attributes (#172) by @alikirec
+
 ## 3.4.1
 
 ### Various fixes & improvements
