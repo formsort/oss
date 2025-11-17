@@ -41,6 +41,7 @@ const FormsortWebEmbed = (
   const { style } = config;
   let loadedOrigin: string;
   iframeEl.style.border = 'none';
+  iframeEl.allow = 'camera;';
   if (style) {
     const { width = '', height = '' } = style;
     iframeEl.style.width = width;
