@@ -3,10 +3,11 @@
   "compilerOptions": {
     "declaration": true,
     "outDir": "./lib/esm",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ES2020",
+    "moduleResolution": "node",
     "strict": true,
     "rootDir": "./src"
   },
+  "include": ["src"],
   "exclude": ["lib", "**/*.test.ts", "**/*.test.tsx"]
 }

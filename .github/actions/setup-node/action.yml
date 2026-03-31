@@ -17,7 +17,7 @@ runs:
           **/*.tsbuildinfo
           **/lib
           **/dist
-        key: ${{ runner.os }}-build-artifacts-${{ hashFiles('**/package.json', '**/yarn.lock', '**/tsconfig.json') }}
+        key: ${{ runner.os }}-build-artifacts-${{ hashFiles('**/package.json', '**/yarn.lock', '**/tsconfig*.json') }}
         restore-keys: |
           ${{ runner.os }}-build-artifacts-
     - name: Install Dependencies
