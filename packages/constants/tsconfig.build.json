@@ -2,8 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "types": ["jest"],
-    "outDir": "./lib/cjs",
-    "rootDir": "./src"
+    "rootDir": "src"
   },
   "include": ["src"],
   "exclude": ["lib", "**/*.test.ts", "**/*.test.tsx", "node_modules"]
