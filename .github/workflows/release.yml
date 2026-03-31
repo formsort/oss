@@ -26,6 +26,8 @@ jobs:
     runs-on: ubuntu-latest
     name: 'Publish a new version'
     environment: release
+    permissions:
+      id-token: write # Needed by craft for npm OIDC
     steps:
       - uses: actions/checkout@v4
         with:
@@ -35,7 +37,6 @@ jobs:
       - name: Publish with Craft
         env:
           GITHUB_TOKEN: ${{ secrets.FS_RELEASE_GITHUB_PAT }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           CRAFT_LOG_LEVEL: ${{ secrets.CRAFT_LOG_LEVEL }}
         run: |
           yarn workspace @formsort/${{ github.event.inputs.package }} craft prepare --publish ${{ github.event.inputs.version }}

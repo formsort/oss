@@ -1,9 +1,8 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "types": ["jest"],
     "rootDir": "src"
   },
   "include": ["src"],
-  "exclude": ["lib", "__tests__", "node_modules"]
+  "exclude": ["lib", "src/__tests__/**/*", "node_modules"]
 }

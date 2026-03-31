@@ -1,7 +1,6 @@
 import { EventEmitter } from 'events';
 
-// import from directory for tree shaking
-import CustomQuestionMessage from '@formsort/constants/lib/custom-question-message';
+import { CustomQuestionMessage } from '@formsort/constants';
 
 const EVENTS_TO_EMIT = new Set([
   CustomQuestionMessage.SET_ANSWERS_MSG,

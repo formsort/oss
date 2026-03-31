@@ -1,0 +1,13 @@
+{
+  "extends": "@formsort/tsconfig",
+  "compilerOptions": {
+    "declaration": true,
+    "outDir": "./lib/esm",
+    "module": "ES2020",
+    "moduleResolution": "node",
+    "strict": true,
+    "rootDir": "./src"
+  },
+  "include": ["src"],
+  "exclude": ["lib", "**/*.test.ts", "**/*.test.tsx"]
+}

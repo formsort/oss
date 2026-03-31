@@ -1,25 +1,25 @@
 name: 'Set up node & dependencies'
-description: 'Sets up a typical Node repo with Volta & Yarn caching'
+description: 'Sets up a typical Node repo with caching'
 
 runs:
   using: 'composite'
   steps:
-    - uses: volta-cli/action@v4
-    - uses: actions/cache@v4
-      id: cache
+    - uses: actions/setup-node@v6
+      with:
+        node-version-file: 'package.json'
+        cache: 'yarn'
+    - uses: actions/cache@v5
       with:
         path: |
-          **/node_modules
           **/.jest-cache
           **/.eslintcache
           **/.parcel-cache
           **/*.tsbuildinfo
           **/lib
           **/dist
-        key: ${{ runner.os }}-yarn-v8-${{ hashFiles('**/package.json', '**/yarn.lock', '**/tsconfig.json') }}
+        key: ${{ runner.os }}-build-artifacts-${{ hashFiles('**/package.json', '**/yarn.lock', '**/tsconfig*.json') }}
         restore-keys: |
-          ${{ runner.os }}-yarn-v7-
+          ${{ runner.os }}-build-artifacts-
     - name: Install Dependencies
       shell: bash
-      if: steps.cache.outputs.cache-hit != 'true'
       run: yarn install --frozen-lockfile --production false
