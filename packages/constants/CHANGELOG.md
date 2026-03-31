@@ -1,4 +1,10 @@
 # CHANGELOG
+## 1.15.0
+
+### Internal Changes 🔧
+
+- Publish security and esm support by @alikirec in [#187](https://github.com/formsort/oss/pull/187)
+
 ## 1.14.0
 
 ### Various fixes & improvements
