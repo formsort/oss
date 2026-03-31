@@ -1,4 +1,8 @@
 # CHANGELOG
+## 1.15.1
+
+- revert esm changes by @alikirec in [#188](https://github.com/formsort/oss/pull/188)
+
 ## 1.15.0
 
 ### Internal Changes 🔧
