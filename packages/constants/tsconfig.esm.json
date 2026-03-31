@@ -2,7 +2,9 @@
   "extends": "@formsort/tsconfig",
   "compilerOptions": {
     "declaration": true,
-    "outDir": "./lib/cjs",
+    "outDir": "./lib/esm",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "strict": true,
     "types": ["jest"]
   },

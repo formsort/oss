@@ -6,12 +6,23 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "main": "lib/index.js",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.js",
+      "types": "./lib/esm/index.d.ts"
+    }
+  },
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.build.json",
+    "build:cjs": "tsc --project tsconfig.json",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "build": "yarn build:cjs && yarn build:esm",
     "format": "eslint --ext .ts,.tsx src --fix",
     "lint": "eslint --ext .ts,.tsx src",
     "test": "jest",
