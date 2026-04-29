@@ -263,6 +263,44 @@ describe('EmbedFlow component', () => {
     expect(container.firstChild).toBeNull();
   });
 
+  test('loads a new flow after the previous flow has closed', () => {
+    const { container, rerender } = render(
+      <EmbedFlow flowLabel="test-flow" clientLabel="test-client" />
+    );
+
+    const flowClosedListener = getAddedListener(
+      addEventListenerMock,
+      SupportedAnalyticsEvent.FlowClosed
+    );
+    const eventPayload = {
+      answers: {},
+      responder: {
+        responderUuid: 'responder-uuid',
+        sessionUuid: 'session-uuid',
+      },
+      variantRevisionUuid: 'variant-revision-uuid',
+      stepId: 'step-id',
+      stepIndex: 0,
+      answerSources: {},
+    };
+
+    act(() => {
+      flowClosedListener(eventPayload);
+    });
+
+    expect(container.firstChild).toBeNull();
+
+    rerender(<EmbedFlow flowLabel="next-flow" clientLabel="test-client" />);
+
+    expect(container.firstChild).not.toBeNull();
+    expect(loadMock).toHaveBeenLastCalledWith(
+      'test-client',
+      'next-flow',
+      undefined,
+      undefined
+    );
+  });
+
   test('loads flows with URL params without mutating props', () => {
     const uuid = 'b1c7d9c8-f4b0-4f3f-9fc3-abf32ae8a061';
     const queryParams: Array<[string, string]> = [['name', 'Olivia']];

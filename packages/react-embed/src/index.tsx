@@ -150,6 +150,27 @@ const getEmbedConfigKey = (
   }
 };
 
+const getFlowLoadKey = ({
+  clientLabel,
+  embedConfigKey,
+  flowLabel,
+  queryParamsKey,
+  variantLabel,
+}: {
+  clientLabel: string;
+  embedConfigKey: string;
+  flowLabel: string;
+  queryParamsKey: string;
+  variantLabel?: string;
+}): string =>
+  JSON.stringify([
+    clientLabel,
+    embedConfigKey,
+    flowLabel,
+    queryParamsKey,
+    variantLabel,
+  ]);
+
 const attachEventListener = <K extends keyof IEventMap>(
   embed: IFormsortWebEmbed,
   eventName: K,
@@ -209,7 +230,7 @@ export const EmbedFlow = ({
 }: EmbedFlowProps): ReactElement | null => {
   const containerRef = useRef<HTMLDivElement>(null);
   const eventListenersRef = useRef<IReactEmbedEventMap>({});
-  const [flowClosed, setFlowClosed] = useState(false);
+  const [closedFlowKey, setClosedFlowKey] = useState<string>();
 
   eventListenersRef.current = {
     onUnauthorized,
@@ -228,6 +249,14 @@ export const EmbedFlow = ({
   });
   const queryParamsKey = getQueryParamsKey(flowQueryParams);
   const embedConfigKey = getEmbedConfigKey(embedConfig);
+  const flowLoadKey = getFlowLoadKey({
+    clientLabel,
+    embedConfigKey,
+    flowLabel,
+    queryParamsKey,
+    variantLabel,
+  });
+  const flowClosed = closedFlowKey === flowLoadKey;
 
   useEffect(() => {
     const containerElement = containerRef.current;
@@ -236,14 +265,14 @@ export const EmbedFlow = ({
       return undefined;
     }
 
-    setFlowClosed(false);
+    setClosedFlowKey(undefined);
 
     const embed = FormsortWebEmbed(containerElement, embedConfig);
     const removeEventListeners = attachEventListeners(
       embed,
       eventListenersRef,
       () => {
-        setFlowClosed(true);
+        setClosedFlowKey(flowLoadKey);
       }
     );
 
@@ -255,13 +284,7 @@ export const EmbedFlow = ({
       });
       embed.unloadFlow();
     };
-  }, [
-    clientLabel,
-    embedConfigKey,
-    flowLabel,
-    queryParamsKey,
-    variantLabel,
-  ]);
+  }, [flowLoadKey]);
 
   if (flowClosed) {
     return null;

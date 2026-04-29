@@ -7,9 +7,6 @@ export default defineConfig({
       formats: ['es'],
       fileName: () => 'index.mjs',
     },
-    rollupOptions: {
-      external: ['@formsort/constants'],
-    },
     outDir: 'lib/esm',
   },
 });

@@ -1,7 +1,8 @@
-import EmbedMessagingManager, {
-  type IFormsortEmbedConfig,
-  type IEventMap,
-  SupportedAnalyticsEvent,
+import * as EmbedMessagingManagerModule from '@formsort/embed-messaging-manager';
+import type {
+  IFormsortEmbedConfig,
+  IEventMap,
+  SupportedAnalyticsEvent as SupportedAnalyticsEventType,
 } from '@formsort/embed-messaging-manager';
 import { getMessageSender } from './iframe-utils';
 import { isLocalOrLegacyFlowOrigin } from './utils';
@@ -43,6 +44,70 @@ const DEFAULT_CONFIG: IFormsortWebEmbedConfig = {
 };
 
 const DEFAULT_ALLOW = 'camera;';
+
+type SupportedAnalyticsEvent = SupportedAnalyticsEventType;
+
+const getEmbedMessagingManager = (
+  moduleExport: typeof EmbedMessagingManagerModule
+): typeof EmbedMessagingManagerModule.default => {
+  const defaultExport = moduleExport.default as unknown;
+
+  if (typeof defaultExport === 'function') {
+    return defaultExport as typeof EmbedMessagingManagerModule.default;
+  }
+
+  const nestedDefault =
+    defaultExport && typeof defaultExport === 'object'
+      ? (defaultExport as unknown as {
+          default?: typeof EmbedMessagingManagerModule.default;
+        }).default
+      : undefined;
+
+  if (typeof nestedDefault === 'function') {
+    return nestedDefault;
+  }
+
+  throw new Error(
+    'Unable to load @formsort/embed-messaging-manager default export'
+  );
+};
+
+const getSupportedAnalyticsEvent = (
+  moduleExport: typeof EmbedMessagingManagerModule
+): typeof EmbedMessagingManagerModule.SupportedAnalyticsEvent => {
+  const directExport = (
+    moduleExport as unknown as {
+      SupportedAnalyticsEvent?: typeof EmbedMessagingManagerModule.SupportedAnalyticsEvent;
+    }
+  ).SupportedAnalyticsEvent;
+
+  if (directExport) {
+    return directExport;
+  }
+
+  const defaultExport =
+    moduleExport.default &&
+    typeof (moduleExport.default as unknown) === 'object'
+      ? (moduleExport.default as unknown as {
+          SupportedAnalyticsEvent?: typeof EmbedMessagingManagerModule.SupportedAnalyticsEvent;
+        })
+      : undefined;
+
+  if (defaultExport?.SupportedAnalyticsEvent) {
+    return defaultExport.SupportedAnalyticsEvent;
+  }
+
+  throw new Error(
+    'Unable to load @formsort/embed-messaging-manager event exports'
+  );
+};
+
+const EmbedMessagingManager = getEmbedMessagingManager(
+  EmbedMessagingManagerModule
+);
+const SupportedAnalyticsEvent = getSupportedAnalyticsEvent(
+  EmbedMessagingManagerModule
+);
 
 const FormsortWebEmbed = (
   rootEl: HTMLElement,
@@ -179,6 +244,6 @@ const FormsortWebEmbed = (
 
 export { IFormsortWebEmbed, IFormsortWebEmbedConfig, IEventMap };
 
-export { SupportedAnalyticsEvent } from '@formsort/embed-messaging-manager';
+export { SupportedAnalyticsEvent };
 
 export default FormsortWebEmbed;
