@@ -6,12 +6,23 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "./lib/index.js",
+  "module": "./lib/esm/index.mjs",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/esm/index.mjs",
+      "require": "./lib/index.js",
+      "default": "./lib/esm/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
   "unpkg": "umd/custom-question-api.min.js",
   "scripts": {
-    "build": "yarn build:package && yarn build:umd",
+    "build": "yarn build:package && yarn build:esm && yarn build:umd",
     "build:package": "tsc --project tsconfig.build.json",
+    "build:esm": "vite build --config vite.config.esm.mts",
     "build:umd": "vite build",
     "format": "eslint --ext .ts,.tsx src --fix",
     "lint": "eslint --ext .ts,.tsx src",

@@ -27,6 +27,9 @@
     "pack": "yarn pack",
     "release": "craft prepare --publish"
   },
+  "files": [
+    "lib/**/*"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/formsort/oss.git"
