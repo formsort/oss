@@ -6,12 +6,23 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "main": "lib/index.js",
+  "main": "./lib/index.js",
+  "module": "./lib/esm/index.mjs",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/esm/index.mjs",
+      "require": "./lib/index.js",
+      "default": "./lib/esm/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.build.json",
+    "build": "tsc --project tsconfig.build.json && vite build",
     "format": "eslint --ext .ts,.tsx src --fix",
     "lint": "eslint --ext .ts,.tsx src",
     "test": "jest",
@@ -32,7 +43,8 @@
     "eslint": "^8.12.0",
     "jest": "^29.7.0",
     "ts-jest": "^29.1.1",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "vite": "^6.4.2"
   },
   "jest": {
     "cacheDirectory": "./.jest-cache",
