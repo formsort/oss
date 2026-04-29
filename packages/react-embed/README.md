@@ -11,6 +11,20 @@ The package publishes both ESM and CommonJS entrypoints.
 
 Add `@formsort/react-embed` to your project by executing `yarn add @formsort/react-embed` or `npm install @formsort/react-embed`.
 
+## Upgrading
+
+Documented root imports continue to work for both ESM and CommonJS consumers:
+
+```tsx
+import EmbedFlow from '@formsort/react-embed';
+```
+
+```js
+const EmbedFlow = require('@formsort/react-embed').default;
+```
+
+This is a minor upgrade because the package output and React lifecycle behavior were modernized. `EmbedFlow` now reloads when load props such as `clientLabel`, `flowLabel`, `variantLabel`, `queryParams`, or `embedConfig` change. Deep imports from internal `lib/*` paths are not part of the public API and are not guaranteed.
+
 ## Usage
 
 Here's an example of basic usage:
