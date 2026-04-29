@@ -3,6 +3,7 @@
 Embed [Formsort](https://formsort.com) flows within react components.
 
 This is a handy wrapper around [@formsort/web-embed-api](https://github.com/formsort/oss/tree/master/packages/web-embed-api).
+The package publishes both ESM and CommonJS entrypoints.
 
 **Important note:** This package is intended for use in React web applications. If you're looking to embed Formsort flows in React Native applications, please see [React native embed guide](./ReactNativeEmbed.md).
 
@@ -15,10 +16,9 @@ Add `@formsort/react-embed` to your project by executing `yarn add @formsort/rea
 Here's an example of basic usage:
 
 ```tsx
-import React from 'react';
 import EmbedFlow from '@formsort/react-embed';
 
-const EmbedFlowExample: React.FunctionComponent = () => (
+const EmbedFlowExample = () => (
   <div>
     <EmbedFlow
       clientLabel="formsort"
@@ -37,7 +37,7 @@ const EmbedFlowExample: React.FunctionComponent = () => (
 
 ### Events
 
-You can add event listeners to flows like `Flowloaded`, `redirect` etc. See [all event listeners](https://github.com/formsort/oss/tree/master/packages/web-embed-api#event-listeners)
+You can add event listeners to flows like `FlowLoaded`, `redirect` etc. See [all event listeners](https://github.com/formsort/oss/tree/master/packages/web-embed-api#event-listeners)
 
 ### Props
 
@@ -54,8 +54,9 @@ You can add event listeners to flows like `Flowloaded`, `redirect` etc. See [all
 | onFlowClosed    | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowclosed-answers--key-string-any---void)                                   | no       | `() => { console.log('flow closed') }`                     |
 | onFlowFinalized | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowfinalized-answers--key-string-any---void)                                | no       | `() => { console.log('flow finalized') }`                  |
 | onStepLoaded    | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#steploaded-answers--key-string-any---void)                                   | no       | `() => { console.log('step loaded') }`                     |
-| onStepCompleted | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#steploaded-answers--key-string-any---void)                                   | no       | `() => { console.log('step loaded') }`                     |
-| onRedirect      | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#redirect--url-string-answers--key-string-any-----cancel-boolean---undefined) | no       | `(url: string) => { console.log('redirecting to:', url) }` |
+| onStepCompleted | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#steploaded-answers--key-string-any---void)                                   | no       | `() => { console.log('step completed') }`                  |
+| onResponderStateUpdated | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#event-listeners)                                                     | no       | `() => { console.log('responder state updated') }`         |
+| onRedirect      | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#redirect--url-string-answers--key-string-any-----cancel-boolean---undefined) | no       | `({ url }) => { console.log('redirecting to:', url) }`     |
 | onUnauthorized  | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#unauthorized---void)                                                         | no       | `() => { console.log('ID token is missing or invalid.') }` |
 
 ### Loading a specific variant revision
@@ -63,16 +64,15 @@ You can add event listeners to flows like `Flowloaded`, `redirect` etc. See [all
 You can use query parameters to load a specific variant revision. Don't use it if you want to show latest variant.
 
 ```tsx
-import React from 'react';
 import EmbedFlow from '@formsort/react-embed';
 
-const EmbedFlowExample: React.FunctionComponent = () => (
+const EmbedFlowExample = () => (
   <div>
     <EmbedFlow
       clientLabel="formsort"
       flowLabel="onboarding"
       variantLabel="main"
-      queryParams={['variantRevisionUuid', '<uuidv4>']}
+      queryParams={[['variantRevisionUuid', '<uuidv4>']]}
     />
   </div>
 );

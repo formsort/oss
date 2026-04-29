@@ -1,3 +1,2 @@
-import React from 'react';
-declare const EmbedFlowExample: React.FunctionComponent;
+declare const EmbedFlowExample: () => JSX.Element;
 export default EmbedFlowExample;

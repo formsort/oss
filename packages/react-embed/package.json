@@ -2,17 +2,29 @@
   "name": "@formsort/react-embed",
   "version": "3.5.0",
   "description": "Embed formsort flows in react components",
+  "type": "module",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "./lib/cjs/index.cjs",
+  "module": "./lib/esm/index.js",
+  "types": "./lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "import": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.cjs",
+      "default": "./lib/esm/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
   "directories": {
     "example": "example"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.build.json",
+    "build": "rm -rf lib && tsc --project tsconfig.build.esm.json && tsc --project tsconfig.build.cjs.json && mv lib/cjs/index.js lib/cjs/index.cjs && tsc --project tsconfig.build.types.json",
     "test": "jest",
     "format": "eslint --ext .ts,.tsx src --fix",
     "lint": "eslint --ext .ts,.tsx src",
@@ -61,7 +73,7 @@
     "@formsort/web-embed-api": "^2.10.0"
   },
   "peerDependencies": {
-    "react": ">=16.13.0, <19.0.0"
+    "react": ">=16.13.0 <20.0.0"
   },
   "jest": {
     "cacheDirectory": "./.jest-cache",
