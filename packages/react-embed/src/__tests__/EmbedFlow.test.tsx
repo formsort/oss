@@ -17,7 +17,6 @@ jest.mock('@formsort/web-embed-api', () => ({
     FlowFinalized: 'FlowFinalized',
     StepLoaded: 'StepLoaded',
     StepCompleted: 'StepCompleted',
-    ResponderStateUpdated: 'ResponderStateUpdated',
   },
 }));
 
@@ -299,7 +298,7 @@ describe('EmbedFlow component', () => {
 
     unmount();
 
-    expect(removeEventListenerMock).toHaveBeenCalledTimes(8);
+    expect(removeEventListenerMock).toHaveBeenCalledTimes(7);
     expect(unloadMock).toHaveBeenCalledTimes(1);
   });
 

@@ -39,7 +39,6 @@ export interface IReactEmbedEventMap {
   onFlowFinalized?: IEventMap['FlowFinalized'];
   onStepLoaded?: IEventMap['StepLoaded'];
   onStepCompleted?: IEventMap['StepCompleted'];
-  onResponderStateUpdated?: IEventMap['ResponderStateUpdated'];
 }
 
 export interface EmbedFlowProps
@@ -113,7 +112,6 @@ export const eventMapping: Record<keyof IReactEmbedEventMap, keyof IEventMap> =
     onFlowFinalized: SupportedAnalyticsEvent.FlowFinalized,
     onStepLoaded: SupportedAnalyticsEvent.StepLoaded,
     onStepCompleted: SupportedAnalyticsEvent.StepCompleted,
-    onResponderStateUpdated: SupportedAnalyticsEvent.ResponderStateUpdated,
   };
 
 const buildFlowQueryParams = ({
@@ -191,13 +189,6 @@ const attachEventListeners = (
   attachEventListener(embed, SupportedAnalyticsEvent.StepCompleted, (event) => {
     eventListenersRef.current.onStepCompleted?.(event);
   }),
-  attachEventListener(
-    embed,
-    SupportedAnalyticsEvent.ResponderStateUpdated,
-    (event) => {
-      eventListenersRef.current.onResponderStateUpdated?.(event);
-    }
-  ),
 ];
 
 export const EmbedFlow = ({
@@ -215,7 +206,6 @@ export const EmbedFlow = ({
   onFlowFinalized,
   onStepLoaded,
   onStepCompleted,
-  onResponderStateUpdated,
 }: EmbedFlowProps): ReactElement | null => {
   const containerRef = useRef<HTMLDivElement>(null);
   const eventListenersRef = useRef<IReactEmbedEventMap>({});
@@ -229,7 +219,6 @@ export const EmbedFlow = ({
     onFlowFinalized,
     onStepLoaded,
     onStepCompleted,
-    onResponderStateUpdated,
   };
 
   const flowQueryParams = buildFlowQueryParams({
