@@ -1,14 +1,21 @@
 name: 'Set up node & dependencies'
 description: 'Sets up a typical Node repo with caching'
 
+inputs:
+  cache:
+    description: 'Enable yarn and build-artifact caching. Set to "false" for release workflows to mitigate cache poisoning'
+    required: false
+    default: 'true'
+
 runs:
   using: 'composite'
   steps:
     - uses: actions/setup-node@v6
       with:
         node-version-file: 'package.json'
-        cache: 'yarn'
-    - uses: actions/cache@v5
+        cache: ${{ inputs.cache == 'true' && 'yarn' || '' }}
+    - if: inputs.cache == 'true'
+      uses: actions/cache@v5
       with:
         path: |
           **/.jest-cache
