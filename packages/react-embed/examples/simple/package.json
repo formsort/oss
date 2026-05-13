@@ -19,6 +19,6 @@
     "@formsort/tsconfig": "workspace:*",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
-    "typescript": "^4.9.5"
+    "typescript": "^6.0.3"
   }
 }

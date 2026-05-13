@@ -8,7 +8,7 @@
     "allowJs": true,
     "checkJs": true,
     "jsx": "react",
-    "moduleResolution": "node",
+    "moduleResolution": "node10",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -20,7 +20,8 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "newLine": "lf"
+    "newLine": "lf",
+    "ignoreDeprecations": "6.0"
   },
   "exclude": ["node_modules"]
 }

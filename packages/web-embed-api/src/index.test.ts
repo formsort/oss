@@ -41,6 +41,7 @@ describe('FormsortWebEmbed', () => {
   beforeAll(() => {
     // @ts-ignore
     delete window.location;
+    // @ts-expect-error location mock
     window.location = {
       ...location,
       assign: jest.fn(),
@@ -56,6 +57,7 @@ describe('FormsortWebEmbed', () => {
   });
 
   afterAll(() => {
+    // @ts-expect-error location mock
     window.location = location;
   });
 
