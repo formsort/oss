@@ -64,6 +64,9 @@ importers:
       jest-environment-jsdom:
         specifier: ^30.4.1
         version: 30.4.1
+      picomatch:
+        specifier: ^4.0.4
+        version: 4.0.4
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -5847,13 +5850,15 @@ snapshots:
       - '@parcel/core'
       - napi-wasm
 
-  '@parcel/cache@2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))':
+  '@parcel/cache@2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)':
     dependencies:
       '@parcel/core': 2.16.4(@swc/helpers@0.5.21)
-      '@parcel/fs': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))
+      '@parcel/fs': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)
       '@parcel/logger': 2.12.0
       '@parcel/utils': 2.12.0
       lmdb: 2.8.5
+    transitivePeerDependencies:
+      - '@swc/helpers'
 
   '@parcel/cache@2.16.4(@parcel/core@2.16.4(@swc/helpers@0.5.21))':
     dependencies:
@@ -5968,7 +5973,7 @@ snapshots:
 
   '@parcel/feature-flags@2.16.4': {}
 
-  '@parcel/fs@2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))':
+  '@parcel/fs@2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)':
     dependencies:
       '@parcel/core': 2.16.4(@swc/helpers@0.5.21)
       '@parcel/rust': 2.12.0
@@ -5976,6 +5981,8 @@ snapshots:
       '@parcel/utils': 2.12.0
       '@parcel/watcher': 2.4.1
       '@parcel/workers': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))
+    transitivePeerDependencies:
+      - '@swc/helpers'
 
   '@parcel/fs@2.16.4(@parcel/core@2.16.4(@swc/helpers@0.5.21))':
     dependencies:
@@ -6025,7 +6032,7 @@ snapshots:
     dependencies:
       '@mischnic/json-sourcemap': 0.1.0
       '@parcel/diagnostic': 2.12.0
-      '@parcel/fs': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))
+      '@parcel/fs': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)
       '@parcel/rust': 2.12.0
       '@parcel/utils': 2.12.0
       nullthrows: 1.1.1
@@ -6105,7 +6112,7 @@ snapshots:
     dependencies:
       '@parcel/core': 2.16.4(@swc/helpers@0.5.21)
       '@parcel/diagnostic': 2.12.0
-      '@parcel/fs': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))
+      '@parcel/fs': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)
       '@parcel/logger': 2.12.0
       '@parcel/node-resolver-core': 3.3.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))
       '@parcel/types': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)
@@ -6486,9 +6493,9 @@ snapshots:
 
   '@parcel/types@2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)':
     dependencies:
-      '@parcel/cache': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))
+      '@parcel/cache': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)
       '@parcel/diagnostic': 2.12.0
-      '@parcel/fs': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))
+      '@parcel/fs': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)
       '@parcel/package-manager': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)
       '@parcel/source-map': 2.1.1
       '@parcel/workers': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))
