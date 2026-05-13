@@ -16,9 +16,9 @@
     "@formsort/tsconfig": "workspace:*",
     "@parcel/transformer-typescript-tsc": "^2.7.0",
     "@types/node": "^17.0.23",
-    "parcel": "^2.7.0",
-    "typescript": "^6.0.3",
-    "tslib": "^2.7.0"
+    "parcel": "^2.16.4",
+    "tslib": "^2.8.1",
+    "typescript": "^6.0.3"
   },
   "dependencies": {
     "@formsort/web-embed-api": "workspace:*",

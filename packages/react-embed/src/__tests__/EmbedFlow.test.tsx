@@ -35,7 +35,7 @@ describe('EmbedFlow component', () => {
 
   test('should load flows without variant label', () => {
     render(<EmbedFlow flowLabel="test-flow" clientLabel="test-client" />);
-    expect(loadMock).toBeCalledWith(
+    expect(loadMock).toHaveBeenCalledWith(
       'test-client',
       'test-flow',
       undefined,
@@ -51,7 +51,7 @@ describe('EmbedFlow component', () => {
         variantLabel="test-variant"
       />
     );
-    expect(loadMock).toBeCalledWith(
+    expect(loadMock).toHaveBeenCalledWith(
       'test-client',
       'test-flow',
       'test-variant',
@@ -77,29 +77,29 @@ describe('EmbedFlow component', () => {
       />
     );
 
-    expect(loadMock).toBeCalledWith(
+    expect(loadMock).toHaveBeenCalledWith(
       'test-client',
       'test-flow',
       'test-variant',
       undefined
     );
     expect(embedMock.addEventListener).toHaveBeenCalledTimes(5);
-    expect(embedMock.addEventListener).toBeCalledWith(
+    expect(embedMock.addEventListener).toHaveBeenCalledWith(
       'FlowLoaded',
       flowloadedMock
     );
 
-    expect(embedMock.addEventListener).toBeCalledWith(
+    expect(embedMock.addEventListener).toHaveBeenCalledWith(
       'FlowFinalized',
       flowFinalizedMock
     );
-    expect(embedMock.addEventListener).toBeCalledWith('redirect', redirectMock);
-    expect(embedMock.addEventListener).toBeCalledWith(
+    expect(embedMock.addEventListener).toHaveBeenCalledWith('redirect', redirectMock);
+    expect(embedMock.addEventListener).toHaveBeenCalledWith(
       'unauthorized',
       unauthorizedMock
     );
     // Check for FlowClosed event listener that removes the parent container of the embed
-    expect(embedMock.addEventListener).toBeCalledWith(
+    expect(embedMock.addEventListener).toHaveBeenCalledWith(
       'FlowClosed',
       expect.any(Function)
     );
@@ -116,7 +116,7 @@ describe('EmbedFlow component', () => {
         formsortEnv="staging"
       />
     );
-    expect(loadMock).toBeCalledWith(
+    expect(loadMock).toHaveBeenCalledWith(
       'test-client',
       'test-flow',
       'test-variant',
