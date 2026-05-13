@@ -13,6 +13,8 @@ overrides:
   fast-uri: '>=3.1.2'
   qs: '>=6.14.2'
   postcss: '>=8.5.10'
+  vite>picomatch: ^3.0.0
+  fdir>picomatch: ^3.0.0
 
 importers:
 
@@ -65,8 +67,8 @@ importers:
         specifier: ^30.4.1
         version: 30.4.1
       picomatch:
-        specifier: ^4.0.4
-        version: 4.0.4
+        specifier: ^3.0.0
+        version: 3.0.2
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -3152,7 +3154,7 @@ packages:
     resolution: {integrity: sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
-      picomatch: ^3 || ^4
+      picomatch: ^3.0.0
     peerDependenciesMeta:
       picomatch:
         optional: true
@@ -4133,6 +4135,10 @@ packages:
   picomatch@2.3.2:
     resolution: {integrity: sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA==}
     engines: {node: '>=8.6'}
+
+  picomatch@3.0.2:
+    resolution: {integrity: sha512-cfDHL6LStTEKlNilboNtobT/kEa30PtAf2Q1OgszfrG/rpVl1xaFWT9ktfkS306GmHgmnad1Sw4wabhlvFtsTw==}
+    engines: {node: '>=10'}
 
   picomatch@4.0.4:
     resolution: {integrity: sha512-QP88BAKvMam/3NxH6vj2o21R6MjxZUAd6nlwAS/pnGvN9IVLocLHxGYIzFhg6fUQ+5th6P4dv4eW9jX3DSIj7A==}
@@ -5980,7 +5986,7 @@ snapshots:
       '@parcel/types': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)
       '@parcel/utils': 2.12.0
       '@parcel/watcher': 2.4.1
-      '@parcel/workers': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))
+      '@parcel/workers': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)
     transitivePeerDependencies:
       - '@swc/helpers'
 
@@ -6117,7 +6123,7 @@ snapshots:
       '@parcel/node-resolver-core': 3.3.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))
       '@parcel/types': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)
       '@parcel/utils': 2.12.0
-      '@parcel/workers': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))
+      '@parcel/workers': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)
       '@swc/core': 1.5.3(@swc/helpers@0.5.21)
       semver: 7.8.0
     transitivePeerDependencies:
@@ -6498,7 +6504,7 @@ snapshots:
       '@parcel/fs': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)
       '@parcel/package-manager': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)
       '@parcel/source-map': 2.1.1
-      '@parcel/workers': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))
+      '@parcel/workers': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)
       utility-types: 3.10.0
     transitivePeerDependencies:
       - '@parcel/core'
@@ -6652,7 +6658,7 @@ snapshots:
       '@parcel/watcher-win32-ia32': 2.5.6
       '@parcel/watcher-win32-x64': 2.5.6
 
-  '@parcel/workers@2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))':
+  '@parcel/workers@2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)':
     dependencies:
       '@parcel/core': 2.16.4(@swc/helpers@0.5.21)
       '@parcel/diagnostic': 2.12.0
@@ -6661,6 +6667,8 @@ snapshots:
       '@parcel/types': 2.12.0(@parcel/core@2.16.4(@swc/helpers@0.5.21))(@swc/helpers@0.5.21)
       '@parcel/utils': 2.12.0
       nullthrows: 1.1.1
+    transitivePeerDependencies:
+      - '@swc/helpers'
 
   '@parcel/workers@2.16.4(@parcel/core@2.16.4(@swc/helpers@0.5.21))':
     dependencies:
@@ -7923,6 +7931,10 @@ snapshots:
     dependencies:
       bser: 2.1.1
 
+  fdir@6.5.0(picomatch@3.0.2):
+    optionalDependencies:
+      picomatch: 3.0.2
+
   fdir@6.5.0(picomatch@4.0.4):
     optionalDependencies:
       picomatch: 4.0.4
@@ -9095,6 +9107,8 @@ snapshots:
 
   picomatch@2.3.2: {}
 
+  picomatch@3.0.2: {}
+
   picomatch@4.0.4: {}
 
   pirates@4.0.7: {}
@@ -9716,8 +9730,8 @@ snapshots:
   vite@6.4.2(@types/node@25.6.2)(lightningcss@1.32.0)(terser@5.47.1):
     dependencies:
       esbuild: 0.25.12
-      fdir: 6.5.0(picomatch@4.0.4)
-      picomatch: 4.0.4
+      fdir: 6.5.0(picomatch@3.0.2)
+      picomatch: 3.0.2
       postcss: 8.5.14
       rollup: 4.60.1
       tinyglobby: 0.2.16
