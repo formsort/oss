@@ -25,7 +25,7 @@ When you're ready, deploy your question question to a publicly available URL, up
 First, install:
 
 ```shell
-yarn add @formsort/custom-question-api
+pnpm add @formsort/custom-question-api
 ```
 
 or

@@ -6,7 +6,7 @@
 ## Install
 
 ```shell
-yarn add --dev @formsort/tsconfig
+pnpm add --save-dev @formsort/tsconfig
 ```
 
 

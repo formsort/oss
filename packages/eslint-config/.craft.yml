@@ -5,7 +5,7 @@ preReleaseCommand: node ../../scripts/pre-release.js
 releaseBranchPrefix: release/eslint-config
 
 requireNames:
-  - /^formsort-eslint-config-v.+\.tgz$/
+  - /^formsort-eslint-config-\d.*\.tgz$/
 targets:
   - name: npm
   - name: github

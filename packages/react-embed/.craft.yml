@@ -5,7 +5,7 @@ preReleaseCommand: node ../../scripts/pre-release.js
 releaseBranchPrefix: release/react-embed
 
 requireNames:
-  - /^formsort-react-embed-v.+\.tgz$/
+  - /^formsort-react-embed-\d.*\.tgz$/
 targets:
   - name: npm
   - name: github

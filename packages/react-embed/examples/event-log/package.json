@@ -14,11 +14,12 @@
   "dependencies": {
     "@babel/core": "^7.23.5",
     "@emotion/react": "^11.7.1",
-    "@formsort/react-embed": "^3.1.1",
+    "@formsort/react-embed": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@formsort/tsconfig": "workspace:*",
     "@parcel/transformer-typescript-tsc": "^2.7.0",
     "@types/babel__core": "^7.1.16",
     "@types/node": "^16.9.4",

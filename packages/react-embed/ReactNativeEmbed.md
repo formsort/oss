@@ -6,12 +6,12 @@
 
   If you use Expo, directly install `react-native-webview` with `expo install react-native-webview`.
 
-  If you use React Native CLI, install `react-native-webview` with `yarn add react-native-webview` or `npm install react-native-webview`. Then, follow the instructions in [react-native-webview's README](<https://github.com/react-native-webview/react-native-webview/blob/master/docs/Getting-Started.md>) to complete the installation.
+  If you use React Native CLI, install `react-native-webview` with `pnpm add react-native-webview`, `yarn add react-native-webview`, or `npm install react-native-webview`. Then, follow the instructions in [react-native-webview's README](<https://github.com/react-native-webview/react-native-webview/blob/master/docs/Getting-Started.md>) to complete the installation.
 
 * Install `@formsort/constants`
 
   ```bash
-  npm install @formsort/constants # or yarn add @formsort/constants
+  npm install @formsort/constants # or pnpm add @formsort/constants
   ```
 
 ## Usage
