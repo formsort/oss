@@ -4,6 +4,7 @@ import EmbedMessagingManager, {
   SupportedAnalyticsEvent,
 } from '@formsort/embed-messaging-manager';
 
+import browserNavigation from './browser-navigation';
 import { getMessageSender } from './iframe-utils';
 import { isLocalOrLegacyFlowOrigin } from './utils';
 
@@ -91,11 +92,11 @@ const FormsortWebEmbed = (
       if (
         config.useHistoryAPI &&
         'history' in window &&
-        url.indexOf(window.location.origin) === 0
+        url.indexOf(browserNavigation.getOrigin()) === 0
       ) {
-        window.history.pushState({}, document.title, url);
+        browserNavigation.pushState(url);
       } else {
-        window.location.assign(url);
+        browserNavigation.assign(url);
       }
     },
     onResize: setSize,

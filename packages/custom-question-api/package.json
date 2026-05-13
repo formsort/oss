@@ -40,9 +40,10 @@
   "devDependencies": {
     "@formsort/tsconfig": "workspace:*",
     "@types/events": "^3.0.0",
-    "jest-environment-jsdom": "^29.5.0",
+    "jest-environment-jsdom": "^30.4.1",
     "typescript": "^6.0.3",
-    "vite": "^6.4.2"
+    "vite": "^7.0.0",
+    "picomatch": "^4.0.4"
   },
   "dependencies": {
     "@formsort/constants": "^1.11.0",

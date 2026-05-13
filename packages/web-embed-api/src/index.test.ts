@@ -1,11 +1,12 @@
 import { AnalyticsEventType, WebEmbedMessage } from '@formsort/constants';
 
 import FormsortWebEmbed, { SupportedAnalyticsEvent } from '.';
+import browserNavigation from './browser-navigation';
 
 type MessageListener = (msg: MessageEvent) => any;
 
 const DEFAULT_FLOW_ORIGIN = 'https://testclient.formsort.app';
-const EMBEDDING_WINDOW_ORIGIN = 'https://test-origin.formsort.com';
+const EMBEDDING_WINDOW_ORIGIN = window.location.origin;
 
 const clientLabel = 'test-client';
 const flowLabel = 'test-flow';
@@ -13,9 +14,16 @@ const variantLabel = 'test-variant';
 
 describe('FormsortWebEmbed', () => {
   const pushStateSpy = jest
-    .spyOn(window.history, 'pushState')
-    .mockImplementation(jest.fn);
-
+    .spyOn(browserNavigation, 'pushState')
+    // oxlint-disable-next-line no-empty-function
+    .mockImplementation(() => {});
+  const assignSpy = jest
+    .spyOn(browserNavigation, 'assign')
+    // oxlint-disable-next-line no-empty-function
+    .mockImplementation(() => {});
+  const getOriginSpy = jest
+    .spyOn(browserNavigation, 'getOrigin')
+    .mockReturnValue(EMBEDDING_WINDOW_ORIGIN);
   const originalAddEventListener = window.addEventListener;
   let messageHandlers: MessageListener[] = [];
   jest
@@ -38,28 +46,12 @@ describe('FormsortWebEmbed', () => {
     });
   };
 
-  const { location } = window;
-  beforeAll(() => {
-    // @ts-ignore
-    delete window.location;
-    // @ts-expect-error location mock
-    window.location = {
-      ...location,
-      assign: jest.fn(),
-      origin: EMBEDDING_WINDOW_ORIGIN,
-    };
-  });
-
   beforeEach(() => {
-    pushStateSpy.mockClear();
-    (window.location.assign as jest.Mock).mockClear();
     messageHandlers = [];
+    getOriginSpy.mockClear();
+    pushStateSpy.mockClear();
+    assignSpy.mockClear();
     document.body.innerHTML = '';
-  });
-
-  afterAll(() => {
-    // @ts-expect-error location mock
-    window.location = location;
   });
 
   test('does not load anything if instantiated without calling load', () => {
@@ -153,7 +145,7 @@ describe('FormsortWebEmbed', () => {
       },
     });
     mockPostMessage(msg);
-    expect(flowLoadedSpy).toBeCalledTimes(1);
+    expect(flowLoadedSpy).toHaveBeenCalledTimes(1);
   });
 
   test('loads and handles messages from non-local custom origin', () => {
@@ -182,7 +174,7 @@ describe('FormsortWebEmbed', () => {
       },
     });
     mockPostMessage(msg);
-    expect(flowLoadedSpy).toBeCalledTimes(1);
+    expect(flowLoadedSpy).toHaveBeenCalledTimes(1);
   });
 
   test('loads a variant when load is called', () => {
@@ -239,7 +231,7 @@ describe('FormsortWebEmbed', () => {
       },
     });
     mockPostMessage(msg);
-    expect(flowLoadedSpy).toBeCalledTimes(0);
+    expect(flowLoadedSpy).toHaveBeenCalledTimes(0);
   });
 
   test('ignores events without data', async () => {
@@ -256,7 +248,7 @@ describe('FormsortWebEmbed', () => {
       data: undefined,
     });
     mockPostMessage(msg);
-    expect(flowLoadedSpy).toBeCalledTimes(0);
+    expect(flowLoadedSpy).toHaveBeenCalledTimes(0);
   });
 
   test('handles messages from multiple flows within the same window', async () => {
@@ -304,8 +296,8 @@ describe('FormsortWebEmbed', () => {
 
     // We received a message from the first iframe, so only that frame should
     // have its callback called.
-    expect(firstFlowFinalized).toBeCalledTimes(1);
-    expect(secondFlowFinalized).toBeCalledTimes(0);
+    expect(firstFlowFinalized).toHaveBeenCalledTimes(1);
+    expect(secondFlowFinalized).toHaveBeenCalledTimes(0);
   });
 
   test('handles flow loaded event', async () => {
@@ -326,7 +318,7 @@ describe('FormsortWebEmbed', () => {
       },
     });
     mockPostMessage(msg);
-    expect(flowLoadedSpy).toBeCalledTimes(1);
+    expect(flowLoadedSpy).toHaveBeenCalledTimes(1);
   });
 
   test('handles adding and removing event handlers', async () => {
@@ -354,9 +346,9 @@ describe('FormsortWebEmbed', () => {
     });
     mockPostMessage(msg1);
 
-    expect(flowLoadedSpy1).toBeCalledTimes(1);
-    expect(flowLoadedSpy2).toBeCalledTimes(1);
-    expect(flowLoadedSpy3).toBeCalledTimes(1);
+    expect(flowLoadedSpy1).toHaveBeenCalledTimes(1);
+    expect(flowLoadedSpy2).toHaveBeenCalledTimes(1);
+    expect(flowLoadedSpy3).toHaveBeenCalledTimes(1);
 
     // Remove second event listener
     embed.removeEventListener(
@@ -373,10 +365,10 @@ describe('FormsortWebEmbed', () => {
       },
     });
     mockPostMessage(msg2);
-    expect(flowLoadedSpy1).toBeCalledTimes(2);
+    expect(flowLoadedSpy1).toHaveBeenCalledTimes(2);
     // removed listener should not be called again
-    expect(flowLoadedSpy2).toBeCalledTimes(1);
-    expect(flowLoadedSpy3).toBeCalledTimes(2);
+    expect(flowLoadedSpy2).toHaveBeenCalledTimes(1);
+    expect(flowLoadedSpy3).toHaveBeenCalledTimes(2);
 
     // Remove rest of event listeners
     embed.removeEventListener(
@@ -403,9 +395,9 @@ describe('FormsortWebEmbed', () => {
     });
     mockPostMessage(msg3);
     // removed listeners should not be called again
-    expect(flowLoadedSpy1).toBeCalledTimes(2);
-    expect(flowLoadedSpy2).toBeCalledTimes(1);
-    expect(flowLoadedSpy3).toBeCalledTimes(2);
+    expect(flowLoadedSpy1).toHaveBeenCalledTimes(2);
+    expect(flowLoadedSpy2).toHaveBeenCalledTimes(1);
+    expect(flowLoadedSpy3).toHaveBeenCalledTimes(2);
   });
 
   test('handles flow finalized event', async () => {
@@ -429,7 +421,7 @@ describe('FormsortWebEmbed', () => {
       },
     });
     mockPostMessage(msg);
-    expect(flowFinalizedSpy).toBeCalledTimes(1);
+    expect(flowFinalizedSpy).toHaveBeenCalledTimes(1);
   });
 
   test('handles flow closed event', async () => {
@@ -452,8 +444,8 @@ describe('FormsortWebEmbed', () => {
       },
     });
     mockPostMessage(msg);
-    expect(flowClosedSpy).toBeCalledTimes(1);
-    expect(removeEventListenerSpy).toBeCalledTimes(1);
+    expect(flowClosedSpy).toHaveBeenCalledTimes(1);
+    expect(removeEventListenerSpy).toHaveBeenCalledTimes(1);
     expect(removeEventListenerSpy.mock.calls[0][0]).toBe('message');
   });
 
@@ -563,10 +555,10 @@ describe('FormsortWebEmbed', () => {
       },
     });
     mockPostMessage(msg);
-    expect(redirectSpy).toBeCalledTimes(1);
-    expect(redirectSpy).toBeCalledWith({ url: redirectUrl });
-    expect(window.location.assign).toBeCalledTimes(1);
-    expect(window.location.assign).toBeCalledWith(redirectUrl);
+    expect(redirectSpy).toHaveBeenCalledTimes(1);
+    expect(redirectSpy).toHaveBeenCalledWith({ url: redirectUrl });
+    expect(assignSpy).toHaveBeenCalledTimes(1);
+    expect(assignSpy).toHaveBeenCalledWith(redirectUrl);
   });
 
   test('handles redirecting to a URL if no callback returns `{cancel: true}`', async () => {
@@ -594,14 +586,14 @@ describe('FormsortWebEmbed', () => {
     });
     mockPostMessage(msg);
 
-    expect(redirectCallback1).toBeCalledTimes(1);
-    expect(redirectCallback1).toBeCalledWith({ url: redirectUrl });
-    expect(redirectCallback2).toBeCalledTimes(1);
-    expect(redirectCallback2).toBeCalledWith({ url: redirectUrl });
-    expect(redirectCallback3).toBeCalledTimes(1);
-    expect(redirectCallback3).toBeCalledWith({ url: redirectUrl });
-    expect(window.location.assign).toBeCalledTimes(1);
-    expect(window.location.assign).toBeCalledWith(redirectUrl);
+    expect(redirectCallback1).toHaveBeenCalledTimes(1);
+    expect(redirectCallback1).toHaveBeenCalledWith({ url: redirectUrl });
+    expect(redirectCallback2).toHaveBeenCalledTimes(1);
+    expect(redirectCallback2).toHaveBeenCalledWith({ url: redirectUrl });
+    expect(redirectCallback3).toHaveBeenCalledTimes(1);
+    expect(redirectCallback3).toHaveBeenCalledWith({ url: redirectUrl });
+    expect(assignSpy).toHaveBeenCalledTimes(1);
+    expect(assignSpy).toHaveBeenCalledWith(redirectUrl);
   });
 
   test('Cancels redirect if callback returns `cancel: true`', async () => {
@@ -622,9 +614,9 @@ describe('FormsortWebEmbed', () => {
       },
     });
     mockPostMessage(msg);
-    expect(redirectCallback).toBeCalledTimes(1);
-    expect(redirectCallback).toBeCalledWith({ url: redirectUrl });
-    expect(window.location.assign).not.toHaveBeenCalled();
+    expect(redirectCallback).toHaveBeenCalledTimes(1);
+    expect(redirectCallback).toHaveBeenCalledWith({ url: redirectUrl });
+    expect(assignSpy).not.toHaveBeenCalled();
   });
 
   test('Cancels redirect if any callback returns `cancel: true`', async () => {
@@ -652,13 +644,13 @@ describe('FormsortWebEmbed', () => {
     });
     mockPostMessage(msg);
 
-    expect(redirectCallback1).toBeCalledTimes(1);
-    expect(redirectCallback1).toBeCalledWith({ url: redirectUrl });
-    expect(redirectCallback2).toBeCalledTimes(1);
-    expect(redirectCallback2).toBeCalledWith({ url: redirectUrl });
-    expect(redirectCallback3).toBeCalledTimes(1);
-    expect(redirectCallback3).toBeCalledWith({ url: redirectUrl });
-    expect(window.location.assign).not.toHaveBeenCalled();
+    expect(redirectCallback1).toHaveBeenCalledTimes(1);
+    expect(redirectCallback1).toHaveBeenCalledWith({ url: redirectUrl });
+    expect(redirectCallback2).toHaveBeenCalledTimes(1);
+    expect(redirectCallback2).toHaveBeenCalledWith({ url: redirectUrl });
+    expect(redirectCallback3).toHaveBeenCalledTimes(1);
+    expect(redirectCallback3).toHaveBeenCalledWith({ url: redirectUrl });
+    expect(assignSpy).not.toHaveBeenCalled();
   });
 
   describe.each(Object.values(SupportedAnalyticsEvent))('%s', (event) => {
@@ -684,7 +676,7 @@ describe('FormsortWebEmbed', () => {
         },
       });
       mockPostMessage(msg);
-      expect(eventListenerSpy).toBeCalledTimes(1);
+      expect(eventListenerSpy).toHaveBeenCalledTimes(1);
       return eventListenerSpy;
     };
 
@@ -696,7 +688,7 @@ describe('FormsortWebEmbed', () => {
         event as SupportedAnalyticsEvent,
         answers
       );
-      expect(eventListenerSpy).toBeCalledWith({ answers });
+      expect(eventListenerSpy).toHaveBeenCalledWith({ answers });
     });
 
     it('does not crash with empty answers', () => {
@@ -704,7 +696,7 @@ describe('FormsortWebEmbed', () => {
         event as SupportedAnalyticsEvent,
         undefined
       );
-      expect(eventListenerSpy).toBeCalledWith({});
+      expect(eventListenerSpy).toHaveBeenCalledWith({});
     });
   });
 
@@ -734,7 +726,7 @@ describe('FormsortWebEmbed', () => {
       },
     });
     mockPostMessage(msg);
-    expect(redirectSpy).toBeCalledTimes(1);
+    expect(redirectSpy).toHaveBeenCalledTimes(1);
 
     const expectedCallArgs: { url: string; answers?: any } = {
       url: redirectUrl,
@@ -742,7 +734,7 @@ describe('FormsortWebEmbed', () => {
     if (answers) {
       expectedCallArgs.answers = answers;
     }
-    expect(redirectSpy).toBeCalledWith(expectedCallArgs);
+    expect(redirectSpy).toHaveBeenCalledWith(expectedCallArgs);
   });
 
   test('handles events even when corresponding handlers are not set', async () => {
@@ -813,10 +805,10 @@ describe('FormsortWebEmbed', () => {
       },
     });
     mockPostMessage(msg);
-    expect(redirectSpy).toBeCalledTimes(1);
-    expect(redirectSpy).toBeCalledWith({ url: redirectUrl });
-    expect(pushStateSpy).toBeCalledTimes(1);
-    expect(pushStateSpy).toBeCalledWith({}, '', redirectUrl);
+    expect(redirectSpy).toHaveBeenCalledTimes(1);
+    expect(redirectSpy).toHaveBeenCalledWith({ url: redirectUrl });
+    expect(pushStateSpy).toHaveBeenCalledTimes(1);
+    expect(pushStateSpy).toHaveBeenCalledWith(redirectUrl);
   });
 
   test('ignores useHistoryAPI when redirecting to a different origin', async () => {
@@ -837,10 +829,10 @@ describe('FormsortWebEmbed', () => {
       },
     });
     mockPostMessage(msg);
-    expect(redirectSpy).toBeCalledTimes(1);
-    expect(redirectSpy).toBeCalledWith({ url: redirectUrl });
-    expect(window.location.assign).toBeCalledTimes(1);
-    expect(window.location.assign).toBeCalledWith(redirectUrl);
-    expect(pushStateSpy).toBeCalledTimes(0);
+    expect(redirectSpy).toHaveBeenCalledTimes(1);
+    expect(redirectSpy).toHaveBeenCalledWith({ url: redirectUrl });
+    expect(assignSpy).toHaveBeenCalledTimes(1);
+    expect(assignSpy).toHaveBeenCalledWith(redirectUrl);
+    expect(pushStateSpy).toHaveBeenCalledTimes(0);
   });
 });
