@@ -19,8 +19,7 @@
       "@swc/core",
       "esbuild",
       "lmdb",
-      "msgpackr-extract",
-      "@parcel/watcher"
+      "msgpackr-extract"
     ]
   },
   "scripts": {
