@@ -44,6 +44,7 @@ jobs:
         with:
           name: ${{ github.sha }}
           if-no-files-found: error
-          path: |
-            ${{ github.workspace }}/packages/**/*.tgz
-            !node_modules/**/*
+          # Match only the .tgz produced in each package's own root.
+          # The broader `packages/**/*.tgz` pattern follows pnpm's node_modules
+          # symlinks into sibling workspace packages, bundling stray copies.
+          path: ${{ github.workspace }}/packages/*/*.tgz
