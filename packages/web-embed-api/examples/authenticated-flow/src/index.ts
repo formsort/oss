@@ -1,6 +1,7 @@
 import FormsortWebEmbed from '@formsort/web-embed-api';
-import { getConfig } from './utils';
 
+import { getConfig } from './utils';
+// oxlint-disable-next-line import/no-unassigned-import
 import './index.css';
 
 declare global {
@@ -8,20 +9,31 @@ declare global {
     google: {
       accounts: {
         id: {
-          initialize: (config: any) => void,
-          renderButton: (element: HTMLElement, config: { theme: string, size: string }) => void,
-          prompt: () => void
-        }
-      }
+          initialize: (config: any) => void;
+          renderButton: (
+            element: HTMLElement,
+            config: { theme: string; size: string }
+          ) => void;
+          prompt: () => void;
+        };
+      };
     };
   }
 }
 
 (() => {
-  const { googleClientId, rootEl, googleSignInButton, clientLabel, flowLabel, variantLabel, origin } = getConfig();
+  const {
+    googleClientId,
+    rootEl,
+    googleSignInButton,
+    clientLabel,
+    flowLabel,
+    variantLabel,
+    origin,
+  } = getConfig();
 
   // Wait for the Google script to load
-  window.onload = () => {
+  window.addEventListener('load', () => {
     const google = window.google;
 
     google.accounts.id.initialize({
@@ -34,12 +46,12 @@ declare global {
           style: { width: '100%', height: '500px' },
           authentication,
         });
-      
+
         embed.addEventListener('unauthorized', () => {
           // eslint-disable-next-line no-console
           console.error('Unauthorized');
         });
-      
+
         embed.loadFlow(clientLabel, flowLabel, variantLabel);
       },
     });
@@ -50,5 +62,5 @@ declare global {
     );
 
     google.accounts.id.prompt(); // also display the One Tap dialog
-  };
+  });
 })();

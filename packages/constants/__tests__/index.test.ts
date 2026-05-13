@@ -2,7 +2,7 @@ import {
   AnalyticsEventType,
   CustomQuestionMessage,
   WebEmbedMessage,
-} from '../src'
+} from '../src';
 
 const hasAllUniqueValues = (obj: { [key: string]: any }) => {
   const values = new Set();
@@ -12,19 +12,19 @@ const hasAllUniqueValues = (obj: { [key: string]: any }) => {
     if (values.has(value)) {
       return false;
     }
-    values.add(value)
+    values.add(value);
   }
   return true;
-}
+};
 
 test('AnalyticsEventType values are all unique', () => {
-    expect(hasAllUniqueValues(AnalyticsEventType)).toBe(true);
+  expect(hasAllUniqueValues(AnalyticsEventType)).toBe(true);
 });
 
 test('CustomQuestionMessage values are all unique', () => {
-    expect(hasAllUniqueValues(CustomQuestionMessage)).toBe(true);
+  expect(hasAllUniqueValues(CustomQuestionMessage)).toBe(true);
 });
 
 test('WebEmbedMessage values are all unique', () => {
-    expect(hasAllUniqueValues(WebEmbedMessage)).toBe(true);
+  expect(hasAllUniqueValues(WebEmbedMessage)).toBe(true);
 });

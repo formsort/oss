@@ -3,6 +3,7 @@ import EmbedMessagingManager, {
   type IEventMap,
   SupportedAnalyticsEvent,
 } from '@formsort/embed-messaging-manager';
+
 import { getMessageSender } from './iframe-utils';
 import { isLocalOrLegacyFlowOrigin } from './utils';
 
@@ -78,7 +79,7 @@ const FormsortWebEmbed = (
     removeListeners();
     try {
       rootEl.removeChild(iframeEl);
-    } catch (e) {
+    } catch {
       // noop: iframe already removed OR blur event triggered by iframe removal
     }
   };
@@ -101,11 +102,14 @@ const FormsortWebEmbed = (
     onFlowClosed: unloadFlow,
   });
 
-  messagingManager.addEventListener(SupportedAnalyticsEvent.FlowLoaded, (payload) => {
-    if (payload.documentTitle && !iframeEl.title) {
-      iframeEl.title = payload.documentTitle;
+  messagingManager.addEventListener(
+    SupportedAnalyticsEvent.FlowLoaded,
+    (payload) => {
+      if (payload.documentTitle && !iframeEl.title) {
+        iframeEl.title = payload.documentTitle;
+      }
     }
-  })
+  );
 
   const onWindowMessage = (message: MessageEvent<unknown>) => {
     const { origin: msgOrigin, source, data } = message;
@@ -141,7 +145,7 @@ const FormsortWebEmbed = (
       loadedOrigin = config.origin;
 
       if (isLocalOrLegacyFlowOrigin(config.origin)) {
-        urlBase = `${config.origin}/client/${clientLabel}`; 
+        urlBase = `${config.origin}/client/${clientLabel}`;
       } else {
         urlBase = config.origin;
       }

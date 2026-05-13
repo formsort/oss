@@ -2,7 +2,7 @@
 
 ## Instructions
 
-1. Install dependencies using `yarn install --frozen-lockfile`.
+1. Install dependencies using `pnpm install --frozen-lockfile` from the repo root.
 1. Set up your Authenticated Flow by following the [documentation](https://docs.formsort.com/going-live/embedding/adding-authentication).
 1. Add an `.env` file to the project root with the following variables:
 
@@ -13,4 +13,4 @@ FLOW_LABEL=first-flow
 VARIANT_LABEL=main
 ```
 
-1. Start the dev server using the command `yarn start`.
+1. Start the dev server using the command `pnpm start`.

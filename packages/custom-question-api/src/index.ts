@@ -1,5 +1,6 @@
 import { type AnswerSemanticType } from '@formsort/constants';
 import { CustomQuestionMessage } from '@formsort/constants';
+
 import { getValueFromWindowParent, sendMessageToWindowParent } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/ban-types

@@ -19,26 +19,25 @@ jobs:
       # linting and testing.
       # Even more, we need to build the two specific ones first as their type
       # definitions are required for the other project builds.
-      # TODO(byk): Streamline this a bit and run the rest of the build in parallel
       - name: Build prerequisites first
         run: |
-          yarn workspace @formsort/constants run build
-          yarn workspace @formsort/embed-messaging-manager run build
-          yarn workspace @formsort/web-embed-api run build
+          pnpm --filter @formsort/constants run build
+          pnpm --filter @formsort/embed-messaging-manager run build
+          pnpm --filter @formsort/web-embed-api run build
       - name: Build
-        run: yarn build
+        run: pnpm build
       - name: Lint
-        run: yarn lint
+        run: pnpm lint
       - name: Test
-        run: yarn test
+        run: pnpm test
       - name: Pack
         run: |
           # WARN: This grep pattern relies on the `releaseBranchPrefix` field in .craft.yml files
           release_package=$(echo '${{ github.ref_name }}' | grep -Po '(?<=release/)[^/]+(?=/[0-9a-z_.]+)' || [[ $? == 1 ]])
           if [[ -n "$release_package" ]]; then
-            yarn workspace "@formsort/$release_package" run pack;
+            pnpm --filter "@formsort/$release_package" run pack;
           else
-            yarn workspaces run pack;
+            pnpm -r run pack;
           fi
       - name: Archive Artifacts
         uses: actions/upload-artifact@v4

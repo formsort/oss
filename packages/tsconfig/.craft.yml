@@ -5,7 +5,7 @@ preReleaseCommand: node ../../scripts/pre-release.js
 releaseBranchPrefix: release/tsconfig
 
 requireNames:
-  - /^formsort-tsconfig-v.+\.tgz$/
+  - /^formsort-tsconfig-\d.*\.tgz$/
 targets:
   - name: npm
   - name: github

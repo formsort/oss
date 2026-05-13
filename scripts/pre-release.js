@@ -1,10 +1,9 @@
 const { execSync } = require('child_process');
 execSync(
   [
-    'yarn',
-    '--no-git-tag-version',
+    'npm',
     'version',
-    '--new-version',
+    '--no-git-tag-version',
     process.env.CRAFT_NEW_VERSION,
   ].join(' '),
   { stdio: 'inherit' }

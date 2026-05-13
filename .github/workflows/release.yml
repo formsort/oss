@@ -9,7 +9,6 @@ on:
         options:
           - constants
           - custom-question-api
-          - eslint-config
           - react-embed
           - tsconfig
           - web-embed-api
@@ -42,4 +41,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.FS_RELEASE_GITHUB_PAT }}
           CRAFT_LOG_LEVEL: ${{ secrets.CRAFT_LOG_LEVEL }}
         run: |
-          yarn workspace @formsort/${{ github.event.inputs.package }} craft prepare --publish ${{ github.event.inputs.version }}
+          pnpm --filter @formsort/${{ github.event.inputs.package }} exec craft prepare --publish ${{ github.event.inputs.version }}

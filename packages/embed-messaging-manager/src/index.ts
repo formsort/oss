@@ -8,6 +8,7 @@ import {
   WebEmbedMessage,
   type IBaseEventData,
 } from '@formsort/constants';
+
 import {
   isIFrameAnalyticsEventData,
   isIFrameRedirectEventData,
@@ -23,7 +24,10 @@ interface IAuthenticationConfig {
   idToken: string;
 }
 
-type IFlowEventPayload = Omit<IIFrameAnalyticsEventData, 'type' | 'createdAt' | 'eventType'>;
+type IFlowEventPayload = Omit<
+  IIFrameAnalyticsEventData,
+  'type' | 'createdAt' | 'eventType'
+>;
 
 export interface IFormsortEmbedConfig {
   autoHeight?: boolean;
@@ -176,7 +180,15 @@ class EmbedMessagingManager {
   };
 
   private onEventMessage = (eventData: IIFrameAnalyticsEventData) => {
-    const { eventType, answers, variantRevisionUuid, responder, stepId, stepIndex, answerSources } = eventData;
+    const {
+      eventType,
+      answers,
+      variantRevisionUuid,
+      responder,
+      stepId,
+      stepIndex,
+      answerSources,
+    } = eventData;
 
     if (eventType === AnalyticsEventType.FlowClosed) {
       this.onFlowClosed();

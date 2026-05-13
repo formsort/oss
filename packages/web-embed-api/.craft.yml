@@ -5,7 +5,7 @@ preReleaseCommand: node ../../scripts/pre-release.js
 releaseBranchPrefix: release/web-embed-api
 
 requireNames:
-  - /^formsort-web-embed-api-v.+\.tgz$/
+  - /^formsort-web-embed-api-\d.*\.tgz$/
 targets:
   - name: npm
   - name: github

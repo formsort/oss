@@ -5,7 +5,7 @@ preReleaseCommand: node ../../scripts/pre-release.js
 releaseBranchPrefix: release/custom-question-api
 
 requireNames:
-  - /^formsort-custom-question-api-v.+\.tgz$/
+  - /^formsort-custom-question-api-\d.*\.tgz$/
 targets:
   - name: npm
   - name: github

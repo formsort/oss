@@ -1,4 +1,5 @@
 # CHANGELOG
+
 ## 3.5.0
 
 ### Various fixes & improvements
@@ -62,4 +63,3 @@
 ### Various fixes & improvements
 
 - update default Flow origin to {clientLabel}.formsort.app (#76) by @atikenny
-

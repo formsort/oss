@@ -5,7 +5,7 @@ preReleaseCommand: node ../../scripts/pre-release.js
 releaseBranchPrefix: release/embed-messaging-manager
 
 requireNames:
-  - /^formsort-embed-messaging-manager-v.+\.tgz$/
+  - /^formsort-embed-messaging-manager-\d.*\.tgz$/
 targets:
   - name: npm
   - name: github

@@ -94,9 +94,15 @@ describe('EmbedFlow component', () => {
       flowFinalizedMock
     );
     expect(embedMock.addEventListener).toBeCalledWith('redirect', redirectMock);
-    expect(embedMock.addEventListener).toBeCalledWith('unauthorized', unauthorizedMock);
+    expect(embedMock.addEventListener).toBeCalledWith(
+      'unauthorized',
+      unauthorizedMock
+    );
     // Check for FlowClosed event listener that removes the parent container of the embed
-    expect(embedMock.addEventListener).toBeCalledWith('FlowClosed', expect.any(Function));
+    expect(embedMock.addEventListener).toBeCalledWith(
+      'FlowClosed',
+      expect.any(Function)
+    );
   });
 
   test('should load flows with URL params', () => {

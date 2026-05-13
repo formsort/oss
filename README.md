@@ -10,10 +10,6 @@ Constants that are used across Formsort products and repos.
 
 Helpers for implementing custom questions in Formsort.
 
-[`eslint-config`](/packages/eslint-config)
-
-ESLint config used by all projects in this repo and other Formsort repos.
-
 [`react-embed`](/packages/react-embed)
 
 React component to load formsort flows.
@@ -44,7 +40,7 @@ To release a new version of a package, follow these steps:
 1. Trigger the release through [GitHub Actions](https://github.com/formsort/oss/actions/workflows/release.yml):
    - Run `gh workflow run release.yml -f package=<package> -f version=<version>`
      if you have [`gh`](https://cli.github.com/) installed
-   - Or visit the [actions page]((https://github.com/formsort/oss/actions/workflows/release.yml)),
+   - Or visit the [actions page](<(https://github.com/formsort/oss/actions/workflows/release.yml)>),
      click on the `Run workflow` button on the top right corner, fill in the values and _ship this sucker_.
 1. Triggering this action will send an approval request to the [Security guild](https://github.com/orgs/formsort/teams/security-guild)
 1. Once the publish request is approved, Craft will run its magic, creating a release branch with automated changelogs

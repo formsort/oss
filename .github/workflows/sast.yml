@@ -70,7 +70,7 @@ jobs:
       - run: semgrep ci
         env:
           SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-      
+
       - name: Annotate
         if: github.event_name == 'pull_request' && failure()
         run: jq -r '.results[] | "::error file=\(.path),line=\(.start.line),lineEnd=\(.end.line),col=\(.start.col),endColumn=\(.end.col),title=[\(.extra.severity)]\(.check_id)::\(.extra.message)"' semgrep.json
