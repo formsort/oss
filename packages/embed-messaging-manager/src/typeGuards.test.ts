@@ -1,4 +1,5 @@
 import { WebEmbedMessage } from '@formsort/constants';
+
 import { isIWebEmbedEventData } from './typeGuards';
 
 describe('isIWebEmbedEventData', () => {

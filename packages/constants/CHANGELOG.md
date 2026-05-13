@@ -1,4 +1,5 @@
 # CHANGELOG
+
 ## 1.15.1
 
 - revert esm changes by @alikirec in [#188](https://github.com/formsort/oss/pull/188)
@@ -70,4 +71,3 @@
 ### Various fixes & improvements
 
 - fix constants package artifact search regexp (#87) by @atikenny
-

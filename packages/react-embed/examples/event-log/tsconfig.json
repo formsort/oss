@@ -7,7 +7,7 @@
     "strict": true,
     "types": ["jest", "node"],
     "jsx": "react-jsx",
-    "jsxImportSource": "@emotion/react",
+    "jsxImportSource": "@emotion/react"
   },
   "include": ["src", "**/__tests__/*"]
 }

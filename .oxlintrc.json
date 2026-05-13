@@ -1,0 +1,80 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "react", "import"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2024": true
+  },
+  "ignorePatterns": [
+    "**/lib/**",
+    "**/dist/**",
+    "**/umd/**",
+    "**/node_modules/**",
+    "**/.parcel-cache/**"
+  ],
+  "rules": {
+    "no-console": "warn",
+    "no-debugger": "warn",
+    "no-empty": "error",
+    "no-eval": "error",
+    "no-new-wrappers": "error",
+    "no-throw-literal": "error",
+    "no-unused-expressions": "error",
+    "no-unused-vars": "off",
+    "valid-typeof": "off",
+    "no-constant-binary-expression": "off",
+    "no-var": "error",
+    "prefer-const": "error",
+    "prefer-rest-params": "error",
+    "prefer-spread": "error",
+    "object-shorthand": "error",
+    "constructor-super": "error",
+    "curly": "error",
+    "dot-notation": "error",
+    "eqeqeq": ["error", "smart"],
+    "guard-for-in": "error",
+    "use-isnan": "error",
+    "arrow-body-style": "error",
+    "typescript/array-type": ["error", { "default": "array-simple" }],
+    "typescript/consistent-type-definitions": "error",
+    "typescript/no-explicit-any": "off",
+    "typescript/no-non-null-assertion": "off",
+    "typescript/no-empty-function": "error",
+    "typescript/no-empty-interface": "error",
+    "typescript/no-inferrable-types": "error",
+    "typescript/no-misused-new": "error",
+    "typescript/no-namespace": "error",
+    "typescript/no-this-alias": "error",
+    "typescript/no-unused-vars": ["warn", { "ignoreRestSiblings": true }],
+    "typescript/no-var-requires": "error",
+    "typescript/prefer-namespace-keyword": "error",
+    "typescript/prefer-function-type": "error",
+    "typescript/triple-slash-reference": [
+      "error",
+      { "path": "always", "types": "prefer-import", "lib": "always" }
+    ],
+    "typescript/unified-signatures": "error",
+    "typescript/adjacent-overload-signatures": "error",
+    "typescript/ban-ts-comment": ["error", { "ts-ignore": false }],
+    "typescript/consistent-type-assertions": "error",
+    "import/no-duplicates": "error",
+    "react/display-name": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }],
+    "react-hooks/exhaustive-deps": "off"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.ts", "**/*.test.tsx", "**/__tests__/**"],
+      "rules": {
+        "no-console": "off",
+        "typescript/no-unused-vars": "off"
+      }
+    }
+  ]
+}

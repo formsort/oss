@@ -6,10 +6,6 @@
 
 Constants used across Formsort projects.
 
-[`eslint-config`](/packages/eslint-config)
-
-Shared ESLint configuration for use across all projects.
-
 [`tsconfig`](/packages/tsconfig)
 
 Shared tsconfig for use across all projects.

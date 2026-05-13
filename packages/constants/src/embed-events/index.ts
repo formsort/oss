@@ -7,7 +7,7 @@ export interface IBaseEventData {
     responderUuid: string;
     sessionUuid: string;
     isReturningResponder?: boolean;
-  }
+  };
 }
 
 export interface IRedirectEventData extends IBaseEventData {
@@ -15,13 +15,12 @@ export interface IRedirectEventData extends IBaseEventData {
 }
 
 export interface IWebEmbedEventData<
-  Type extends WebEmbedMessage = WebEmbedMessage
+  Type extends WebEmbedMessage = WebEmbedMessage,
 > extends IBaseEventData {
   type: Type;
 }
 
-export interface IIFrameAnalyticsEventData
-  extends IWebEmbedEventData<WebEmbedMessage.EMBED_EVENT_MSG> {
+export interface IIFrameAnalyticsEventData extends IWebEmbedEventData<WebEmbedMessage.EMBED_EVENT_MSG> {
   createdAt: Date;
   eventType: AnalyticsEventType;
   variantRevisionUuid: string;
@@ -36,8 +35,7 @@ export enum TokenRequestPayload {
   ID = 'ID',
 }
 
-export interface IIFrameTokenRequestEventData
-  extends IWebEmbedEventData<WebEmbedMessage.EMBED_TOKEN_REQUEST_MSG> {
+export interface IIFrameTokenRequestEventData extends IWebEmbedEventData<WebEmbedMessage.EMBED_TOKEN_REQUEST_MSG> {
   payload: TokenRequestPayload;
 }
 
@@ -50,13 +48,11 @@ export interface IIFrameTokenResponseMessage {
   payload: TokenResponsePayload;
 }
 
-export interface IIFrameRedirectEventData
-  extends IWebEmbedEventData<WebEmbedMessage.EMBED_REDIRECT_MSG> {
+export interface IIFrameRedirectEventData extends IWebEmbedEventData<WebEmbedMessage.EMBED_REDIRECT_MSG> {
   payload: string;
 }
 
-export interface IIFrameResizeEventData
-  extends IWebEmbedEventData<WebEmbedMessage.EMBED_RESIZE_MSG> {
+export interface IIFrameResizeEventData extends IWebEmbedEventData<WebEmbedMessage.EMBED_RESIZE_MSG> {
   payload: {
     width?: number;
     height?: number;

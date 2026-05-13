@@ -1,11 +1,11 @@
 interface IConfig {
-  googleClientId: string,
-  rootEl: HTMLElement,
-  googleSignInButton: HTMLElement,
-  clientLabel: string,
-  flowLabel: string,
-  variantLabel: string,
-  origin?: string
+  googleClientId: string;
+  rootEl: HTMLElement;
+  googleSignInButton: HTMLElement;
+  clientLabel: string;
+  flowLabel: string;
+  variantLabel: string;
+  origin?: string;
 }
 
 const getConfig = (): IConfig => {
@@ -27,7 +27,9 @@ const getConfig = (): IConfig => {
   }
 
   const rootEl = document.querySelector('#formsort-embed') as HTMLElement;
-  const googleSignInButton = document.getElementById('google-sign-in') as HTMLElement;
+  const googleSignInButton = document.getElementById(
+    'google-sign-in'
+  ) as HTMLElement;
 
   if (!rootEl) {
     throw new Error(`Could not find root element`);
@@ -44,8 +46,8 @@ const getConfig = (): IConfig => {
     clientLabel,
     flowLabel,
     variantLabel,
-    origin
+    origin,
   };
 };
 
-export { getConfig }
+export { getConfig };

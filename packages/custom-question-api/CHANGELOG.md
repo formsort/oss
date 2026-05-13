@@ -1,4 +1,5 @@
 # CHANGELOG
+
 ## 0.3.3
 
 ### Various fixes & improvements
@@ -33,4 +34,3 @@
 ### Various fixes & improvements
 
 - upgrade constants (#89) by @helencho
-

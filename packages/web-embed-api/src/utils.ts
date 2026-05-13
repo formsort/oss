@@ -36,13 +36,15 @@ export function isLocalOrLegacyFlowOrigin(url: string) {
 
   try {
     urlObj = new URL(url);
-  } catch (e) {
+  } catch {
     return false;
   }
 
   const hostname = urlObj.hostname;
 
-  return hostname === 'localhost'
-    || hostname === '127.0.0.1'
-    || Boolean(hostname.match(/^flow(\.beta)?\.formsort\.com$/));
+  return (
+    hostname === 'localhost' ||
+    hostname === '127.0.0.1' ||
+    Boolean(hostname.match(/^flow(\.beta)?\.formsort\.com$/))
+  );
 }

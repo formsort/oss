@@ -1,6 +1,5 @@
-import { EventEmitter } from 'events';
-
 import { CustomQuestionMessage } from '@formsort/constants';
+import { EventEmitter } from 'events';
 
 const EVENTS_TO_EMIT = new Set([
   CustomQuestionMessage.SET_ANSWERS_MSG,

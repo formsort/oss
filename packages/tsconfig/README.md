@@ -2,13 +2,11 @@
 
 > Shared [TypeScript config](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) for Formsort projects
 
-
 ## Install
 
 ```shell
 pnpm add --save-dev @formsort/tsconfig
 ```
-
 
 ## Usage
 
@@ -16,13 +14,11 @@ pnpm add --save-dev @formsort/tsconfig
 
 ```json
 {
-	"extends": "@formsort/tsconfig",
-	"compilerOptions": {
-		"outDir": "dist",
-		"target": "es2018",
-		"lib": [
-			"es2018"
-		]
-	}
+  "extends": "@formsort/tsconfig",
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "es2018",
+    "lib": ["es2018"]
+  }
 }
 ```

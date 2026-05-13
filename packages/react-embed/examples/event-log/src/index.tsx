@@ -56,12 +56,18 @@ const App = () => {
                 height: '400px',
               },
             }}
-            onFlowLoaded={(eventProps) => addToEventLog('FlowLoaded', eventProps)}
+            onFlowLoaded={(eventProps) =>
+              addToEventLog('FlowLoaded', eventProps)
+            }
             onFlowFinalized={(eventProps) =>
               addToEventLog('FlowFinalized', eventProps)
             }
-            onFlowClosed={(eventProps) => addToEventLog('FlowClosed', eventProps)}
-            onStepLoaded={(eventProps) => addToEventLog('StepLoaded', eventProps)}
+            onFlowClosed={(eventProps) =>
+              addToEventLog('FlowClosed', eventProps)
+            }
+            onStepLoaded={(eventProps) =>
+              addToEventLog('StepLoaded', eventProps)
+            }
             onStepCompleted={(eventProps) =>
               addToEventLog('StepCompleted', eventProps)
             }
@@ -110,4 +116,4 @@ const App = () => {
 };
 
 const root = createRoot(document.getElementById('root')!);
-root.render(<App />, );
+root.render(<App />);

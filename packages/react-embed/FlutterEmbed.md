@@ -2,7 +2,7 @@
 
 ## Installation
 
-* Install `webview_flutter`
+- Install `webview_flutter`
 
   ```bash
   flutter pub add webview_flutter
@@ -108,10 +108,10 @@ Formsort flows will send messages to the parent window when certain events occur
 
 By default, formsort keeps user information locally and don't restart flows when the user comes back to the flow. You can change this behavior in two ways:
 
-1. You can set returning responder behavior in flow settings in formsort studio. see [formsort docs](<https://docs.formsort.com/building-flows/variant-settings/returning-responder-behavior#start-at-beginning-discard-answers>) for more information.
+1. You can set returning responder behavior in flow settings in formsort studio. see [formsort docs](https://docs.formsort.com/building-flows/variant-settings/returning-responder-behavior#start-at-beginning-discard-answers) for more information.
 
 2. Use the `flowUrl` parameter `?discardAnswers=true` to restart the flow every time the user comes back to the flow. e.g.
 
-    ```dart
-    final flowUrl = 'https://formsorttemplatesdemo.formsort.app/flow/template-patient-onboarding-demo/variant/patient-onboarding-customization?discardAnswers=true';
-    ```
+   ```dart
+   final flowUrl = 'https://formsorttemplatesdemo.formsort.app/flow/template-patient-onboarding-demo/variant/patient-onboarding-customization?discardAnswers=true';
+   ```

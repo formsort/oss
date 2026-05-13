@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "rootDir": ".",
     "declaration": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -16,9 +17,9 @@
     "strict": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "target": "es5",
-    "useUnknownInCatchVariables": true
+    "useUnknownInCatchVariables": true,
+    "ignoreDeprecations": "6.0",
+    "types": ["./types.d.ts"]
   },
   "include": ["src"]
 }

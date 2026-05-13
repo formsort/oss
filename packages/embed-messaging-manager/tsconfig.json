@@ -6,5 +6,5 @@
     "strict": true,
     "types": ["jest"]
   },
-  "exclude": ["lib"],
+  "exclude": ["lib"]
 }

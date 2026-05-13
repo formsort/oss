@@ -4,7 +4,6 @@ import FormsortWebEmbed, {
   IFormsortWebEmbed,
   IFormsortWebEmbedConfig,
 } from '@formsort/web-embed-api';
-
 import React, { useEffect, useRef, useState } from 'react';
 
 // Using this type to preserve auto-complete for default environments
@@ -107,7 +106,7 @@ const EmbedFlow: React.FunctionComponent<EmbedFlowProps> = (props) => {
 
     embed?.addEventListener(SupportedAnalyticsEvent.FlowClosed, () => {
       setFlowClosed(true);
-    })
+    });
 
     return () => {
       embed?.unloadFlow();

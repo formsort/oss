@@ -1,4 +1,5 @@
 import { AnalyticsEventType, WebEmbedMessage } from '@formsort/constants';
+
 import FormsortWebEmbed, { SupportedAnalyticsEvent } from '.';
 
 type MessageListener = (msg: MessageEvent) => any;
@@ -166,9 +167,7 @@ describe('FormsortWebEmbed', () => {
     embed.loadFlow(clientLabel, flowLabel);
 
     const iframe = iframes[0];
-    expect(iframe.src).toBe(
-      `${customOrigin}/flow/${flowLabel}`
-    );
+    expect(iframe.src).toBe(`${customOrigin}/flow/${flowLabel}`);
 
     const flowLoadedSpy = jest.fn();
     embed.addEventListener(SupportedAnalyticsEvent.FlowLoaded, flowLoadedSpy);
