@@ -42,7 +42,7 @@
     "@types/events": "^3.0.0",
     "jest-environment-jsdom": "^29.5.0",
     "typescript": "^6.0.3",
-    "vite": "^6.4.2"
+    "vite": "^6.4.3"
   },
   "dependencies": {
     "@formsort/constants": "^1.11.0",
