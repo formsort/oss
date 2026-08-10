@@ -34,17 +34,38 @@ the URL. Calling `loadFlow` submits the POST navigation to the iframe.
 ```ts
 import { FormsortSecureWebEmbed } from '@formsort/web-embed-api';
 
-const embed = FormsortSecureWebEmbed(document.body, {
-  responderUuid: 'e4923baa-dc2d-4555-813c-a166952292fa',
-  firstName: 'Olivia',
-});
+const embed = FormsortSecureWebEmbed(document.body);
 
-embed.loadFlow('formsort', 'onboarding', 'main');
+embed.loadFlow(
+  'formsort',
+  'onboarding',
+  'main',
+  'e4923baa-dc2d-4555-813c-a166952292fa',
+  { firstName: 'Olivia' }
+);
 ```
 
 The POST data can contain scalar values, arrays, nested objects, and arrays of
 objects. The secure embed uses the same configuration, methods, and events as
 `FormsortWebEmbed`.
+
+### `FormsortSecureWebEmbed(rootEl: HTMLElement, config?: IFormsortWebEmbedConfig)`
+
+Initializes a secure Formsort iframe. It has the same configuration, methods,
+and events as `FormsortWebEmbed`.
+
+Its `loadFlow` method accepts optional `responderUuid` and `initialAnswers`
+values. It does not accept query parameters:
+
+```ts
+loadFlow(
+  clientLabel: string,
+  flowLabel: string,
+  variantLabel?: string,
+  responderUuid?: string,
+  initialAnswers?: FormsortInitialAnswers
+) => void;
+```
 
 The optional `config` object has the following interface:
 

@@ -35,18 +35,25 @@ const EmbedFlowExample: React.FunctionComponent = () => (
 );
 ```
 
-Pass responder data with `postData` to use the secure POST embed:
+Use the separate `SecureEmbedFlow` component to pass responder data in a POST
+body:
 
 ```tsx
-<EmbedFlow
+import { SecureEmbedFlow } from '@formsort/react-embed';
+
+<SecureEmbedFlow
   clientLabel="formsort"
   flowLabel="onboarding"
-  postData={{
-    responderUuid: 'e4923baa-dc2d-4555-813c-a166952292fa',
+  responderUuid="e4923baa-dc2d-4555-813c-a166952292fa"
+  initialAnswers={{
     firstName: 'Olivia',
   }}
 />
 ```
+
+`responderUuid` and `initialAnswers` are optional. `SecureEmbedFlow` does not
+accept `queryParams` or `formsortEnv`. It has the same configuration and event
+props as `EmbedFlow`.
 
 ### Events
 
@@ -62,7 +69,6 @@ You can add event listeners to flows like `Flowloaded`, `redirect` etc. See [all
 | responderUuid   | responder uuid to load existing answers for                                                                                                                      | no       | `e4923baa-dc2d-4555-813c-a166952292fa`                     |
 | formsortEnv     | formsort integrations environment label, if not using production                                                                                                 | no       | `staging`                                                  |
 | queryParams     | additional query params, to pre-populate answers in the form                                                                                                     | no       | `[['name', 'Olivia'], ['age', '3']]`                       |
-| postData        | responder data sent in a POST body; when present, the component uses `FormsortSecureWebEmbed`                                                                     | no       | `{ responderUuid: '<uuid>', firstName: 'Olivia' }`         |
 | embedConfig     | config passed to the underlying [`FormsortWebEmbed`](https://github.com/formsort/oss/tree/master/packages/web-embed-api)                                         | no       | `{ style: { height: '100%' } }`                            |
 | onFlowLoaded    | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowloaded-answers--key-string-any----void)                                  | no       | `() => { console.log('flow loaded') }`                     |
 | onFlowClosed    | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowclosed-answers--key-string-any---void)                                   | no       | `() => { console.log('flow closed') }`                     |
@@ -71,6 +77,17 @@ You can add event listeners to flows like `Flowloaded`, `redirect` etc. See [all
 | onStepCompleted | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#steploaded-answers--key-string-any---void)                                   | no       | `() => { console.log('step loaded') }`                     |
 | onRedirect      | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#redirect--url-string-answers--key-string-any-----cancel-boolean---undefined) | no       | `(url: string) => { console.log('redirecting to:', url) }` |
 | onUnauthorized  | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#unauthorized---void)                                                         | no       | `() => { console.log('ID token is missing or invalid.') }` |
+
+### SecureEmbedFlow props
+
+`SecureEmbedFlow` supports `clientLabel`, `flowLabel`, `variantLabel`,
+`embedConfig`, and all event props from `EmbedFlow`. It also supports these
+secure POST props:
+
+| Prop name      | Description                               | Required | Example values                         |
+| -------------- | ----------------------------------------- | -------- | -------------------------------------- |
+| responderUuid  | responder UUID sent in the POST body      | no       | `e4923baa-dc2d-4555-813c-a166952292fa` |
+| initialAnswers | initial answers sent in the POST body     | no       | `{ firstName: 'Olivia' }`              |
 
 ### Loading a specific variant revision
 

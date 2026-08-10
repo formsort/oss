@@ -7,13 +7,7 @@ import EmbedMessagingManager, {
 import { getMessageSender } from './iframe-utils';
 import { isLocalOrLegacyFlowOrigin } from './utils';
 
-interface IFormsortWebEmbed {
-  loadFlow: (
-    clientLabel: string,
-    flowLabel: string,
-    variantLabel?: string,
-    queryParams?: Array<[string, string]>
-  ) => void;
+interface IFormsortEmbedControls {
   unloadFlow: () => void;
   setSize: (width: string, height: string) => void;
   addEventListener<K extends keyof IEventMap>(
@@ -24,6 +18,25 @@ interface IFormsortWebEmbed {
     eventName: K,
     eventListener: IEventMap[K]
   ): void;
+}
+
+interface IFormsortWebEmbed extends IFormsortEmbedControls {
+  loadFlow: (
+    clientLabel: string,
+    flowLabel: string,
+    variantLabel?: string,
+    queryParams?: Array<[string, string]>
+  ) => void;
+}
+
+interface IFormsortSecureWebEmbed extends IFormsortEmbedControls {
+  loadFlow: (
+    clientLabel: string,
+    flowLabel: string,
+    variantLabel?: string,
+    responderUuid?: string,
+    initialAnswers?: FormsortInitialAnswers
+  ) => void;
 }
 
 interface IFormsortWebEmbedConfig extends IFormsortEmbedConfig {
@@ -39,16 +52,16 @@ interface IFormsortWebEmbedConfig extends IFormsortEmbedConfig {
   iframeAllow?: string;
 }
 
-type FormsortPostDataValue =
+type FormsortInitialAnswerValue =
   | string
   | number
   | boolean
   | null
   | undefined
-  | FormsortPostDataValue[]
-  | { [key: string]: FormsortPostDataValue };
+  | FormsortInitialAnswerValue[]
+  | { [key: string]: FormsortInitialAnswerValue };
 
-type FormsortPostData = Record<string, FormsortPostDataValue>;
+type FormsortInitialAnswers = Record<string, FormsortInitialAnswerValue>;
 
 const DEFAULT_CONFIG: IFormsortWebEmbedConfig = {
   useHistoryAPI: false,
@@ -61,7 +74,7 @@ let secureIframeCount = 0;
 const addPostData = (
   formEl: HTMLFormElement,
   name: string,
-  value: FormsortPostDataValue
+  value: FormsortInitialAnswerValue
 ) => {
   if (value === undefined) {
     return;
@@ -105,8 +118,8 @@ const addPostData = (
 const createFormsortWebEmbed = (
   rootEl: HTMLElement,
   config: IFormsortWebEmbedConfig,
-  postData?: FormsortPostData
-): IFormsortWebEmbed => {
+  secure = false
+) => {
   const iframeEl = document.createElement('iframe');
   const { style, iframeAllow = DEFAULT_ALLOW, iframeTitle } = config;
   let loadedOrigin: string;
@@ -198,7 +211,8 @@ const createFormsortWebEmbed = (
     clientLabel: string,
     flowLabel: string,
     variantLabel?: string,
-    queryParams?: Array<[string, string]>
+    queryParamsOrResponderUuid?: Array<[string, string]> | string,
+    initialAnswers?: FormsortInitialAnswers
   ) => {
     let urlBase: string;
     if (config.origin) {
@@ -221,15 +235,15 @@ const createFormsortWebEmbed = (
     if (variantLabel) {
       url += `/variant/${variantLabel}`;
     }
-    if (queryParams) {
-      url += `?${queryParams
+    if (Array.isArray(queryParamsOrResponderUuid)) {
+      url += `?${queryParamsOrResponderUuid
         .map(
           ([key, value]) =>
             `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
         )
         .join('&')}`;
     }
-    if (!postData) {
+    if (!secure) {
       iframeEl.src = url;
       return;
     }
@@ -242,9 +256,12 @@ const createFormsortWebEmbed = (
     nextFormEl.hidden = true;
     nextFormEl.action = url;
     nextFormEl.target = iframeEl.name;
-    Object.entries(postData).forEach(([key, value]) => {
+    Object.entries(initialAnswers ?? {}).forEach(([key, value]) => {
       addPostData(nextFormEl, key, value);
     });
+    if (typeof queryParamsOrResponderUuid === 'string') {
+      addPostData(nextFormEl, 'responderUuid', queryParamsOrResponderUuid);
+    }
     rootEl.appendChild(nextFormEl);
     nextFormEl.submit();
   };
@@ -265,14 +282,14 @@ const FormsortWebEmbed = (
 
 const FormsortSecureWebEmbed = (
   rootEl: HTMLElement,
-  postData: FormsortPostData,
   config: IFormsortWebEmbedConfig = DEFAULT_CONFIG
-): IFormsortWebEmbed => createFormsortWebEmbed(rootEl, config, postData);
+): IFormsortSecureWebEmbed => createFormsortWebEmbed(rootEl, config, true);
 
 export {
-  FormsortPostData,
-  FormsortPostDataValue,
+  FormsortInitialAnswers,
+  FormsortInitialAnswerValue,
   FormsortSecureWebEmbed,
+  IFormsortSecureWebEmbed,
   IFormsortWebEmbed,
   IFormsortWebEmbedConfig,
   IEventMap,

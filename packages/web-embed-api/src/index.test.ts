@@ -857,12 +857,11 @@ describe('FormsortSecureWebEmbed', () => {
     const submitSpy = jest
       .spyOn(HTMLFormElement.prototype, 'submit')
       .mockImplementation(jest.fn());
-    const embed = FormsortSecureWebEmbed(document.body, {
-      responderUuid: 'responder-uuid',
+    const embed = FormsortSecureWebEmbed(document.body);
+
+    embed.loadFlow(clientLabel, flowLabel, variantLabel, 'responder-uuid', {
       firstName: 'Olivia',
     });
-
-    embed.loadFlow(clientLabel, flowLabel, variantLabel);
 
     const iframe = document.body.querySelector('iframe')!;
     const form = document.body.querySelector('form')!;
@@ -890,13 +889,13 @@ describe('FormsortSecureWebEmbed', () => {
     const submitSpy = jest
       .spyOn(HTMLFormElement.prototype, 'submit')
       .mockImplementation(jest.fn());
-    const embed = FormsortSecureWebEmbed(document.body, {
+    const embed = FormsortSecureWebEmbed(document.body);
+
+    embed.loadFlow(clientLabel, flowLabel, undefined, undefined, {
       colors: ['gray', 'brown'],
       address: { city: 'New York' },
       questionGroup: [{ groupText: 'first input' }],
     });
-
-    embed.loadFlow(clientLabel, flowLabel);
 
     const form = document.body.querySelector('form')!;
     const colors = form.querySelector<HTMLSelectElement>('[name="colors"]')!;
@@ -916,23 +915,19 @@ describe('FormsortSecureWebEmbed', () => {
     submitSpy.mockRestore();
   });
 
-  test('keeps non-sensitive query parameters in the URL', () => {
+  test('posts without a query string when secure parameters are omitted', () => {
     const submitSpy = jest
       .spyOn(HTMLFormElement.prototype, 'submit')
       .mockImplementation(jest.fn());
-    const embed = FormsortSecureWebEmbed(document.body, {
-      responderUuid: 'responder-uuid',
-    });
+    const embed = FormsortSecureWebEmbed(document.body);
 
-    embed.loadFlow(clientLabel, flowLabel, undefined, [
-      ['formsortEnv', 'staging'],
-    ]);
+    embed.loadFlow(clientLabel, flowLabel);
 
     const form = document.body.querySelector('form')!;
     expect(form.action).toBe(
-      `https://testclient.formsort.app/flow/${flowLabel}?formsortEnv=staging`
+      `https://testclient.formsort.app/flow/${flowLabel}`
     );
-    expect(form.action).not.toContain('responder-uuid');
+    expect(form.querySelectorAll('input, select')).toHaveLength(0);
     expect(submitSpy).toHaveBeenCalledTimes(1);
     submitSpy.mockRestore();
   });
