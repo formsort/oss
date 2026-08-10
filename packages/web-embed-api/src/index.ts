@@ -235,15 +235,17 @@ const createFormsortWebEmbed = (
     if (variantLabel) {
       url += `/variant/${variantLabel}`;
     }
-    if (Array.isArray(queryParamsOrResponderUuid)) {
-      url += `?${queryParamsOrResponderUuid
-        .map(
-          ([key, value]) =>
-            `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-        )
-        .join('&')}`;
-    }
+
     if (!secure) {
+      if (Array.isArray(queryParamsOrResponderUuid)) {
+        url += `?${queryParamsOrResponderUuid
+          .map(
+            ([key, value]) =>
+              `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+          )
+          .join('&')}`;
+      }
+
       iframeEl.src = url;
       return;
     }
