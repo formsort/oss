@@ -1,4 +1,7 @@
-import FormsortWebEmbed, { IFormsortWebEmbed } from '@formsort/web-embed-api';
+import FormsortWebEmbed, {
+  FormsortSecureWebEmbed,
+  IFormsortWebEmbed,
+} from '@formsort/web-embed-api';
 import { render } from '@testing-library/react';
 import React from 'react';
 
@@ -8,6 +11,9 @@ jest.mock('@formsort/web-embed-api');
 
 const mockWebEmbedApi = FormsortWebEmbed as jest.MockedFunction<
   typeof FormsortWebEmbed
+>;
+const mockSecureWebEmbedApi = FormsortSecureWebEmbed as jest.MockedFunction<
+  typeof FormsortSecureWebEmbed
 >;
 
 describe('EmbedFlow component', () => {
@@ -28,9 +34,11 @@ describe('EmbedFlow component', () => {
       removeEventListener: removeEventListenerMock,
     };
     mockWebEmbedApi.mockReturnValueOnce(embedMock);
+    mockSecureWebEmbedApi.mockReturnValue(embedMock);
   });
   afterEach(() => {
     mockWebEmbedApi.mockClear();
+    mockSecureWebEmbedApi.mockClear();
   });
 
   test('should load flows without variant label', () => {
@@ -124,6 +132,35 @@ describe('EmbedFlow component', () => {
         ['responderUuid', uuid],
         ['formsortEnv', 'staging'],
       ]
+    );
+  });
+
+  test('should load sensitive data with the secure web embed', () => {
+    const responderUuid = 'b1c7d9c8-f4b0-4f3f-9fc3-abf32ae8a061';
+    const postData = {
+      firstName: 'Olivia',
+    };
+
+    render(
+      <EmbedFlow
+        flowLabel="test-flow"
+        clientLabel="test-client"
+        responderUuid={responderUuid}
+        postData={postData}
+      />
+    );
+
+    expect(mockSecureWebEmbedApi).toHaveBeenCalledWith(
+      expect.any(HTMLDivElement),
+      { ...postData, responderUuid },
+      undefined
+    );
+    expect(mockWebEmbedApi).not.toHaveBeenCalled();
+    expect(loadMock).toHaveBeenCalledWith(
+      'test-client',
+      'test-flow',
+      undefined,
+      undefined
     );
   });
 });

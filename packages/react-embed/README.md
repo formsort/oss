@@ -35,6 +35,19 @@ const EmbedFlowExample: React.FunctionComponent = () => (
 );
 ```
 
+Pass responder data with `postData` to use the secure POST embed:
+
+```tsx
+<EmbedFlow
+  clientLabel="formsort"
+  flowLabel="onboarding"
+  postData={{
+    responderUuid: 'e4923baa-dc2d-4555-813c-a166952292fa',
+    firstName: 'Olivia',
+  }}
+/>
+```
+
 ### Events
 
 You can add event listeners to flows like `Flowloaded`, `redirect` etc. See [all event listeners](https://github.com/formsort/oss/tree/master/packages/web-embed-api#event-listeners)
@@ -49,6 +62,7 @@ You can add event listeners to flows like `Flowloaded`, `redirect` etc. See [all
 | responderUuid   | responder uuid to load existing answers for                                                                                                                      | no       | `e4923baa-dc2d-4555-813c-a166952292fa`                     |
 | formsortEnv     | formsort integrations environment label, if not using production                                                                                                 | no       | `staging`                                                  |
 | queryParams     | additional query params, to pre-populate answers in the form                                                                                                     | no       | `[['name', 'Olivia'], ['age', '3']]`                       |
+| postData        | responder data sent in a POST body; when present, the component uses `FormsortSecureWebEmbed`                                                                     | no       | `{ responderUuid: '<uuid>', firstName: 'Olivia' }`         |
 | embedConfig     | config passed to the underlying [`FormsortWebEmbed`](https://github.com/formsort/oss/tree/master/packages/web-embed-api)                                         | no       | `{ style: { height: '100%' } }`                            |
 | onFlowLoaded    | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowloaded-answers--key-string-any----void)                                  | no       | `() => { console.log('flow loaded') }`                     |
 | onFlowClosed    | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowclosed-answers--key-string-any---void)                                   | no       | `() => { console.log('flow closed') }`                     |

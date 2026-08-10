@@ -1,5 +1,7 @@
 import { SupportedAnalyticsEvent } from '@formsort/embed-messaging-manager';
 import FormsortWebEmbed, {
+  FormsortPostData,
+  FormsortSecureWebEmbed,
   IEventMap,
   IFormsortWebEmbed,
   IFormsortWebEmbedConfig,
@@ -19,6 +21,7 @@ interface ILoadProps {
   responderUuid?: string;
   formsortEnv?: FormsortEnv;
   queryParams?: Array<[string, string]>;
+  postData?: FormsortPostData;
   embedConfig?: IFormsortWebEmbedConfig;
 }
 
@@ -73,13 +76,18 @@ const onMount = (
     responderUuid,
     formsortEnv,
     queryParams = [],
+    postData,
     ...eventListeners
   } = props;
 
-  const embed = FormsortWebEmbed(containerElement, embedConfig);
+  const securePostData =
+    postData && responderUuid ? { ...postData, responderUuid } : postData;
+  const embed = securePostData
+    ? FormsortSecureWebEmbed(containerElement, securePostData, embedConfig)
+    : FormsortWebEmbed(containerElement, embedConfig);
   attachEventListenersToEmbed(embed, eventListeners);
 
-  if (responderUuid) {
+  if (responderUuid && !securePostData) {
     queryParams.push(['responderUuid', responderUuid]);
   }
   if (formsortEnv) {

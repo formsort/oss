@@ -28,6 +28,24 @@ Initializes a Formsort iframe as a child of the `rootEl` provided.
 const embed = FormsortWebEmbed(document.body);
 ```
 
+Use `FormsortSecureWebEmbed` to pass responder data in a POST body instead of
+the URL. Calling `loadFlow` submits the POST navigation to the iframe.
+
+```ts
+import { FormsortSecureWebEmbed } from '@formsort/web-embed-api';
+
+const embed = FormsortSecureWebEmbed(document.body, {
+  responderUuid: 'e4923baa-dc2d-4555-813c-a166952292fa',
+  firstName: 'Olivia',
+});
+
+embed.loadFlow('formsort', 'onboarding', 'main');
+```
+
+The POST data can contain scalar values, arrays, nested objects, and arrays of
+objects. The secure embed uses the same configuration, methods, and events as
+`FormsortWebEmbed`.
+
 The optional `config` object has the following interface:
 
 ```ts

@@ -39,19 +39,78 @@ interface IFormsortWebEmbedConfig extends IFormsortEmbedConfig {
   iframeAllow?: string;
 }
 
+type FormsortPostDataValue =
+  | string
+  | number
+  | boolean
+  | null
+  | undefined
+  | FormsortPostDataValue[]
+  | { [key: string]: FormsortPostDataValue };
+
+type FormsortPostData = Record<string, FormsortPostDataValue>;
+
 const DEFAULT_CONFIG: IFormsortWebEmbedConfig = {
   useHistoryAPI: false,
 };
 
 const DEFAULT_ALLOW = 'camera;';
 
-const FormsortWebEmbed = (
+let secureIframeCount = 0;
+
+const addPostData = (
+  formEl: HTMLFormElement,
+  name: string,
+  value: FormsortPostDataValue
+) => {
+  if (value === undefined) {
+    return;
+  }
+
+  if (Array.isArray(value)) {
+    if (value.every((item) => typeof item !== 'object' || item === null)) {
+      const selectEl = document.createElement('select');
+      selectEl.name = name;
+      selectEl.multiple = true;
+      value.forEach((item) => {
+        const optionEl = document.createElement('option');
+        optionEl.value = item === null ? '' : String(item);
+        optionEl.selected = true;
+        selectEl.appendChild(optionEl);
+      });
+      formEl.appendChild(selectEl);
+      return;
+    }
+
+    value.forEach((item, index) => {
+      addPostData(formEl, `${name}[${index}]`, item);
+    });
+    return;
+  }
+
+  if (typeof value === 'object' && value !== null) {
+    Object.entries(value).forEach(([key, item]) => {
+      addPostData(formEl, `${name}[${key}]`, item);
+    });
+    return;
+  }
+
+  const inputEl = document.createElement('input');
+  inputEl.type = 'hidden';
+  inputEl.name = name;
+  inputEl.value = value === null ? '' : String(value);
+  formEl.appendChild(inputEl);
+};
+
+const createFormsortWebEmbed = (
   rootEl: HTMLElement,
-  config: IFormsortWebEmbedConfig = DEFAULT_CONFIG
+  config: IFormsortWebEmbedConfig,
+  postData?: FormsortPostData
 ): IFormsortWebEmbed => {
   const iframeEl = document.createElement('iframe');
   const { style, iframeAllow = DEFAULT_ALLOW, iframeTitle } = config;
   let loadedOrigin: string;
+  let formEl: HTMLFormElement | undefined;
   iframeEl.style.border = 'none';
   iframeEl.allow = iframeAllow || DEFAULT_ALLOW;
   if (style) {
@@ -77,6 +136,7 @@ const FormsortWebEmbed = (
 
   const unloadFlow = () => {
     removeListeners();
+    formEl?.remove();
     try {
       rootEl.removeChild(iframeEl);
     } catch {
@@ -169,7 +229,24 @@ const FormsortWebEmbed = (
         )
         .join('&')}`;
     }
-    iframeEl.src = url;
+    if (!postData) {
+      iframeEl.src = url;
+      return;
+    }
+
+    formEl?.remove();
+    const nextFormEl = document.createElement('form');
+    formEl = nextFormEl;
+    iframeEl.name ||= `formsort-secure-embed-${secureIframeCount++}`;
+    nextFormEl.method = 'POST';
+    nextFormEl.hidden = true;
+    nextFormEl.action = url;
+    nextFormEl.target = iframeEl.name;
+    Object.entries(postData).forEach(([key, value]) => {
+      addPostData(nextFormEl, key, value);
+    });
+    rootEl.appendChild(nextFormEl);
+    nextFormEl.submit();
   };
 
   return {
@@ -181,7 +258,25 @@ const FormsortWebEmbed = (
   };
 };
 
-export { IFormsortWebEmbed, IFormsortWebEmbedConfig, IEventMap };
+const FormsortWebEmbed = (
+  rootEl: HTMLElement,
+  config: IFormsortWebEmbedConfig = DEFAULT_CONFIG
+): IFormsortWebEmbed => createFormsortWebEmbed(rootEl, config);
+
+const FormsortSecureWebEmbed = (
+  rootEl: HTMLElement,
+  postData: FormsortPostData,
+  config: IFormsortWebEmbedConfig = DEFAULT_CONFIG
+): IFormsortWebEmbed => createFormsortWebEmbed(rootEl, config, postData);
+
+export {
+  FormsortPostData,
+  FormsortPostDataValue,
+  FormsortSecureWebEmbed,
+  IFormsortWebEmbed,
+  IFormsortWebEmbedConfig,
+  IEventMap,
+};
 
 export { SupportedAnalyticsEvent } from '@formsort/embed-messaging-manager';
 
