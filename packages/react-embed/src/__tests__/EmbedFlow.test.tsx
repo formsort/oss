@@ -1,18 +1,26 @@
-import FormsortWebEmbed, { IFormsortWebEmbed } from '@formsort/web-embed-api';
+import FormsortWebEmbed, {
+  FormsortSecureWebEmbed,
+  IFormsortSecureWebEmbed,
+  IFormsortWebEmbed,
+} from '@formsort/web-embed-api';
 import { render } from '@testing-library/react';
 import React from 'react';
 
-import EmbedFlow from '..';
+import EmbedFlow, { SecureEmbedFlow } from '..';
 
 jest.mock('@formsort/web-embed-api');
 
 const mockWebEmbedApi = FormsortWebEmbed as jest.MockedFunction<
   typeof FormsortWebEmbed
 >;
+const mockSecureWebEmbedApi = FormsortSecureWebEmbed as jest.MockedFunction<
+  typeof FormsortSecureWebEmbed
+>;
 
 describe('EmbedFlow component', () => {
   let loadMock: jest.Mock;
   let embedMock: IFormsortWebEmbed;
+  let secureEmbedMock: IFormsortSecureWebEmbed;
   let addEventListenerMock: jest.Mock;
   let removeEventListenerMock: jest.Mock;
 
@@ -27,10 +35,16 @@ describe('EmbedFlow component', () => {
       addEventListener: addEventListenerMock,
       removeEventListener: removeEventListenerMock,
     };
+    secureEmbedMock = {
+      ...embedMock,
+      loadFlow: loadMock,
+    };
     mockWebEmbedApi.mockReturnValueOnce(embedMock);
+    mockSecureWebEmbedApi.mockReturnValue(secureEmbedMock);
   });
   afterEach(() => {
     mockWebEmbedApi.mockClear();
+    mockSecureWebEmbedApi.mockClear();
   });
 
   test('should load flows without variant label', () => {
@@ -105,7 +119,7 @@ describe('EmbedFlow component', () => {
     );
   });
 
-  test('should load flows with URL params', () => {
+  test('should load flows with URL parameters', () => {
     const uuid = 'b1c7d9c8-f4b0-4f3f-9fc3-abf32ae8a061';
     render(
       <EmbedFlow
@@ -114,6 +128,7 @@ describe('EmbedFlow component', () => {
         variantLabel="test-variant"
         responderUuid={uuid}
         formsortEnv="staging"
+        queryParams={[['campaign', 'summer']]}
       />
     );
     expect(loadMock).toBeCalledWith(
@@ -121,9 +136,39 @@ describe('EmbedFlow component', () => {
       'test-flow',
       'test-variant',
       [
+        ['campaign', 'summer'],
         ['responderUuid', uuid],
         ['formsortEnv', 'staging'],
       ]
+    );
+  });
+
+  test('should load sensitive data with the secure web embed', () => {
+    const responderUuid = 'b1c7d9c8-f4b0-4f3f-9fc3-abf32ae8a061';
+    const initialAnswers = {
+      firstName: 'Olivia',
+    };
+
+    render(
+      <SecureEmbedFlow
+        flowLabel="test-flow"
+        clientLabel="test-client"
+        responderUuid={responderUuid}
+        initialAnswers={initialAnswers}
+      />
+    );
+
+    expect(mockSecureWebEmbedApi).toHaveBeenCalledWith(
+      expect.any(HTMLDivElement),
+      undefined
+    );
+    expect(mockWebEmbedApi).not.toHaveBeenCalled();
+    expect(loadMock).toHaveBeenCalledWith(
+      'test-client',
+      'test-flow',
+      undefined,
+      responderUuid,
+      initialAnswers
     );
   });
 });

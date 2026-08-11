@@ -1,6 +1,9 @@
 import { SupportedAnalyticsEvent } from '@formsort/embed-messaging-manager';
 import FormsortWebEmbed, {
+  FormsortInitialAnswers,
+  FormsortSecureWebEmbed,
   IEventMap,
+  IFormsortSecureWebEmbed,
   IFormsortWebEmbed,
   IFormsortWebEmbedConfig,
 } from '@formsort/web-embed-api';
@@ -34,6 +37,14 @@ export interface IReactEmbedEventMap {
 
 export type EmbedFlowProps = ILoadProps & IReactEmbedEventMap;
 
+export type SecureEmbedFlowProps = Pick<
+  ILoadProps,
+  'clientLabel' | 'flowLabel' | 'variantLabel' | 'embedConfig'
+> & {
+  responderUuid?: string;
+  initialAnswers?: FormsortInitialAnswers;
+} & IReactEmbedEventMap;
+
 export const eventMapping: Record<keyof IReactEmbedEventMap, keyof IEventMap> =
   {
     onUnauthorized: 'unauthorized',
@@ -46,7 +57,7 @@ export const eventMapping: Record<keyof IReactEmbedEventMap, keyof IEventMap> =
   };
 
 const attachEventListenersToEmbed = (
-  embed: IFormsortWebEmbed,
+  embed: IFormsortWebEmbed | IFormsortSecureWebEmbed,
   events: IReactEmbedEventMap
 ): void => {
   for (const [reactEventName, listener] of Object.entries(events)) {
@@ -78,7 +89,6 @@ const onMount = (
 
   const embed = FormsortWebEmbed(containerElement, embedConfig);
   attachEventListenersToEmbed(embed, eventListeners);
-
   if (responderUuid) {
     queryParams.push(['responderUuid', responderUuid]);
   }
@@ -96,6 +106,36 @@ const onMount = (
   return embed;
 };
 
+const onSecureMount = (
+  containerRef: React.RefObject<HTMLDivElement>,
+  props: SecureEmbedFlowProps
+): IFormsortSecureWebEmbed | undefined => {
+  const containerElement = containerRef.current;
+  if (!containerElement) {
+    return;
+  }
+
+  const {
+    clientLabel,
+    flowLabel,
+    variantLabel,
+    embedConfig,
+    responderUuid,
+    initialAnswers,
+    ...eventListeners
+  } = props;
+  const embed = FormsortSecureWebEmbed(containerElement, embedConfig);
+  attachEventListenersToEmbed(embed, eventListeners);
+  embed.loadFlow(
+    clientLabel,
+    flowLabel,
+    variantLabel,
+    responderUuid,
+    initialAnswers
+  );
+  return embed;
+};
+
 const EmbedFlow: React.FunctionComponent<EmbedFlowProps> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const style = props.embedConfig?.style;
@@ -103,6 +143,32 @@ const EmbedFlow: React.FunctionComponent<EmbedFlowProps> = (props) => {
 
   useEffect(() => {
     const embed = onMount(containerRef, props);
+
+    embed?.addEventListener(SupportedAnalyticsEvent.FlowClosed, () => {
+      setFlowClosed(true);
+    });
+
+    return () => {
+      embed?.unloadFlow();
+    };
+  }, []);
+
+  if (flowClosed) {
+    return null;
+  }
+
+  return <div ref={containerRef} style={style} />;
+};
+
+export const SecureEmbedFlow: React.FunctionComponent<SecureEmbedFlowProps> = (
+  props
+) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const style = props.embedConfig?.style;
+  const [flowClosed, setFlowClosed] = useState(false);
+
+  useEffect(() => {
+    const embed = onSecureMount(containerRef, props);
 
     embed?.addEventListener(SupportedAnalyticsEvent.FlowClosed, () => {
       setFlowClosed(true);

@@ -1,6 +1,9 @@
 import { AnalyticsEventType, WebEmbedMessage } from '@formsort/constants';
 
-import FormsortWebEmbed, { SupportedAnalyticsEvent } from '.';
+import FormsortWebEmbed, {
+  FormsortSecureWebEmbed,
+  SupportedAnalyticsEvent,
+} from '.';
 
 type MessageListener = (msg: MessageEvent) => any;
 
@@ -842,5 +845,90 @@ describe('FormsortWebEmbed', () => {
     expect(window.location.assign).toBeCalledTimes(1);
     expect(window.location.assign).toBeCalledWith(redirectUrl);
     expect(pushStateSpy).toBeCalledTimes(0);
+  });
+});
+
+describe('FormsortSecureWebEmbed', () => {
+  beforeEach(() => {
+    document.body.innerHTML = '';
+  });
+
+  test('loads a flow by posting data to the iframe', () => {
+    const submitSpy = jest
+      .spyOn(HTMLFormElement.prototype, 'submit')
+      .mockImplementation(jest.fn());
+    const embed = FormsortSecureWebEmbed(document.body);
+
+    embed.loadFlow(clientLabel, flowLabel, variantLabel, 'responder-uuid', {
+      firstName: 'Olivia',
+    });
+
+    const iframe = document.body.querySelector('iframe')!;
+    const form = document.body.querySelector('form')!;
+    expect(iframe.src).toBe('');
+    expect(iframe.name).not.toBe('');
+    expect(form.method).toBe('post');
+    expect(form.hidden).toBe(true);
+    expect(form.action).toBe(
+      `https://testclient.formsort.app/flow/${flowLabel}/variant/${variantLabel}`
+    );
+    expect(form.target).toBe(iframe.name);
+    expect(form.querySelector('[name="responderUuid"]')).toHaveProperty(
+      'value',
+      'responder-uuid'
+    );
+    expect(form.querySelector('[name="firstName"]')).toHaveProperty(
+      'value',
+      'Olivia'
+    );
+    expect(submitSpy).toHaveBeenCalledTimes(1);
+    submitSpy.mockRestore();
+  });
+
+  test('posts arrays and nested fields with bracket notation', () => {
+    const submitSpy = jest
+      .spyOn(HTMLFormElement.prototype, 'submit')
+      .mockImplementation(jest.fn());
+    const embed = FormsortSecureWebEmbed(document.body);
+
+    embed.loadFlow(clientLabel, flowLabel, undefined, undefined, {
+      colors: ['gray', 'brown'],
+      address: { city: 'New York' },
+      questionGroup: [{ groupText: 'first input' }],
+    });
+
+    const form = document.body.querySelector('form')!;
+    const colors = form.querySelector<HTMLSelectElement>('[name="colors"]')!;
+    expect(colors.multiple).toBe(true);
+    expect(Array.from(colors.selectedOptions, ({ value }) => value)).toEqual([
+      'gray',
+      'brown',
+    ]);
+    expect(form.querySelector('[name="address[city]"]')).toHaveProperty(
+      'value',
+      'New York'
+    );
+    expect(
+      form.querySelector('[name="questionGroup[0][groupText]"]')
+    ).toHaveProperty('value', 'first input');
+    expect(submitSpy).toHaveBeenCalledTimes(1);
+    submitSpy.mockRestore();
+  });
+
+  test('posts without a query string when secure parameters are omitted', () => {
+    const submitSpy = jest
+      .spyOn(HTMLFormElement.prototype, 'submit')
+      .mockImplementation(jest.fn());
+    const embed = FormsortSecureWebEmbed(document.body);
+
+    embed.loadFlow(clientLabel, flowLabel);
+
+    const form = document.body.querySelector('form')!;
+    expect(form.action).toBe(
+      `https://testclient.formsort.app/flow/${flowLabel}`
+    );
+    expect(form.querySelectorAll('input, select')).toHaveLength(0);
+    expect(submitSpy).toHaveBeenCalledTimes(1);
+    submitSpy.mockRestore();
   });
 });

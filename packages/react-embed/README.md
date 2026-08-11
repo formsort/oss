@@ -35,6 +35,26 @@ const EmbedFlowExample: React.FunctionComponent = () => (
 );
 ```
 
+Use the separate `SecureEmbedFlow` component to pass responder data in a POST
+body:
+
+```tsx
+import { SecureEmbedFlow } from '@formsort/react-embed';
+
+<SecureEmbedFlow
+  clientLabel="formsort"
+  flowLabel="onboarding"
+  // responderUuid={optionalResponderUuid}
+  initialAnswers={{
+    firstName: 'Olivia',
+  }}
+/>;
+```
+
+`responderUuid` and `initialAnswers` are optional. `SecureEmbedFlow` does not
+accept `queryParams` or `formsortEnv`. It has the same configuration and event
+props as `EmbedFlow`.
+
 ### Events
 
 You can add event listeners to flows like `Flowloaded`, `redirect` etc. See [all event listeners](https://github.com/formsort/oss/tree/master/packages/web-embed-api#event-listeners)
@@ -57,6 +77,17 @@ You can add event listeners to flows like `Flowloaded`, `redirect` etc. See [all
 | onStepCompleted | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#steploaded-answers--key-string-any---void)                                   | no       | `() => { console.log('step loaded') }`                     |
 | onRedirect      | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#redirect--url-string-answers--key-string-any-----cancel-boolean---undefined) | no       | `(url: string) => { console.log('redirecting to:', url) }` |
 | onUnauthorized  | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#unauthorized---void)                                                         | no       | `() => { console.log('ID token is missing or invalid.') }` |
+
+### SecureEmbedFlow props
+
+`SecureEmbedFlow` supports `clientLabel`, `flowLabel`, `variantLabel`,
+`embedConfig`, and all event props from `EmbedFlow`. It also supports these
+secure POST props:
+
+| Prop name      | Description                           | Required | Example values                         |
+| -------------- | ------------------------------------- | -------- | -------------------------------------- |
+| responderUuid  | responder UUID sent in the POST body  | no       | `e4923baa-dc2d-4555-813c-a166952292fa` |
+| initialAnswers | initial answers sent in the POST body | no       | `{ firstName: 'Olivia' }`              |
 
 ### Loading a specific variant revision
 
