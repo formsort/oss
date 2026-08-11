@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.6.0
+
+### New Features ✨
+
+- Secure embed in react embed by @alikirec in [#207](https://github.com/formsort/oss/pull/207)
+
 ## 3.5.0
 
 ### Various fixes & improvements
