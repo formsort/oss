@@ -44,11 +44,11 @@ import { SecureEmbedFlow } from '@formsort/react-embed';
 <SecureEmbedFlow
   clientLabel="formsort"
   flowLabel="onboarding"
-  responderUuid="e4923baa-dc2d-4555-813c-a166952292fa"
+  // responderUuid={optionalResponderUuid}
   initialAnswers={{
     firstName: 'Olivia',
   }}
-/>
+/>;
 ```
 
 `responderUuid` and `initialAnswers` are optional. `SecureEmbedFlow` does not
@@ -84,10 +84,10 @@ You can add event listeners to flows like `Flowloaded`, `redirect` etc. See [all
 `embedConfig`, and all event props from `EmbedFlow`. It also supports these
 secure POST props:
 
-| Prop name      | Description                               | Required | Example values                         |
-| -------------- | ----------------------------------------- | -------- | -------------------------------------- |
-| responderUuid  | responder UUID sent in the POST body      | no       | `e4923baa-dc2d-4555-813c-a166952292fa` |
-| initialAnswers | initial answers sent in the POST body     | no       | `{ firstName: 'Olivia' }`              |
+| Prop name      | Description                           | Required | Example values                         |
+| -------------- | ------------------------------------- | -------- | -------------------------------------- |
+| responderUuid  | responder UUID sent in the POST body  | no       | `e4923baa-dc2d-4555-813c-a166952292fa` |
+| initialAnswers | initial answers sent in the POST body | no       | `{ firstName: 'Olivia' }`              |
 
 ### Loading a specific variant revision
 
