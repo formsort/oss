@@ -126,7 +126,7 @@ importers:
         specifier: ^0.3.0
         version: link:../embed-messaging-manager
       '@formsort/web-embed-api':
-        specifier: ^2.10.0
+        specifier: ^2.11.0
         version: link:../web-embed-api
     devDependencies:
       '@formsort/tsconfig':
