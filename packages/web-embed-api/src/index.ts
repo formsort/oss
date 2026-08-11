@@ -136,6 +136,11 @@ const createFormsortWebEmbed = (
     iframeEl.title = iframeTitle;
   }
 
+  const frameName = `formsort-secure-embed-form-${secureIframeCount++}`;
+  iframeEl.name = frameName;
+
+  // frame name should be set before appending to the DOM
+  // otherwise POSTs targeting the iframe can open a new tab instead of the iframe
   rootEl.appendChild(iframeEl);
 
   const setSize = (width?: string | number, height?: string | number) => {
@@ -253,11 +258,10 @@ const createFormsortWebEmbed = (
     formEl?.remove();
     const nextFormEl = document.createElement('form');
     formEl = nextFormEl;
-    iframeEl.name ||= `formsort-secure-embed-${secureIframeCount++}`;
     nextFormEl.method = 'POST';
     nextFormEl.hidden = true;
     nextFormEl.action = url;
-    nextFormEl.target = iframeEl.name;
+    nextFormEl.target = frameName;
     Object.entries(initialAnswers ?? {}).forEach(([key, value]) => {
       addPostData(nextFormEl, key, value);
     });
