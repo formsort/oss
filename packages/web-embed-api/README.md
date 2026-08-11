@@ -38,10 +38,10 @@ const embed = FormsortSecureWebEmbed(document.body);
 
 embed.loadFlow(
   'formsort',
-  'onboarding',
-  'main',
-  'e4923baa-dc2d-4555-813c-a166952292fa',
-  { firstName: 'Olivia' }
+  'onboarding'
+  // 'main', // [optional] variantLabel
+  // 'e4923baa-dc2d-4555-813c-a166952292fa', // [optional] responderUuid
+  // { firstName: 'Olivia' } // [optional] initialAnswers
 );
 ```
 
