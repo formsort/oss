@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 2.11.0
+
+### New Features ✨
+
+- Secure embed in web embed and react embed by @alikirec in [#206](https://github.com/formsort/oss/pull/206)
+
+### Internal Changes 🔧
+
+- Tooling upgrade by @alikirec in [#197](https://github.com/formsort/oss/pull/197)
+
 ## 2.10.0
 
 ### Various fixes & improvements
