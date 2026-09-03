@@ -155,6 +155,7 @@ describe('EmbedFlow component', () => {
         clientLabel="test-client"
         responderUuid={responderUuid}
         initialAnswers={initialAnswers}
+        formsortEnv="staging"
       />
     );
 
@@ -168,7 +169,8 @@ describe('EmbedFlow component', () => {
       'test-flow',
       undefined,
       responderUuid,
-      initialAnswers
+      initialAnswers,
+      'staging'
     );
   });
 });

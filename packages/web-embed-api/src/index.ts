@@ -35,7 +35,8 @@ interface IFormsortSecureWebEmbed extends IFormsortEmbedControls {
     flowLabel: string,
     variantLabel?: string,
     responderUuid?: string,
-    initialAnswers?: FormsortInitialAnswers
+    initialAnswers?: FormsortInitialAnswers,
+    formsortEnv?: string
   ) => void;
 }
 
@@ -217,7 +218,8 @@ const createFormsortWebEmbed = (
     flowLabel: string,
     variantLabel?: string,
     queryParamsOrResponderUuid?: Array<[string, string]> | string,
-    initialAnswers?: FormsortInitialAnswers
+    initialAnswers?: FormsortInitialAnswers,
+    formsortEnv?: string
   ) => {
     let urlBase: string;
     if (config.origin) {
@@ -253,6 +255,10 @@ const createFormsortWebEmbed = (
 
       iframeEl.src = url;
       return;
+    }
+
+    if (formsortEnv) {
+      url += `?formsortEnv=${encodeURIComponent(formsortEnv)}`;
     }
 
     formEl?.remove();

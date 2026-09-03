@@ -931,4 +931,29 @@ describe('FormsortSecureWebEmbed', () => {
     expect(submitSpy).toHaveBeenCalledTimes(1);
     submitSpy.mockRestore();
   });
+
+  test('adds an encoded formsort environment to the POST URL', () => {
+    const submitSpy = jest
+      .spyOn(HTMLFormElement.prototype, 'submit')
+      .mockImplementation(jest.fn());
+    const embed = FormsortSecureWebEmbed(document.body);
+
+    embed.loadFlow(
+      clientLabel,
+      flowLabel,
+      undefined,
+      undefined,
+      undefined,
+      'test & preview'
+    );
+
+    const form = document.body.querySelector('form')!;
+    expect(form.action).toBe(
+      `https://testclient.formsort.app/flow/${flowLabel}` +
+        '?formsortEnv=test%20%26%20preview'
+    );
+    expect(form.querySelectorAll('input, select')).toHaveLength(0);
+    expect(submitSpy).toHaveBeenCalledTimes(1);
+    submitSpy.mockRestore();
+  });
 });
