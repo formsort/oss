@@ -39,7 +39,7 @@ export type EmbedFlowProps = ILoadProps & IReactEmbedEventMap;
 
 export type SecureEmbedFlowProps = Pick<
   ILoadProps,
-  'clientLabel' | 'flowLabel' | 'variantLabel' | 'embedConfig'
+  'clientLabel' | 'flowLabel' | 'variantLabel' | 'embedConfig' | 'formsortEnv'
 > & {
   responderUuid?: string;
   initialAnswers?: FormsortInitialAnswers;
@@ -122,6 +122,7 @@ const onSecureMount = (
     embedConfig,
     responderUuid,
     initialAnswers,
+    formsortEnv,
     ...eventListeners
   } = props;
   const embed = FormsortSecureWebEmbed(containerElement, embedConfig);
@@ -131,7 +132,8 @@ const onSecureMount = (
     flowLabel,
     variantLabel,
     responderUuid,
-    initialAnswers
+    initialAnswers,
+    formsortEnv
   );
   return embed;
 };

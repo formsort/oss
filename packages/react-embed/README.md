@@ -48,12 +48,14 @@ import { SecureEmbedFlow } from '@formsort/react-embed';
   initialAnswers={{
     firstName: 'Olivia',
   }}
+  formsortEnv="staging"
 />;
 ```
 
-`responderUuid` and `initialAnswers` are optional. `SecureEmbedFlow` does not
-accept `queryParams` or `formsortEnv`. It has the same configuration and event
-props as `EmbedFlow`.
+`responderUuid`, `initialAnswers`, and `formsortEnv` are optional.
+`SecureEmbedFlow` does not accept `queryParams`. It sends `responderUuid` and
+`initialAnswers` in the POST body. It adds `formsortEnv` to the navigation URL.
+It has the same configuration and event props as `EmbedFlow`.
 
 ### Events
 
@@ -82,12 +84,13 @@ You can add event listeners to flows like `Flowloaded`, `redirect` etc. See [all
 
 `SecureEmbedFlow` supports `clientLabel`, `flowLabel`, `variantLabel`,
 `embedConfig`, and all event props from `EmbedFlow`. It also supports these
-secure POST props:
+secure embed props:
 
 | Prop name      | Description                           | Required | Example values                         |
 | -------------- | ------------------------------------- | -------- | -------------------------------------- |
 | responderUuid  | responder UUID sent in the POST body  | no       | `e4923baa-dc2d-4555-813c-a166952292fa` |
 | initialAnswers | initial answers sent in the POST body | no       | `{ firstName: 'Olivia' }`              |
+| formsortEnv    | integrations environment              | no       | `staging`                              |
 
 ### Loading a specific variant revision
 
