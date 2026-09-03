@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.11.1
+
+### New Features ✨
+
+- Support formsort env in secure embeds by @alikirec in [#208](https://github.com/formsort/oss/pull/208)
+
 ## 2.11.0
 
 ### New Features ✨
