@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.6.1
+
+### New Features ✨
+
+- Formsort env in react secure embed by @alikirec in [#209](https://github.com/formsort/oss/pull/209)
+
 ## 3.6.0
 
 ### New Features ✨
