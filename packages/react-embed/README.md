@@ -86,11 +86,11 @@ You can add event listeners to flows like `Flowloaded`, `redirect` etc. See [all
 `embedConfig`, and all event props from `EmbedFlow`. It also supports these
 secure embed props:
 
-| Prop name      | Description                                      | Required | Example values                         |
-| -------------- | ------------------------------------------------ | -------- | -------------------------------------- |
-| responderUuid  | responder UUID sent in the POST body             | no       | `e4923baa-dc2d-4555-813c-a166952292fa` |
-| initialAnswers | initial answers sent in the POST body            | no       | `{ firstName: 'Olivia' }`              |
-| formsortEnv    | integrations environment added to the request URL | no       | `staging`                              |
+| Prop name      | Description                           | Required | Example values                         |
+| -------------- | ------------------------------------- | -------- | -------------------------------------- |
+| responderUuid  | responder UUID sent in the POST body  | no       | `e4923baa-dc2d-4555-813c-a166952292fa` |
+| initialAnswers | initial answers sent in the POST body | no       | `{ firstName: 'Olivia' }`              |
+| formsortEnv    | integrations environment              | no       | `staging`                              |
 
 ### Loading a specific variant revision
 

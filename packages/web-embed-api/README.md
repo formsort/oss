@@ -56,9 +56,7 @@ Initializes a secure Formsort iframe. It has the same configuration, methods,
 and events as `FormsortWebEmbed`.
 
 Its `loadFlow` method accepts optional `responderUuid`, `initialAnswers`, and
-`formsortEnv` values. It does not accept general query parameters. The secure
-embed sends `responderUuid` and `initialAnswers` in the POST body. It adds
-`formsortEnv` to the navigation URL when you supply it:
+`formsortEnv` values. It does not accept general query parameters.
 
 ```ts
 loadFlow(
