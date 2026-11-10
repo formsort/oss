@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.7.0
+
+### New Features ✨
+
+- VariantRevisionUuid in react secure embed by @alikirec in [#212](https://github.com/formsort/oss/pull/212)
+
 ## 3.6.1
 
 ### New Features ✨
