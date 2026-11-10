@@ -21,6 +21,7 @@ interface ILoadProps {
   variantLabel?: string;
   responderUuid?: string;
   formsortEnv?: FormsortEnv;
+  variantRevisionUuid?: string;
   queryParams?: Array<[string, string]>;
   embedConfig?: IFormsortWebEmbedConfig;
 }
@@ -39,7 +40,12 @@ export type EmbedFlowProps = ILoadProps & IReactEmbedEventMap;
 
 export type SecureEmbedFlowProps = Pick<
   ILoadProps,
-  'clientLabel' | 'flowLabel' | 'variantLabel' | 'embedConfig' | 'formsortEnv'
+  | 'clientLabel'
+  | 'flowLabel'
+  | 'variantLabel'
+  | 'embedConfig'
+  | 'formsortEnv'
+  | 'variantRevisionUuid'
 > & {
   responderUuid?: string;
   initialAnswers?: FormsortInitialAnswers;
@@ -83,6 +89,7 @@ const onMount = (
     embedConfig,
     responderUuid,
     formsortEnv,
+    variantRevisionUuid,
     queryParams = [],
     ...eventListeners
   } = props;
@@ -94,6 +101,9 @@ const onMount = (
   }
   if (formsortEnv) {
     queryParams.push(['formsortEnv', formsortEnv]);
+  }
+  if (variantRevisionUuid) {
+    queryParams.push(['variantRevisionUuid', variantRevisionUuid]);
   }
 
   embed.loadFlow(
@@ -123,6 +133,7 @@ const onSecureMount = (
     responderUuid,
     initialAnswers,
     formsortEnv,
+    variantRevisionUuid,
     ...eventListeners
   } = props;
   const embed = FormsortSecureWebEmbed(containerElement, embedConfig);
@@ -133,7 +144,8 @@ const onSecureMount = (
     variantLabel,
     responderUuid,
     initialAnswers,
-    formsortEnv
+    formsortEnv,
+    variantRevisionUuid
   );
   return embed;
 };

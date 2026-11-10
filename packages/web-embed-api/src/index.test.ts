@@ -956,4 +956,62 @@ describe('FormsortSecureWebEmbed', () => {
     expect(submitSpy).toHaveBeenCalledTimes(1);
     submitSpy.mockRestore();
   });
+
+  test('adds a variant revision UUID to the POST URL', () => {
+    const submitSpy = jest
+      .spyOn(HTMLFormElement.prototype, 'submit')
+      .mockImplementation(jest.fn());
+    const embed = FormsortSecureWebEmbed(document.body);
+    const variantRevisionUuid = 'a1b2c3d4-0000-4000-8000-000000000000';
+
+    embed.loadFlow(
+      clientLabel,
+      flowLabel,
+      'main',
+      undefined,
+      undefined,
+      undefined,
+      variantRevisionUuid
+    );
+
+    const form = document.body.querySelector('form')!;
+    expect(form.action).toBe(
+      `https://testclient.formsort.app/flow/${flowLabel}/variant/main` +
+        `?variantRevisionUuid=${variantRevisionUuid}`
+    );
+    expect(form.querySelectorAll('input, select')).toHaveLength(0);
+    expect(submitSpy).toHaveBeenCalledTimes(1);
+    submitSpy.mockRestore();
+  });
+
+  test('combines formsort environment and variant revision UUID in the POST URL', () => {
+    const submitSpy = jest
+      .spyOn(HTMLFormElement.prototype, 'submit')
+      .mockImplementation(jest.fn());
+    const embed = FormsortSecureWebEmbed(document.body);
+    const responderUuid = 'e4923baa-dc2d-4555-813c-a166952292fa';
+
+    embed.loadFlow(
+      clientLabel,
+      flowLabel,
+      undefined,
+      responderUuid,
+      { firstName: 'Olivia' },
+      'staging',
+      'rev & 1'
+    );
+
+    const form = document.body.querySelector('form')!;
+    expect(form.action).toBe(
+      `https://testclient.formsort.app/flow/${flowLabel}` +
+        '?formsortEnv=staging&variantRevisionUuid=rev%20%26%201'
+    );
+    const responderInput = form.querySelector<HTMLInputElement>(
+      'input[name="responderUuid"]'
+    );
+    expect(responderInput?.value).toBe(responderUuid);
+    expect(form.querySelector('input[name="variantRevisionUuid"]')).toBeNull();
+    expect(submitSpy).toHaveBeenCalledTimes(1);
+    submitSpy.mockRestore();
+  });
 });

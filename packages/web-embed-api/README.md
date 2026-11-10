@@ -42,7 +42,8 @@ embed.loadFlow(
   'main',
   'e4923baa-dc2d-4555-813c-a166952292fa',
   { firstName: 'Olivia' },
-  'staging'
+  'staging',
+  '0a3c4f52-1b8e-4d1a-9b6f-3a2e5c7d9f10'
 );
 ```
 
@@ -55,8 +56,11 @@ objects. The secure embed uses the same configuration, methods, and events as
 Initializes a secure Formsort iframe. It has the same configuration, methods,
 and events as `FormsortWebEmbed`.
 
-Its `loadFlow` method accepts optional `responderUuid`, `initialAnswers`, and
-`formsortEnv` values. It does not accept general query parameters.
+Its `loadFlow` method accepts optional `responderUuid`, `initialAnswers`,
+`formsortEnv`, and `variantRevisionUuid` values. `responderUuid` and
+`initialAnswers` are sent in the POST body. `formsortEnv` and
+`variantRevisionUuid` are added to the navigation URL. It does not accept
+general query parameters.
 
 ```ts
 loadFlow(
@@ -65,7 +69,8 @@ loadFlow(
   variantLabel?: string,
   responderUuid?: string,
   initialAnswers?: FormsortInitialAnswers,
-  formsortEnv?: string
+  formsortEnv?: string,
+  variantRevisionUuid?: string
 ) => void;
 ```
 

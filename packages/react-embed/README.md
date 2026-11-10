@@ -49,12 +49,14 @@ import { SecureEmbedFlow } from '@formsort/react-embed';
     firstName: 'Olivia',
   }}
   formsortEnv="staging"
+  // variantRevisionUuid={optionalVariantRevisionUuid}
 />;
 ```
 
-`responderUuid`, `initialAnswers`, and `formsortEnv` are optional.
-`SecureEmbedFlow` does not accept `queryParams`. It sends `responderUuid` and
-`initialAnswers` in the POST body. It adds `formsortEnv` to the navigation URL.
+`responderUuid`, `initialAnswers`, `formsortEnv`, and `variantRevisionUuid` are
+optional. `SecureEmbedFlow` does not accept `queryParams`. It sends
+`responderUuid` and `initialAnswers` in the POST body. It adds `formsortEnv` and
+`variantRevisionUuid` to the navigation URL.
 It has the same configuration and event props as `EmbedFlow`.
 
 ### Events
@@ -63,22 +65,23 @@ You can add event listeners to flows like `Flowloaded`, `redirect` etc. See [all
 
 ### Props
 
-| Prop name       | Description                                                                                                                                                      | Required | Example values                                             |
-| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------- |
-| clientLabel     | client name                                                                                                                                                      | yes      | `formsort`                                                 |
-| flowLabel       | flow name                                                                                                                                                        | yes      | `onboarding`                                               |
-| variantLabel    | variant name                                                                                                                                                     | no       | `main`                                                     |
-| responderUuid   | responder uuid to load existing answers for                                                                                                                      | no       | `e4923baa-dc2d-4555-813c-a166952292fa`                     |
-| formsortEnv     | formsort integrations environment label, if not using production                                                                                                 | no       | `staging`                                                  |
-| queryParams     | additional query params, to pre-populate answers in the form                                                                                                     | no       | `[['name', 'Olivia'], ['age', '3']]`                       |
-| embedConfig     | config passed to the underlying [`FormsortWebEmbed`](https://github.com/formsort/oss/tree/master/packages/web-embed-api)                                         | no       | `{ style: { height: '100%' } }`                            |
-| onFlowLoaded    | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowloaded-answers--key-string-any----void)                                  | no       | `() => { console.log('flow loaded') }`                     |
-| onFlowClosed    | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowclosed-answers--key-string-any---void)                                   | no       | `() => { console.log('flow closed') }`                     |
-| onFlowFinalized | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowfinalized-answers--key-string-any---void)                                | no       | `() => { console.log('flow finalized') }`                  |
-| onStepLoaded    | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#steploaded-answers--key-string-any---void)                                   | no       | `() => { console.log('step loaded') }`                     |
-| onStepCompleted | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#steploaded-answers--key-string-any---void)                                   | no       | `() => { console.log('step loaded') }`                     |
-| onRedirect      | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#redirect--url-string-answers--key-string-any-----cancel-boolean---undefined) | no       | `(url: string) => { console.log('redirecting to:', url) }` |
-| onUnauthorized  | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#unauthorized---void)                                                         | no       | `() => { console.log('ID token is missing or invalid.') }` |
+| Prop name           | Description                                                                                                                                                      | Required | Example values                                             |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------- |
+| clientLabel         | client name                                                                                                                                                      | yes      | `formsort`                                                 |
+| flowLabel           | flow name                                                                                                                                                        | yes      | `onboarding`                                               |
+| variantLabel        | variant name                                                                                                                                                     | no       | `main`                                                     |
+| responderUuid       | responder uuid to load existing answers for                                                                                                                      | no       | `e4923baa-dc2d-4555-813c-a166952292fa`                     |
+| formsortEnv         | formsort integrations environment label, if not using production                                                                                                 | no       | `staging`                                                  |
+| variantRevisionUuid | variant revision UUID to load a specific revision instead of the latest one                                                                                      | no       | `0a3c4f52-1b8e-4d1a-9b6f-3a2e5c7d9f10`                     |
+| queryParams         | additional query params, to pre-populate answers in the form                                                                                                     | no       | `[['name', 'Olivia'], ['age', '3']]`                       |
+| embedConfig         | config passed to the underlying [`FormsortWebEmbed`](https://github.com/formsort/oss/tree/master/packages/web-embed-api)                                         | no       | `{ style: { height: '100%' } }`                            |
+| onFlowLoaded        | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowloaded-answers--key-string-any----void)                                  | no       | `() => { console.log('flow loaded') }`                     |
+| onFlowClosed        | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowclosed-answers--key-string-any---void)                                   | no       | `() => { console.log('flow closed') }`                     |
+| onFlowFinalized     | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#flowfinalized-answers--key-string-any---void)                                | no       | `() => { console.log('flow finalized') }`                  |
+| onStepLoaded        | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#steploaded-answers--key-string-any---void)                                   | no       | `() => { console.log('step loaded') }`                     |
+| onStepCompleted     | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#steploaded-answers--key-string-any---void)                                   | no       | `() => { console.log('step loaded') }`                     |
+| onRedirect          | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#redirect--url-string-answers--key-string-any-----cancel-boolean---undefined) | no       | `(url: string) => { console.log('redirecting to:', url) }` |
+| onUnauthorized      | [event listener](https://github.com/formsort/oss/tree/master/packages/web-embed-api#unauthorized---void)                                                         | no       | `() => { console.log('ID token is missing or invalid.') }` |
 
 ### SecureEmbedFlow props
 
@@ -86,15 +89,16 @@ You can add event listeners to flows like `Flowloaded`, `redirect` etc. See [all
 `embedConfig`, and all event props from `EmbedFlow`. It also supports these
 secure embed props:
 
-| Prop name      | Description                           | Required | Example values                         |
-| -------------- | ------------------------------------- | -------- | -------------------------------------- |
-| responderUuid  | responder UUID sent in the POST body  | no       | `e4923baa-dc2d-4555-813c-a166952292fa` |
-| initialAnswers | initial answers sent in the POST body | no       | `{ firstName: 'Olivia' }`              |
-| formsortEnv    | integrations environment              | no       | `staging`                              |
+| Prop name           | Description                           | Required | Example values                         |
+| ------------------- | ------------------------------------- | -------- | -------------------------------------- |
+| responderUuid       | responder UUID sent in the POST body  | no       | `e4923baa-dc2d-4555-813c-a166952292fa` |
+| initialAnswers      | initial answers sent in the POST body | no       | `{ firstName: 'Olivia' }`              |
+| formsortEnv         | integrations environment              | no       | `staging`                              |
+| variantRevisionUuid | variant revision UUID to load         | no       | `0a3c4f52-1b8e-4d1a-9b6f-3a2e5c7d9f10` |
 
 ### Loading a specific variant revision
 
-You can use query parameters to load a specific variant revision. Don't use it if you want to show latest variant.
+Use the `variantRevisionUuid` prop to load a specific variant revision. Don't use it if you want to show the latest variant. Both `EmbedFlow` and `SecureEmbedFlow` support it.
 
 ```tsx
 import React from 'react';
@@ -106,7 +110,7 @@ const EmbedFlowExample: React.FunctionComponent = () => (
       clientLabel="formsort"
       flowLabel="onboarding"
       variantLabel="main"
-      queryParams={['variantRevisionUuid', '<uuidv4>']}
+      variantRevisionUuid="<uuidv4>"
     />
   </div>
 );
