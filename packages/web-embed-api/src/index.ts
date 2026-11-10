@@ -36,7 +36,8 @@ interface IFormsortSecureWebEmbed extends IFormsortEmbedControls {
     variantLabel?: string,
     responderUuid?: string,
     initialAnswers?: FormsortInitialAnswers,
-    formsortEnv?: string
+    formsortEnv?: string,
+    variantRevisionUuid?: string
   ) => void;
 }
 
@@ -115,6 +116,14 @@ const addPostData = (
   inputEl.value = value === null ? '' : String(value);
   formEl.appendChild(inputEl);
 };
+
+const toQueryString = (queryParams: Array<[string, string]>) =>
+  queryParams
+    .map(
+      ([key, value]) =>
+        `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+    )
+    .join('&');
 
 const createFormsortWebEmbed = (
   rootEl: HTMLElement,
@@ -219,7 +228,8 @@ const createFormsortWebEmbed = (
     variantLabel?: string,
     queryParamsOrResponderUuid?: Array<[string, string]> | string,
     initialAnswers?: FormsortInitialAnswers,
-    formsortEnv?: string
+    formsortEnv?: string,
+    variantRevisionUuid?: string
   ) => {
     let urlBase: string;
     if (config.origin) {
@@ -245,20 +255,22 @@ const createFormsortWebEmbed = (
 
     if (!secure) {
       if (Array.isArray(queryParamsOrResponderUuid)) {
-        url += `?${queryParamsOrResponderUuid
-          .map(
-            ([key, value]) =>
-              `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-          )
-          .join('&')}`;
+        url += `?${toQueryString(queryParamsOrResponderUuid)}`;
       }
 
       iframeEl.src = url;
       return;
     }
 
+    const secureQueryParams: Array<[string, string]> = [];
     if (formsortEnv) {
-      url += `?formsortEnv=${encodeURIComponent(formsortEnv)}`;
+      secureQueryParams.push(['formsortEnv', formsortEnv]);
+    }
+    if (variantRevisionUuid) {
+      secureQueryParams.push(['variantRevisionUuid', variantRevisionUuid]);
+    }
+    if (secureQueryParams.length) {
+      url += `?${toQueryString(secureQueryParams)}`;
     }
 
     formEl?.remove();

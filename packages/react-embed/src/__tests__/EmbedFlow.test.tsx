@@ -128,6 +128,7 @@ describe('EmbedFlow component', () => {
         variantLabel="test-variant"
         responderUuid={uuid}
         formsortEnv="staging"
+        variantRevisionUuid="rev-uuid"
         queryParams={[['campaign', 'summer']]}
       />
     );
@@ -139,6 +140,7 @@ describe('EmbedFlow component', () => {
         ['campaign', 'summer'],
         ['responderUuid', uuid],
         ['formsortEnv', 'staging'],
+        ['variantRevisionUuid', 'rev-uuid'],
       ]
     );
   });
@@ -156,6 +158,7 @@ describe('EmbedFlow component', () => {
         responderUuid={responderUuid}
         initialAnswers={initialAnswers}
         formsortEnv="staging"
+        variantRevisionUuid="rev-uuid"
       />
     );
 
@@ -170,7 +173,8 @@ describe('EmbedFlow component', () => {
       undefined,
       responderUuid,
       initialAnswers,
-      'staging'
+      'staging',
+      'rev-uuid'
     );
   });
 });
