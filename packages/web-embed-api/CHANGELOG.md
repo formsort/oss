@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.12.0
+
+### New Features ✨
+
+- VariantRevisionUuid in secure embeds by @alikirec in [#211](https://github.com/formsort/oss/pull/211)
+
 ## 2.11.1
 
 ### New Features ✨
