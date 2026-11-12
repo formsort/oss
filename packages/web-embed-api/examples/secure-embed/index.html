@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formsort secure embed example</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Formsort secure embed</h1>
+      <p>
+        This page prefills answers and can load a specific variant revision. The
+        answers are sent in the body of a POST request, so they never appear in
+        a URL.
+      </p>
+
+      <form id="controls">
+        <label for="revision">Variant revision UUID</label>
+        <input
+          id="revision"
+          placeholder="Leave empty to load the latest published revision"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button type="submit">Load flow</button>
+      </form>
+
+      <details>
+        <summary>Answers sent to the flow</summary>
+        <pre id="answers"></pre>
+      </details>
+
+      <p id="status" role="status"></p>
+
+      <div class="layout">
+        <div id="formsort-embed"></div>
+        <section aria-labelledby="events-title">
+          <h2 id="events-title">Events</h2>
+          <p class="hint">Newest first. Open an event to see its payload.</p>
+          <ol id="events"></ol>
+        </section>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

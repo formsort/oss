@@ -1,0 +1,110 @@
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+#controls {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  max-width: 720px;
+}
+
+#controls label {
+  grid-column: 1 / -1;
+  font-weight: 600;
+}
+
+#controls input {
+  min-width: 0;
+  padding: 0.5rem;
+  font: inherit;
+  font-family: ui-monospace, monospace;
+}
+
+#controls button {
+  padding: 0.5rem 1rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+details {
+  margin: 1rem 0;
+}
+
+summary {
+  cursor: pointer;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1rem;
+  background: rgb(127 127 127 / 0.1);
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+#status,
+.hint {
+  min-height: 1.5em;
+  color: GrayText;
+}
+
+.layout {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 960px) {
+  .layout {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    align-items: start;
+  }
+}
+
+#formsort-embed {
+  border: 1px solid rgb(127 127 127 / 0.3);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+#formsort-embed iframe {
+  display: block;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.hint {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+}
+
+#events {
+  max-height: 560px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: ui-monospace, monospace;
+  font-size: 0.9rem;
+}
+
+#events details {
+  margin: 0;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid rgb(127 127 127 / 0.2);
+}
