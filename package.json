@@ -9,7 +9,8 @@
       "tslib": ">=1.10.0",
       "json5": "^2.2.3",
       "@babel/core": "^7.28.0",
-      "esbuild": "^0.25.6"
+      "esbuild": "^0.25.6",
+      "oxfmt>tinypool": "2.1.2"
     },
     "onlyBuiltDependencies": [
       "@swc/core",
