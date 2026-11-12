@@ -1,0 +1,23 @@
+{
+  "name": "@formsort/embed-example-secure-embed",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Formsort secure embed: prefilled answers and variant revisions",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "echo pass",
+    "pack": "echo pass"
+  },
+  "author": "Formsort Engineering <engineering@formsort.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@formsort/web-embed-api": "^2.12.0"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "vite": "^8.3.8"
+  }
+}
