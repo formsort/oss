@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 2.13.0
+
+### New Features ✨
+
+- ShowAllStepsInline in secure embeds by @alikirec in [#216](https://github.com/formsort/oss/pull/216)
+
+### Documentation 📚
+
+- Secure embed guide, migration and example by @alikirec in [#213](https://github.com/formsort/oss/pull/213)
+
 ## 2.12.0
 
 ### New Features ✨
