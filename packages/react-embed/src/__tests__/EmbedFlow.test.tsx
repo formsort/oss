@@ -159,6 +159,7 @@ describe('EmbedFlow component', () => {
         initialAnswers={initialAnswers}
         formsortEnv="staging"
         variantRevisionUuid="rev-uuid"
+        showAllStepsInline
       />
     );
 
@@ -174,7 +175,8 @@ describe('EmbedFlow component', () => {
       responderUuid,
       initialAnswers,
       'staging',
-      'rev-uuid'
+      'rev-uuid',
+      true
     );
   });
 });

@@ -240,6 +240,7 @@ Replace `<EmbedFlow` with `<SecureEmbedFlow`. Keep `clientLabel`,
 | `['previous_visit_reason', 'Annual check-up']`                                   | `initialAnswers={{ previous_visit_reason: 'Annual check-up' }}`                            |
 | `['name[first_name]', 'Olivia']`, `['name[last_name]', 'Smith']`                 | `initialAnswers={{ name: { first_name: 'Olivia', last_name: 'Smith' } }}`                  |
 | `['responderUuid', ...]`, `['formsortEnv', ...]`, `['variantRevisionUuid', ...]` | The `responderUuid`, `formsortEnv` and `variantRevisionUuid` props                         |
+| `['showAllStepsInline', 'true']`                                                 | The `showAllStepsInline` prop                                                              |
 | Any other query param                                                            | Not supported. If you rely on other query params, ask Formsort support before you migrate. |
 
 Before:
@@ -321,11 +322,13 @@ import { SecureEmbedFlow } from '@formsort/react-embed';
 ### `SecureEmbedFlow` props
 
 `SecureEmbedFlow` takes the same props as `EmbedFlow`, except `queryParams`.
-It also takes this prop:
+It also takes these props:
 
-| Prop name      | Description                                                                      | Required | Example values                                           |
-| -------------- | -------------------------------------------------------------------------------- | -------- | -------------------------------------------------------- |
-| initialAnswers | Answers to prefill, sent in the request body. See [Pass answers](#pass-answers). | no       | `{ name: { first_name: 'Olivia', last_name: 'Smith' } }` |
+| Prop name          | Description                                                                                            | Required | Example values                                           |
+| ------------------ | ------------------------------------------------------------------------------------------------------ | -------- | -------------------------------------------------------- |
+| initialAnswers     | Answers to prefill, sent in the request body. See [Pass answers](#pass-answers).                       | no       | `{ name: { first_name: 'Olivia', last_name: 'Smith' } }` |
+| showAllStepsInline | Show all steps of the flow on one scrollable page. Leave it out to use the variant's published layout. | no       | `true`                                                   |
 
 `SecureEmbedFlow` sends `responderUuid` and `initialAnswers` in the request
-body. It adds `formsortEnv` and `variantRevisionUuid` to the URL.
+body. It adds `formsortEnv`, `variantRevisionUuid` and `showAllStepsInline` to
+the URL.
