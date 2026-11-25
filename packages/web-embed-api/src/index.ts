@@ -37,7 +37,8 @@ interface IFormsortSecureWebEmbed extends IFormsortEmbedControls {
     responderUuid?: string,
     initialAnswers?: FormsortInitialAnswers,
     formsortEnv?: string,
-    variantRevisionUuid?: string
+    variantRevisionUuid?: string,
+    showAllStepsInline?: boolean
   ) => void;
 }
 
@@ -229,7 +230,8 @@ const createFormsortWebEmbed = (
     queryParamsOrResponderUuid?: Array<[string, string]> | string,
     initialAnswers?: FormsortInitialAnswers,
     formsortEnv?: string,
-    variantRevisionUuid?: string
+    variantRevisionUuid?: string,
+    showAllStepsInline?: boolean
   ) => {
     let urlBase: string;
     if (config.origin) {
@@ -268,6 +270,9 @@ const createFormsortWebEmbed = (
     }
     if (variantRevisionUuid) {
       secureQueryParams.push(['variantRevisionUuid', variantRevisionUuid]);
+    }
+    if (showAllStepsInline) {
+      secureQueryParams.push(['showAllStepsInline', 'true']);
     }
     if (secureQueryParams.length) {
       url += `?${toQueryString(secureQueryParams)}`;

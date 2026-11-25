@@ -984,6 +984,65 @@ describe('FormsortSecureWebEmbed', () => {
     submitSpy.mockRestore();
   });
 
+  test('adds showAllStepsInline to the POST URL and keeps answers in the body', () => {
+    const submitSpy = jest
+      .spyOn(HTMLFormElement.prototype, 'submit')
+      .mockImplementation(jest.fn());
+    const embed = FormsortSecureWebEmbed(document.body);
+    const responderUuid = 'e4923baa-dc2d-4555-813c-a166952292fa';
+
+    embed.loadFlow(
+      clientLabel,
+      flowLabel,
+      undefined,
+      responderUuid,
+      { firstName: 'Olivia' },
+      'staging',
+      'rev-1',
+      true
+    );
+
+    const form = document.body.querySelector('form')!;
+    expect(form.action).toBe(
+      `https://testclient.formsort.app/flow/${flowLabel}` +
+        '?formsortEnv=staging&variantRevisionUuid=rev-1&showAllStepsInline=true'
+    );
+    expect(
+      form.querySelector<HTMLInputElement>('input[name="responderUuid"]')?.value
+    ).toBe(responderUuid);
+    expect(
+      form.querySelector<HTMLInputElement>('input[name="firstName"]')?.value
+    ).toBe('Olivia');
+    expect(form.querySelector('input[name="showAllStepsInline"]')).toBeNull();
+    expect(submitSpy).toHaveBeenCalledTimes(1);
+    submitSpy.mockRestore();
+  });
+
+  test('omits showAllStepsInline from the POST URL when false', () => {
+    const submitSpy = jest
+      .spyOn(HTMLFormElement.prototype, 'submit')
+      .mockImplementation(jest.fn());
+    const embed = FormsortSecureWebEmbed(document.body);
+
+    embed.loadFlow(
+      clientLabel,
+      flowLabel,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      false
+    );
+
+    const form = document.body.querySelector('form')!;
+    expect(form.action).toBe(
+      `https://testclient.formsort.app/flow/${flowLabel}`
+    );
+    expect(submitSpy).toHaveBeenCalledTimes(1);
+    submitSpy.mockRestore();
+  });
+
   test('combines formsort environment and variant revision UUID in the POST URL', () => {
     const submitSpy = jest
       .spyOn(HTMLFormElement.prototype, 'submit')

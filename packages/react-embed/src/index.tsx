@@ -49,6 +49,7 @@ export type SecureEmbedFlowProps = Pick<
 > & {
   responderUuid?: string;
   initialAnswers?: FormsortInitialAnswers;
+  showAllStepsInline?: boolean;
 } & IReactEmbedEventMap;
 
 export const eventMapping: Record<keyof IReactEmbedEventMap, keyof IEventMap> =
@@ -134,6 +135,7 @@ const onSecureMount = (
     initialAnswers,
     formsortEnv,
     variantRevisionUuid,
+    showAllStepsInline,
     ...eventListeners
   } = props;
   const embed = FormsortSecureWebEmbed(containerElement, embedConfig);
@@ -145,7 +147,8 @@ const onSecureMount = (
     responderUuid,
     initialAnswers,
     formsortEnv,
-    variantRevisionUuid
+    variantRevisionUuid,
+    showAllStepsInline
   );
   return embed;
 };

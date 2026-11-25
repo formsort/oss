@@ -125,7 +125,8 @@ loadFlow(
   responderUuid?: string,
   initialAnswers?: FormsortInitialAnswers,
   formsortEnv?: string,
-  variantRevisionUuid?: string
+  variantRevisionUuid?: string,
+  showAllStepsInline?: boolean
 ) => void;
 ```
 
@@ -140,6 +141,7 @@ The arguments are positional. To skip an optional argument, pass `undefined`.
 | `initialAnswers`      | No       | Request body       | Answers to prefill. See [Pass answers](#pass-answers).                                                                                     |
 | `formsortEnv`         | No       | URL (query string) | The Formsort environment label for integrations, for example `staging`. Leave it out for production.                                       |
 | `variantRevisionUuid` | No       | URL (query string) | Load this variant revision instead of the latest published one. See [Load a specific variant revision](#load-a-specific-variant-revision). |
+| `showAllStepsInline`  | No       | URL (query string) | Set to `true` to show all steps of the flow on one scrollable page. Leave it out to use the variant's published layout.                    |
 
 You can call `loadFlow` again, for example with other answers or another
 revision. It sends a new request into the same iframe. This works until you
@@ -251,6 +253,7 @@ param to an argument:
 | `['name[first_name]', 'Olivia']`                     | 5th: `initialAnswers: { name: { first_name: 'Olivia' } }`                                                                   |
 | `['formsortEnv', 'staging']`                         | 6th: `formsortEnv`                                                                                                          |
 | `['variantRevisionUuid', '<variant-revision-uuid>']` | 7th: `variantRevisionUuid`                                                                                                  |
+| `['showAllStepsInline', 'true']`                     | 8th: `showAllStepsInline: true`                                                                                             |
 | Any other query param                                | Not supported. Put answers in `initialAnswers`. If you rely on other query params, ask Formsort support before you migrate. |
 
 Before:
