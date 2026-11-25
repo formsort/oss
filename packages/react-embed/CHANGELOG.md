@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.8.0
+
+### New Features ✨
+
+- ShowAllStepsInline in react secure embed by @alikirec in [#217](https://github.com/formsort/oss/pull/217)
+
 ## 3.7.0
 
 ### New Features ✨
